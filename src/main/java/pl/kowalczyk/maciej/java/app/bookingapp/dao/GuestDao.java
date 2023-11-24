@@ -86,9 +86,9 @@ public class GuestDao {
         LOGGER.info("read(" + id + ")");
         Guest guestFound = null;
 
-        try (Connection connection = DatabaseConnection.getInstance().getConnection()) {
+        try (Connection connection = DatabaseConnection.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM TEST WHERE ID = ?")) {
 
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM TEST WHERE ID = ?");
             preparedStatement.setInt(1, id);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -113,9 +113,9 @@ public class GuestDao {
         LOGGER.info("update(id: " + id + ", name: " + name + ")");
         Guest guestUpdated = null;
 
-        try (Connection connection = DatabaseConnection.getInstance().getConnection()) {
+        try (Connection connection = DatabaseConnection.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE TEST SET NAME = ? WHERE ID = ?")) {
 
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE TEST SET NAME = ? WHERE ID = ?");
             preparedStatement.setString(1, name);
             preparedStatement.setInt(2, id);
 
@@ -138,9 +138,8 @@ public class GuestDao {
         LOGGER.info("delete(" + id + ")");
         Guest guestDeleted = null;
 
-        try (Connection connection = DatabaseConnection.getInstance().getConnection()) {
-
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM TEST WHERE ID = ?");
+        try (Connection connection = DatabaseConnection.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM TEST WHERE ID = ?")) {
 
             preparedStatement.setInt(1, id);
 
