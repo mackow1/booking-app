@@ -1,5 +1,6 @@
 package pl.kowalczyk.maciej.java.app.bookingapp.dao;
 
+import pl.kowalczyk.maciej.java.app.bookingapp.dao.utils.DatabaseConnection;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Guest;
 
 import java.sql.Connection;
@@ -59,8 +60,8 @@ public class GuestDao {
         LOGGER.info("create(" + guest + ")");
         Guest createdGuest = null;
 
-        try (Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "");
-                PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO TEST VALUES(?, ?)")) {
+        try (Connection connection = DatabaseConnection.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO TEST VALUES(?, ?)")) {
 
             preparedStatement.setLong(1, guest.getId());
             preparedStatement.setString(2, guest.getName());
@@ -85,7 +86,7 @@ public class GuestDao {
         LOGGER.info("read(" + id + ")");
         Guest guestFound = null;
 
-        try (Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "")) {
+        try (Connection connection = DatabaseConnection.getInstance().getConnection()) {
 
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM TEST WHERE ID = ?");
             preparedStatement.setInt(1, id);
@@ -112,7 +113,7 @@ public class GuestDao {
         LOGGER.info("update(id: " + id + ", name: " + name + ")");
         Guest guestUpdated = null;
 
-        try (Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "")) {
+        try (Connection connection = DatabaseConnection.getInstance().getConnection()) {
 
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE TEST SET NAME = ? WHERE ID = ?");
             preparedStatement.setString(1, name);
@@ -137,7 +138,7 @@ public class GuestDao {
         LOGGER.info("delete(" + id + ")");
         Guest guestDeleted = null;
 
-        try (Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "")) {
+        try (Connection connection = DatabaseConnection.getInstance().getConnection()) {
 
             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM TEST WHERE ID = ?");
 
