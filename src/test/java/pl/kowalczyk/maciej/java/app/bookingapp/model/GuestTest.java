@@ -2,6 +2,7 @@ package pl.kowalczyk.maciej.java.app.bookingapp.model;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import pl.kowalczyk.maciej.java.app.bookingapp.dao.utils.UniqueId;
 
 import java.util.ArrayList;
 
@@ -11,7 +12,10 @@ class GuestTest {
 
     @Test
     void checkIfTheMethodMakeReservationCreatedNewReservationSuccessfully() {
-        Guest guest = new Guest("Maciej Kowalczyk", "maciej.kowalczyk@gmail.com", "123-456-789", new Address(), new ArrayList<>());
+        Guest guest = new GuestBuilder()
+                .addId(UniqueId.generate())
+                .addName("Maciek Kowalczyk")
+                .build();
 
         int initialListOfReservationsSize = guest.getReservations().size();
         guest.makeReservation("12-12-2023", "15-12-2023", 4);
