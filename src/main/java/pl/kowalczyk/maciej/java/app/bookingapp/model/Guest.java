@@ -30,7 +30,8 @@ public class Guest {
 
     }
 
-    public Guest(String name, String email, String phoneNumber, Address address, List<Reservation> reservations) {
+    public Guest(Long id, String name, String email, String phoneNumber, Address address, List<Reservation> reservations) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
