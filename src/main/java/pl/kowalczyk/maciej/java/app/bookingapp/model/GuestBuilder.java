@@ -41,4 +41,8 @@ public class GuestBuilder {
         this.reservations = reservations;
         return this;
     }
+
+    public Guest build() {
+        return new Guest(id, name, email, phoneNumber, address, reservations);
+    }
 }
