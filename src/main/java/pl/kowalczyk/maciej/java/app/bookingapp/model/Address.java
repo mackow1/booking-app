@@ -2,7 +2,6 @@ package pl.kowalczyk.maciej.java.app.bookingapp.model;
 
 public class Address {
 
-    //    private String address;
     private String street;
     private String flatNumber;
     private String city;

@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-// TODO: 21.11.2023 PD
-// Stworzyć builder (wzorzec projektowy) dla klasy guest
-
 public class Guest {
 
     private static final Logger LOGGER = Logger.getLogger(Guest.class.getName());
@@ -15,14 +12,6 @@ public class Guest {
     private String name;
     private String email;
     private String phoneNumber;
-
-    //    private String address;
-//    private String street;
-//    private String flatNumber;
-//    private String city;
-//    private String postalCode;
-//    private String voivodeship;
-//    private String country;
     private Address address;
     private List<Reservation> reservations = new ArrayList<>();
 
@@ -94,8 +83,3 @@ public class Guest {
     }
 
 }
-
-//    makeReservation(2023-11-11, 2023-11-13, 0)
-//    makeReservation(...) = Reservation{checkIn='2023-11-11', checkOut='2023-11-13', numberOfPersons=0}
-//    makeReservation(2023-11-12, 2023-11-14, 0)
-//    makeReservation(...) = Reservation{checkIn='2023-11-12', checkOut='2023-11-14', numberOfPersons=0}

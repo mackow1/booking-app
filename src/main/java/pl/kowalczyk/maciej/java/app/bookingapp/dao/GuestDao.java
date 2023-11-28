@@ -20,11 +20,6 @@ public class GuestDao {
 
     private static final Logger LOGGER = Logger.getLogger(GuestDao.class.getName());
 
-    // CREATE TABLE TEST(ID INT PRIMARY KEY, NAME VARCHAR(255));
-    // TODO: 17.11.2023 Dodać try-with-resources
-    // TODO: 17.11.2023 Pobrać dane zwracane przez ResultSet i umieścić w liście
-    // Dodać loggery
-    // Dodać implementacje dla każdej metody CRUD
     public List<Guest> list() {
 
         List<Guest> listOfGuests = new ArrayList<>();
@@ -37,9 +32,6 @@ public class GuestDao {
             while (resultSet.next()) {
                 long id = resultSet.getInt("ID");
                 String name = resultSet.getString("NAME");
-
-                // TODO: 21.11.2023 PD
-                // Zamienić List<String> na List<Guest> korzystając z buildera dla Guest
 
                 listOfGuests.add(new GuestBuilder()
                         .addId(id)
@@ -55,12 +47,6 @@ public class GuestDao {
     }
 
     public Guest create(Guest guest) {
-
-        // TODO: 21.11.2023 PD
-        // Stworzyć classe z metodą narzędziową, która generuje unikalne identyfikatory, która generuje unikalne identyfikatory dla tabeli w bazie danych (utils)
-
-        // TODO: 21.11.2023 PD
-        // Stworzyć singletona który będzie odpowiedzialny za zarządzanie połączeniami z bazą danych (utils)
 
         LOGGER.info("create(" + guest + ")");
         Guest createdGuest = null;
