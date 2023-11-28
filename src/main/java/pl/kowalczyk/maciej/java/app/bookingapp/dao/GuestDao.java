@@ -27,7 +27,7 @@ public class GuestDao {
     // Dodać implementacje dla każdej metody CRUD
     public List<Guest> list() {
 
-        List<String> listOfGuestsNames = new ArrayList<>();
+        List<Guest> listOfGuests = new ArrayList<>();
         LOGGER.info("list()");
 
         try (Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "")) {
@@ -35,20 +35,23 @@ public class GuestDao {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM TEST");
 
             while (resultSet.next()) {
-                int id = resultSet.getInt("ID");
+                long id = resultSet.getInt("ID");
                 String name = resultSet.getString("NAME");
 
                 // TODO: 21.11.2023 PD
                 // Zamienić List<String> na List<Guest> korzystając z buildera dla Guest
 
-                listOfGuestsNames.add(id + ". " + name);
+                listOfGuests.add(new GuestBuilder()
+                        .addId(id)
+                        .addName(name)
+                        .build());
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        LOGGER.info("list() = " + listOfGuestsNames);
-        return null;
+        LOGGER.info("list() = " + listOfGuests);
+        return listOfGuests;
     }
 
     public Guest create(Guest guest) {
