@@ -1,6 +1,7 @@
 package pl.kowalczyk.maciej.java.app.bookingapp.dao;
 
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.utils.DatabaseConnection;
+import pl.kowalczyk.maciej.java.app.bookingapp.dao.utils.UniqueId;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Guest;
 
 import java.sql.Connection;
@@ -59,18 +60,19 @@ public class GuestDao {
 
         LOGGER.info("create(" + guest + ")");
         Guest createdGuest = null;
+        long uniqueId = UniqueId.generate();
 
         try (Connection connection = DatabaseConnection.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO TEST VALUES(?, ?)")) {
 
-            preparedStatement.setLong(1, guest.getId());
+            preparedStatement.setLong(1, uniqueId);
             preparedStatement.setString(2, guest.getName());
 
             int affectedRows = preparedStatement.executeUpdate();
 
             if (affectedRows > 0) {
                 createdGuest = new Guest();
-                createdGuest.setId(guest.getId());
+                createdGuest.setId(uniqueId);
                 createdGuest.setName(guest.getName());
             }
         } catch (SQLException e) {
