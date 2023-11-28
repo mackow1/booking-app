@@ -15,7 +15,7 @@ public class DatabaseConnection {
 
     }
 
-    public static synchronized DatabaseConnection getInstance() {
+    public static DatabaseConnection getInstance() {
         if (instance == null) {
             instance = new DatabaseConnection();
         }
@@ -27,3 +27,6 @@ public class DatabaseConnection {
         return DriverManager.getConnection(url, user, password);
     }
 }
+
+// TODO: 28.11.2023
+// Dodać loggery
