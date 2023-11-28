@@ -3,6 +3,7 @@ package pl.kowalczyk.maciej.java.app.bookingapp.dao;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.utils.DatabaseConnection;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.utils.UniqueId;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Guest;
+import pl.kowalczyk.maciej.java.app.bookingapp.model.GuestBuilder;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -71,9 +72,10 @@ public class GuestDao {
             int affectedRows = preparedStatement.executeUpdate();
 
             if (affectedRows > 0) {
-                createdGuest = new Guest();
-                createdGuest.setId(uniqueId);
-                createdGuest.setName(guest.getName());
+                createdGuest = new GuestBuilder()
+                        .addId(uniqueId)
+                        .addName(guest.getName())
+                        .build();
             }
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "", e);
