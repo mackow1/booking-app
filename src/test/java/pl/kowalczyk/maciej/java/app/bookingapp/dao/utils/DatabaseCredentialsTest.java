@@ -26,4 +26,14 @@ class DatabaseCredentialsTest {
         // then
         Assertions.assertNotNull(user, "User is null");
     }
+
+    @Test
+    void whenGetPassword_thenPasswordNotNull() {
+        // given
+        // when
+        String password = DatabaseCredentials.getPassword();
+
+        // then
+        Assertions.assertNotNull(password, "Password is null");
+    }
 }

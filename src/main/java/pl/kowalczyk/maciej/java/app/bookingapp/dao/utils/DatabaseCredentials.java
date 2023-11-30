@@ -44,4 +44,20 @@ public class DatabaseCredentials {
         LOGGER.info("getUser(...) = " + user);
         return user;
     }
+
+    public static String getPassword() {
+        LOGGER.info("getPassword()");
+        String password = null;
+        Properties properties = new Properties();
+
+        try (FileInputStream in = new FileInputStream(file)) {
+            properties.load(in);
+            password = properties.getProperty("password");
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "", e);
+        }
+
+        LOGGER.info("getPassword(...) = " + password);
+        return password;
+    }
 }
