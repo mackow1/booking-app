@@ -30,6 +30,15 @@ public class DatabaseCredentials {
     public static String getUser() {
         LOGGER.info("getUser()");
         String user = null;
+        Properties properties = new Properties();
+
+        try (FileInputStream in = new FileInputStream(file)) {
+            properties.load(in);
+            user = properties.getProperty("user");
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "", e);
+        }
+
         LOGGER.info("getUser(...) = " + user);
         return user;
     }
