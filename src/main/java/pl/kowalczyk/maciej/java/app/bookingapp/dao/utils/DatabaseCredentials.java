@@ -17,12 +17,14 @@ public class DatabaseCredentials {
         LOGGER.info("getUrl()");
         String url = "";
         Properties properties = new Properties();
+
         try (FileInputStream in = new FileInputStream(file)) {
             properties.load(in);
             url = properties.getProperty("url");
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "", e);
         }
+
         LOGGER.info("getUrl(...) = " + url);
         return url;
     }
