@@ -15,7 +15,7 @@ public class DatabaseCredentials {
 
     public static String getUrl() {
         LOGGER.info("getUrl()");
-        String url = "";
+        String url = null;
         Properties properties = new Properties();
 
         try (FileInputStream in = new FileInputStream(file)) {
