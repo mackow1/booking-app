@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class DatabaseCredentialsTest {
 
     @Test
-    void getUrl() {
+    void whenGetUrl_thenUrlNotNull() {
         // given
         // when
         String url = DatabaseCredentials.getUrl();
@@ -18,7 +18,7 @@ class DatabaseCredentialsTest {
     }
 
     @Test
-    void getUser() {
+    void whenGetUser_thenUserNotNull() {
         // given
         // when
         String user = DatabaseCredentials.getUser();
