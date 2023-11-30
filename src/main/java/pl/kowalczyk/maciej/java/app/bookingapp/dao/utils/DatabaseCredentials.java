@@ -26,4 +26,11 @@ public class DatabaseCredentials {
         LOGGER.info("getUrl(...) = " + url);
         return url;
     }
+
+    public static String getUser() {
+        LOGGER.info("getUser()");
+        String user = null;
+        LOGGER.info("getUser(...) = " + user);
+        return user;
+    }
 }

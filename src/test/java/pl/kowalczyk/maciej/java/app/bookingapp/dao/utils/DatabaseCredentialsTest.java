@@ -16,4 +16,14 @@ class DatabaseCredentialsTest {
         // then
         Assertions.assertNotNull(url, "URL is null");
     }
+
+    @Test
+    void getUser() {
+        // given
+        // when
+        String user = DatabaseCredentials.getUser();
+
+        // then
+        Assertions.assertNotNull(user, "User is null");
+    }
 }
