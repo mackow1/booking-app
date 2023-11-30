@@ -3,8 +3,11 @@ package pl.kowalczyk.maciej.java.app.bookingapp.dao.utils;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
 public class DatabaseConnection {
+
+    private static final Logger LOGGER = Logger.getLogger(DatabaseConnection.class.getName());
 
     private static DatabaseConnection instance;
     public String url = "jdbc:h2:~/test";
@@ -16,15 +19,19 @@ public class DatabaseConnection {
     }
 
     public static DatabaseConnection getInstance() {
+        LOGGER.info("getInstance()");
         if (instance == null) {
             instance = new DatabaseConnection();
         }
-
+        LOGGER.info("getInstance(...) = " + instance);
         return instance;
     }
 
     public Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(url, user, password);
+        LOGGER.info("getInstance()");
+        Connection connection = DriverManager.getConnection(url, user, password);
+        LOGGER.info("getInstance(...) = " + connection);
+        return connection;
     }
 }
 
