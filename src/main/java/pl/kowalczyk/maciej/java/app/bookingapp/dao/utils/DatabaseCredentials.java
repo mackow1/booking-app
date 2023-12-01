@@ -12,6 +12,8 @@ public class DatabaseCredentials {
     private static final Logger LOGGER = Logger.getLogger(DatabaseCredentials.class.getName());
     private static final File file = new File("src/main/resources/database.properties");
 
+    // TODO: 01.12.2023 PD
+    // Refactor: z 3 metod zrobić 1 przyjmującą parametr / albo singleton
 
     public static String getUrl() {
         LOGGER.info("getUrl()");
