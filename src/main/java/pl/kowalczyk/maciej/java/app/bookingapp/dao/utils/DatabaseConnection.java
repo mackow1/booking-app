@@ -3,28 +3,35 @@ package pl.kowalczyk.maciej.java.app.bookingapp.dao.utils;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
 public class DatabaseConnection {
 
+    private static final Logger LOGGER = Logger.getLogger(DatabaseConnection.class.getName());
+
     private static DatabaseConnection instance;
-    public String url = "jdbc:h2:~/test";
-    public String user = "sa";
-    public String password = "";
+    public String url = DatabaseCredentials.getUrl();
+    public String user = DatabaseCredentials.getUser();
+    public String password = DatabaseCredentials.getPassword();
 
     private DatabaseConnection() {
 
     }
 
     public static DatabaseConnection getInstance() {
+        LOGGER.info("getInstance()");
         if (instance == null) {
             instance = new DatabaseConnection();
         }
-
+        LOGGER.info("getInstance(...) = " + instance);
         return instance;
     }
 
     public Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(url, user, password);
+        LOGGER.info("getInstance()");
+        Connection connection = DriverManager.getConnection(url, user, password);
+        LOGGER.info("getInstance(...) = " + connection);
+        return connection;
     }
 }
 
@@ -88,3 +95,30 @@ ON G.ADDRESS_ID = A.ID;
 
  */
 
+/*
+SELECT * FROM ADDRESSES;
+SELECT * FROM GUESTS;
+SELECT * FROM RESERVATIONS;
+
+-- Wyświetlić wszystkie rezerwacje z imieniem gościa i czasem pobytu
+
+SELECT RESERVATIONS.ID, GUESTS.NAME, RESERVATIONS.DURATION
+FROM RESERVATIONS
+LEFT JOIN GUESTS ON RESERVATIONS.GUEST_ID = GUESTS.ID;
+
+-- Wyświetlić wszystkie adresy zapisane w bazie oraz wszystkie imiona gości
+
+SELECT ADDRESSES.NAME, GUESTS.NAME
+FROM ADDRESSES
+RIGHT JOIN GUESTS ON ADDRESSES.ID = GUESTS.ID;
+
+-- Wyświetla wszystkie
+
+SELECT *
+FROM GUESTS AS G
+LEFT JOIN ADDRESSES AS A
+ON G.ADDRESS_ID = A.ID
+RIGHT JOIN RESERVATIONS AS R
+ON G.ID = R.GUEST_ID
+ORDER BY G.NAME;
+ */

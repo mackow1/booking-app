@@ -87,6 +87,8 @@ public class GuestDao {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
+
+                // TODO: 01.12.2023
                 // przypisać wartości do guest
                 int guestId = resultSet.getInt("ID");
                 String guestName = resultSet.getString("NAME");

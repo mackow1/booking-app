@@ -1,0 +1,65 @@
+package pl.kowalczyk.maciej.java.app.bookingapp.dao.utils;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class DatabaseCredentials {
+
+    private static final Logger LOGGER = Logger.getLogger(DatabaseCredentials.class.getName());
+    private static final File file = new File("src/main/resources/database.properties");
+
+    // TODO: 01.12.2023 PD
+    // Refactor: z 3 metod zrobić 1 przyjmującą parametr / albo singleton
+
+    public static String getUrl() {
+        LOGGER.info("getUrl()");
+        String url = null;
+        Properties properties = new Properties();
+
+        try (FileInputStream in = new FileInputStream(file)) {
+            properties.load(in);
+            url = properties.getProperty("url");
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "", e);
+        }
+
+        LOGGER.info("getUrl(...) = " + url);
+        return url;
+    }
+
+    public static String getUser() {
+        LOGGER.info("getUser()");
+        String user = null;
+        Properties properties = new Properties();
+
+        try (FileInputStream in = new FileInputStream(file)) {
+            properties.load(in);
+            user = properties.getProperty("user");
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "", e);
+        }
+
+        LOGGER.info("getUser(...) = " + user);
+        return user;
+    }
+
+    public static String getPassword() {
+        LOGGER.info("getPassword()");
+        String password = null;
+        Properties properties = new Properties();
+
+        try (FileInputStream in = new FileInputStream(file)) {
+            properties.load(in);
+            password = properties.getProperty("password");
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "", e);
+        }
+
+        LOGGER.info("getPassword(...) = " + password);
+        return password;
+    }
+}
