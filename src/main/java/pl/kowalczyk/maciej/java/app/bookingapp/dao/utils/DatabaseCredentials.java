@@ -66,6 +66,15 @@ public class DatabaseCredentials {
     public static String getPropertyValue(String key) {
         LOGGER.info("getPropertyValue(" + key + ")");
         String propertyValue = null;
+        Properties properties = new Properties();
+
+        try (FileInputStream in = new FileInputStream("src/main/resources/database.properties")) {
+            properties.load(in);
+            propertyValue = properties.getProperty(key);
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "", e);
+        }
+
         LOGGER.info("getPropertyValue(...) = " + propertyValue);
         return propertyValue;
     }
