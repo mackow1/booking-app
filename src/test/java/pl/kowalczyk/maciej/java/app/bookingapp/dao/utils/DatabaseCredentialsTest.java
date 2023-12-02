@@ -36,4 +36,16 @@ class DatabaseCredentialsTest {
         // then
         Assertions.assertNotNull(password, "Password is null");
     }
+
+    @Test
+    void getPropertyValue() {
+        // given
+        String key = "user";
+
+        // when
+        String value = DatabaseCredentials.getPropertyValue(key);
+
+        // then
+        Assertions.assertNotNull(value, "Value is null");
+    }
 }

@@ -66,7 +66,7 @@ public class DatabaseCredentials {
     public static String getPropertyValue(String key) {
         LOGGER.info("getPropertyValue(" + key + ")");
         String propertyValue = null;
-        LOGGER.info("getPropertyValue(...) = " + key);
+        LOGGER.info("getPropertyValue(...) = " + propertyValue);
         return propertyValue;
     }
 }
