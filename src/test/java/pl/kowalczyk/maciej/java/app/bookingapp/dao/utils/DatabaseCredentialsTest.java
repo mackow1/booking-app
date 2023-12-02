@@ -8,17 +8,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class DatabaseCredentialsTest {
 
     @Test
-    void getInstance() {
-        // given
-        // when
-        DatabaseCredentials a = DatabaseCredentials.getInstance();
-        DatabaseCredentials b = DatabaseCredentials.getInstance();
-
-        // then
-        Assertions.assertEquals(a, b, "Instances are not equal");
-    }
-
-    @Test
     void givenKeyUrl_whenGetProperty_thenValueNotNull() {
         // given
         String key = "url";

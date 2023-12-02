@@ -9,21 +9,7 @@ import java.util.logging.Logger;
 
 public class DatabaseCredentials {
 
-    private static DatabaseCredentials instance;
     private static final Logger LOGGER = Logger.getLogger(DatabaseCredentials.class.getName());
-
-    private DatabaseCredentials() {
-
-    }
-
-    public static DatabaseCredentials getInstance() {
-        LOGGER.info("getInstance()");
-        if (instance == null) {
-            instance = new DatabaseCredentials();
-        }
-        LOGGER.info("getInstance(...) = " + instance);
-        return instance;
-    }
 
     // TODO: 01.12.2023 PD
     // Refactor: z 3 metod zrobić 1 przyjmującą parametr / albo singleton
