@@ -38,7 +38,7 @@ class DatabaseCredentialsTest {
     }
 
     @Test
-    void getPropertyValue() {
+    void givenKey_whenGetProperty_thenValueNotNull() {
         // given
         String key = "user";
 
