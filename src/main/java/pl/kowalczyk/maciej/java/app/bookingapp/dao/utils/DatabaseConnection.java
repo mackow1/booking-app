@@ -10,9 +10,9 @@ public class DatabaseConnection {
     private static final Logger LOGGER = Logger.getLogger(DatabaseConnection.class.getName());
 
     private static DatabaseConnection instance;
-    public String url = DatabaseCredentials.getUrl();
-    public String user = DatabaseCredentials.getUser();
-    public String password = DatabaseCredentials.getPassword();
+    public String url = DatabaseCredentials.getPropertyValue("url");
+    public String user = DatabaseCredentials.getPropertyValue("user");
+    public String password = DatabaseCredentials.getPropertyValue("password");
 
     private DatabaseConnection() {
 

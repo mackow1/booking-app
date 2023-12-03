@@ -8,32 +8,38 @@ import static org.junit.jupiter.api.Assertions.*;
 class DatabaseCredentialsTest {
 
     @Test
-    void whenGetUrl_thenUrlNotNull() {
+    void givenKeyUrl_whenGetProperty_thenValueNotNull() {
         // given
+        String key = "url";
+
         // when
-        String url = DatabaseCredentials.getUrl();
+        String value = DatabaseCredentials.getPropertyValue(key);
 
         // then
-        Assertions.assertNotNull(url, "URL is null");
+        Assertions.assertNotNull(value, "Value is null");
     }
 
     @Test
-    void whenGetUser_thenUserNotNull() {
+    void givenKeyUser_whenGetProperty_thenValueNotNull() {
         // given
+        String key = "user";
+
         // when
-        String user = DatabaseCredentials.getUser();
+        String value = DatabaseCredentials.getPropertyValue(key);
 
         // then
-        Assertions.assertNotNull(user, "User is null");
+        Assertions.assertNotNull(value, "Value is null");
     }
 
     @Test
-    void whenGetPassword_thenPasswordNotNull() {
+    void givenKeyPassword_whenGetProperty_thenValueNotNull() {
         // given
+        String key = "password";
+
         // when
-        String password = DatabaseCredentials.getPassword();
+        String value = DatabaseCredentials.getPropertyValue(key);
 
         // then
-        Assertions.assertNotNull(password, "Password is null");
+        Assertions.assertNotNull(value, "Value is null");
     }
 }
