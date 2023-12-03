@@ -2,6 +2,7 @@ package pl.kowalczyk.maciej.java.app.bookingapp.dao;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import pl.kowalczyk.maciej.java.app.bookingapp.dao.utils.UniqueId;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Guest;
 
 import java.util.Random;
@@ -13,11 +14,10 @@ class GuestDaoIntegrationTest {
     @Test
     void read() {
         // given
-        Random random = new Random();
+        long id = UniqueId.generate();
 
         GuestDao guestDao = new GuestDao();
         Guest guest = new Guest();
-        int id = random.nextInt();
 
         // when
         guestDao.create(guest);

@@ -74,7 +74,7 @@ public class GuestDao {
         return createdGuest;
     }
 
-    public Guest read(int id) {
+    public Guest read(long id) {
 
         LOGGER.info("read(" + id + ")");
         Guest guestFound = null;
@@ -82,7 +82,7 @@ public class GuestDao {
         try (Connection connection = DatabaseConnection.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM TEST WHERE ID = ?")) {
 
-            preparedStatement.setInt(1, id);
+            preparedStatement.setLong(1, id);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
