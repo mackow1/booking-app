@@ -11,6 +11,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GuestDaoIntegrationTest {
 
+    public static final String GUEST_NAME_MACIEJ = "Maciej";
+
     @Test
     void read() {
         // given
