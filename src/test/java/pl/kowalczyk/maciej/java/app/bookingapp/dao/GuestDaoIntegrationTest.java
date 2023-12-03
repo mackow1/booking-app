@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.utils.UniqueId;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Guest;
+import pl.kowalczyk.maciej.java.app.bookingapp.model.GuestBuilder;
 
 import java.util.Random;
 
@@ -19,7 +20,10 @@ class GuestDaoIntegrationTest {
         long id = UniqueId.generate();
 
         GuestDao guestDao = new GuestDao();
-        Guest guest = new Guest();
+        Guest guest = new GuestBuilder()
+                .addId(id)
+                .addName(GUEST_NAME_MACIEJ)
+                .build();
 
         // when
         guestDao.create(guest);
