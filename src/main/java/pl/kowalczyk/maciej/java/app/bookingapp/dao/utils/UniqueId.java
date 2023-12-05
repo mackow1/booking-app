@@ -10,6 +10,11 @@ public class UniqueId {
     public static Long generate() {
         LOGGER.info("generate()");
         long randomNumber = new Random().nextLong();
+
+        if (randomNumber < 0) {
+            randomNumber *= -1;
+        }
+
         LOGGER.info("generate(...) = " + randomNumber);
         return randomNumber;
     }

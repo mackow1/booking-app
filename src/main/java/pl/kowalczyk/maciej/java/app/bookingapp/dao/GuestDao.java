@@ -50,19 +50,19 @@ public class GuestDao {
 
         LOGGER.info("create(" + guest + ")");
         Guest createdGuest = null;
-        long uniqueId = UniqueId.generate();
+        long id = UniqueId.generate();
 
         try (Connection connection = DatabaseConnection.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO TEST VALUES(?, ?)")) {
 
-            preparedStatement.setLong(1, uniqueId);
+            preparedStatement.setLong(1, id);
             preparedStatement.setString(2, guest.getName());
 
             int affectedRows = preparedStatement.executeUpdate();
 
             if (affectedRows > 0) {
                 createdGuest = new GuestBuilder()
-                        .addId(uniqueId)
+                        .addId(id)
                         .addName(guest.getName())
                         .build();
             }
@@ -74,7 +74,7 @@ public class GuestDao {
         return createdGuest;
     }
 
-    public Guest read(int id) {
+    public Guest read(long id) {
 
         LOGGER.info("read(" + id + ")");
         Guest guestFound = null;
@@ -82,7 +82,7 @@ public class GuestDao {
         try (Connection connection = DatabaseConnection.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM TEST WHERE ID = ?")) {
 
-            preparedStatement.setInt(1, id);
+            preparedStatement.setLong(1, id);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -90,17 +90,21 @@ public class GuestDao {
 
                 // TODO: 01.12.2023
                 // przypisać wartości do guest
-                int guestId = resultSet.getInt("ID");
+                long guestId = resultSet.getLong("ID");
                 String guestName = resultSet.getString("NAME");
 
-                LOGGER.info("read(...) = " + guestFound);
-            } else {
-                LOGGER.info("read(...) = Guest not found in database");
+                guestFound = new GuestBuilder()
+                        .addId(guestId)
+                        .addName(guestName)
+                        .build();
+
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "", e);
         }
+
+        LOGGER.info("read(...) = " + guestFound);
         return guestFound;
     }
 
