@@ -1,0 +1,49 @@
+package pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity;
+
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+class AddressEntityTest {
+
+    private SessionFactory sessionFactory;
+
+    @BeforeEach
+    void setUp() {
+        // A SessionFactory is set up once for an application!
+        final StandardServiceRegistry registry =
+                new StandardServiceRegistryBuilder()
+                        .configure("hibernate.cfg.xml")
+                        .build();
+        try {
+            sessionFactory =
+                    new MetadataSources(registry)
+                            .buildMetadata()
+                            .buildSessionFactory();
+        } catch (Exception e) {
+            // The registry would be destroyed by the SessionFactory, but we
+            // had trouble building the SessionFactory so destroy it manually.
+            StandardServiceRegistryBuilder.destroy(registry);
+        }
+    }
+
+    // TODO: 05.12.2023 PD
+    // Dodać wszystko do git
+
+    // Stworzyć nowe encje, napisać testy
+    // Nowa własna encja z dodatkowymi kolumnami
+
+    @Test
+    void create() {
+        // given
+
+        // when
+
+        // then
+
+    }
+
+}
