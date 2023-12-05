@@ -1,6 +1,5 @@
 package pl.kowalczyk.maciej.java.app.bookingapp.dao.utils;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -11,21 +10,30 @@ public class DatabaseCredentials {
 
     private static final Logger LOGGER = Logger.getLogger(DatabaseCredentials.class.getName());
 
+    private static Properties properties = new Properties();
+
+    static {
+        try (FileInputStream in = new FileInputStream("src/main/resources/database.properties")) {
+            properties.load(in);
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "", e);
+        }
+    }
+
     // TODO: 01.12.2023 PD
     // Refactor: z 3 metod zrobić 1 przyjmującą parametr / albo singleton
 
     public static String getPropertyValue(String key) {
         LOGGER.info("getPropertyValue(" + key + ")");
-        String propertyValue = null;
-        Properties properties = new Properties();
 
-        try (FileInputStream in = new FileInputStream("src/main/resources/database.properties")) {
-            properties.load(in);
-            propertyValue = properties.getProperty(key);
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "", e);
-        }
-
+        String propertyValue = properties.getProperty(key);
+//        Properties properties = new Properties();
+//
+//        try (FileInputStream in = new FileInputStream("src/main/resources/database.properties")) {
+//            properties.load(in);
+//        } catch (IOException e) {
+//            LOGGER.log(Level.SEVERE, "", e);
+//        }
         LOGGER.info("getPropertyValue(...) = " + propertyValue);
         return propertyValue;
     }

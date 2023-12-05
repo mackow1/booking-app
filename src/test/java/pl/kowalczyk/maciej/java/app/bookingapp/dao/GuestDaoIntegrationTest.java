@@ -17,17 +17,15 @@ class GuestDaoIntegrationTest {
     @Test
     void read() {
         // given
-        long id = UniqueId.generate();
 
         GuestDao guestDao = new GuestDao();
         Guest guest = new GuestBuilder()
-                .addId(id)
                 .addName(GUEST_NAME_MACIEJ)
                 .build();
 
         // when
-        guestDao.create(guest);
-        Guest guestRead = guestDao.read(id);
+        Guest createdGuest = guestDao.create(guest);
+        Guest guestRead = guestDao.read(createdGuest.getId());
 
         // then
         Assertions.assertNotNull(guestRead, "Guest not found");

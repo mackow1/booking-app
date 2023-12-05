@@ -50,18 +50,19 @@ public class GuestDao {
 
         LOGGER.info("create(" + guest + ")");
         Guest createdGuest = null;
+        long id = UniqueId.generate();
 
         try (Connection connection = DatabaseConnection.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO TEST VALUES(?, ?)")) {
 
-            preparedStatement.setLong(1, guest.getId());
+            preparedStatement.setLong(1, id);
             preparedStatement.setString(2, guest.getName());
 
             int affectedRows = preparedStatement.executeUpdate();
 
             if (affectedRows > 0) {
                 createdGuest = new GuestBuilder()
-                        .addId(guest.getId())
+                        .addId(id)
                         .addName(guest.getName())
                         .build();
             }
