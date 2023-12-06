@@ -5,6 +5,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 class GuestEntityTest {
 
@@ -29,5 +30,13 @@ class GuestEntityTest {
         }
     }
 
+    @Test
+    void create() {
+        // given
 
+        // when
+
+        // then
+
+    }
 }
