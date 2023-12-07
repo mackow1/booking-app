@@ -18,11 +18,9 @@ public class GuestEntity {
     private String name;
     private String email;
     private String phoneNumber;
-    private Address address;
-    private List<Reservation> reservations = new ArrayList<>();
+//    private Address address;
+//    private List<Reservation> reservations = new ArrayList<>();
 
     public GuestEntity() {
-
     }
-
 }
