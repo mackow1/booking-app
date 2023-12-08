@@ -5,18 +5,12 @@ import java.util.UUID;
 
 public class Rental {
 
-    private String id;
     private Guest guest;
     private Reservation reservation;
 
     public Rental(Guest guest, Reservation reservation) {
-        this.id = createID();
         this.guest = guest;
         this.reservation = reservation;
-    }
-
-    public String getId() {
-        return this.id;
     }
 
     String createID() {
@@ -33,8 +27,7 @@ public class Rental {
     @Override
     public String toString() {
         return "Rental{" +
-                "id='" + id + '\'' +
-                ", guest=" + guest +
+                "guest=" + guest +
                 ", reservation=" + reservation +
                 '}';
     }
