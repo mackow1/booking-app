@@ -1,9 +1,12 @@
 package pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -39,11 +42,32 @@ class AddressEntityTest {
     @Test
     void create() {
         // given
+        AddressEntity addressEntity = new AddressEntity();
+        addressEntity.setCity("Warszawa");
+        addressEntity.setCountry("Polska");
 
         // when
+        Session session = sessionFactory.openSession();
+        try {
+            session.getTransaction().begin();
+            session.save(addressEntity);
+
+            // TODO: 08.12.2023 Stworzyć sytuacje w której 2 rekordy zostaną dodane a następnie zostanie rzucony wyjątek
+            // Sprawdzić czy wiersze zostały wycofane
+
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
 
         // then
 
+        Assertions.assertAll(
+                () -> Assertions.assertNotNull(addressEntity.getId(), "Id is null")
+        );
     }
 
 }

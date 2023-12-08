@@ -13,7 +13,7 @@ public class RentalEntity {
     @GeneratedValue
     private Long id;
     private Guest guest;
-    private Reservation reservation;
+//    private Reservation reservation;
 
     public RentalEntity() {
     }
