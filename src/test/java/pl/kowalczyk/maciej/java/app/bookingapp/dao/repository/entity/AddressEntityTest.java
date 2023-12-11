@@ -81,4 +81,28 @@ class AddressEntityTest {
         );
     }
 
+    @Test
+    void read() {
+        // given
+        AddressEntity addressEntity = new AddressEntity();
+        addressEntity.setCity("Prague");
+        addressEntity.setCountry("Czech");
+        AddressEntity addressRead = null;
+
+        // when
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            Long savedId = (Long) session.save(addressEntity);
+
+            addressRead = session.get(AddressEntity.class, savedId);
+            System.out.println(addressRead);
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+            sessionFactory.getCurrentSession().getTransaction().rollback();
+            e.printStackTrace();
+        }
+
+        // then
+        Assertions.assertNotNull(addressRead, "Address does not exist in database");
+    }
 }
