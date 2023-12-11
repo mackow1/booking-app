@@ -105,4 +105,36 @@ class AddressEntityTest {
         // then
         Assertions.assertNotNull(addressRead, "Address does not exist in database");
     }
+
+    @Test
+    void update() {
+        // given
+        AddressEntity addressEntity = new AddressEntity();
+        AddressEntity addressMerged = null;
+        String city = "Rome";
+        String country = "Italy";
+
+        // when
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+
+            session.persist(addressEntity);
+
+            System.out.println(addressEntity);
+
+            addressEntity.setCity(city);
+            addressEntity.setCountry(country);
+            addressMerged = session.merge(addressEntity);
+
+            System.out.println(addressMerged);
+
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+            sessionFactory.getCurrentSession().getTransaction().rollback();
+            e.printStackTrace();
+        }
+
+        // then
+        Assertions.assertNotNull(addressMerged, "Address is null");
+    }
 }
