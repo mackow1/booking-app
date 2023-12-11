@@ -46,15 +46,26 @@ class AddressEntityTest {
         addressEntity.setCity("Warszawa");
         addressEntity.setCountry("Polska");
 
+        AddressEntity addressEntityTwo = new AddressEntity();
+        addressEntityTwo.setCity("Warszawa2");
+        addressEntityTwo.setCountry("Polska2");
+
+        AddressEntity addressEntityThree = new AddressEntity();
+        addressEntityThree.setCity("Warszawa3");
+        addressEntityThree.setCountry("Polska3");
+
         // when
         Session session = sessionFactory.openSession();
         try {
             session.getTransaction().begin();
             session.save(addressEntity);
+            session.save(addressEntityTwo);
 
             // TODO: 08.12.2023 Stworzyć sytuacje w której 2 rekordy zostaną dodane a następnie zostanie rzucony wyjątek
             // Sprawdzić czy wiersze zostały wycofane
 
+            session.getTransaction().commit();
+            session.save(addressEntityThree);
             session.getTransaction().commit();
         } catch (HibernateException e) {
             session.getTransaction().rollback();
