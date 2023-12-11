@@ -47,12 +47,12 @@ class AddressEntityTest {
         addressEntity.setCountry("Polska");
 
         AddressEntity addressEntityTwo = new AddressEntity();
-        addressEntityTwo.setCity("Warszawa2");
-        addressEntityTwo.setCountry("Polska2");
+        addressEntityTwo.setCity("Berlin");
+        addressEntityTwo.setCountry("Niemcy");
 
         AddressEntity addressEntityThree = new AddressEntity();
-        addressEntityThree.setCity("Warszawa3");
-        addressEntityThree.setCountry("Polska3");
+        addressEntityThree.setCity("Kraków");
+        addressEntityThree.setCountry("Polska");
 
         // when
         Session session = sessionFactory.openSession();
