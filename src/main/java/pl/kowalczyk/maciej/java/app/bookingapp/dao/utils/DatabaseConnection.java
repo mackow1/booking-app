@@ -35,16 +35,6 @@ public class DatabaseConnection {
     }
 }
 
-// TODO: 28.11.2023
-// Dodać loggery
-
-// TODO: 28.11.2023 PD
-// Stworzyć oddzielną klasse pobierającą namiary na bazę danych/credentials z pliku properties
-// https://docs.oracle.com/javase/tutorial/essential/environment/properties.html
-
-// TODO: 28.11.2023 PD
-// Przećwiczyć left join i right join i przygotować przykłady dla joinów
-
 /*
 -- public class Test{
 --    private int id;

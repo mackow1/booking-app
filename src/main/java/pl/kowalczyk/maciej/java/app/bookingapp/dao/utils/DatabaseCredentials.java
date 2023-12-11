@@ -20,8 +20,6 @@ public class DatabaseCredentials {
         }
     }
 
-    // TODO: 01.12.2023 PD
-    // Refactor: z 3 metod zrobić 1 przyjmującą parametr / albo singleton
 
     public static String getPropertyValue(String key) {
         LOGGER.info("getPropertyValue(" + key + ")");

@@ -88,8 +88,6 @@ public class GuestDao {
 
             if (resultSet.next()) {
 
-                // TODO: 01.12.2023
-                // przypisać wartości do guest
                 long guestId = resultSet.getLong("ID");
                 String guestName = resultSet.getString("NAME");
 
