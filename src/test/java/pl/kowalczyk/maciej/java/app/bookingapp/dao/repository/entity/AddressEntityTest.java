@@ -137,4 +137,31 @@ class AddressEntityTest {
         // then
         Assertions.assertNotNull(addressMerged, "Address is null");
     }
+
+    @Test
+    void delete() {
+        // given
+        AddressEntity addressEntity = new AddressEntity();
+        AddressEntity addressDeleted = null;
+        addressEntity.setCountry("France");
+        addressEntity.setCity("Paris");
+
+        // when
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            Long savedId = (Long) session.save(addressEntity);
+
+            session.remove(addressEntity);
+
+            addressDeleted = session.get(AddressEntity.class, savedId);
+            session.getTransaction().commit();
+
+        } catch (HibernateException e) {
+            sessionFactory.getCurrentSession().getTransaction().rollback();
+            e.printStackTrace();
+        }
+
+        // then
+        Assertions.assertNull(addressDeleted, "Address still exists in database");
+    }
 }
