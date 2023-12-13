@@ -34,7 +34,7 @@ class HostEntityTest {
     }
 
     @Test
-    void create() {
+    void createHostWithAddress() {
         // given
         HostEntity hostRead = new HostEntity();
         AddressEntity addressEntity = new AddressEntity();
