@@ -33,7 +33,7 @@
 <!--        <mapping class="pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.HostEntity"/>-->
 <!--        <mapping class="pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.PropertyEntity"/>-->
 <!--        <mapping class="pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.RentalEntity"/>-->
-<!--        <mapping class="pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.ReservationEntity"/>-->
+        <mapping class="pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.ReservationEntity"/>
     </session-factory>
 </hibernate-configuration>
 
