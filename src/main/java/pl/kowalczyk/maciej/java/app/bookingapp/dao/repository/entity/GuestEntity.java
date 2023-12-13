@@ -5,11 +5,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
-import pl.kowalczyk.maciej.java.app.bookingapp.model.Address;
-import pl.kowalczyk.maciej.java.app.bookingapp.model.Reservation;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class GuestEntity {
@@ -23,7 +21,9 @@ public class GuestEntity {
 
     @OneToOne
     private AddressEntity address;
-//    private List<Reservation> reservations = new ArrayList<>();
+
+    @OneToMany
+    private Set<ReservationEntity> reservations = new HashSet<>();
 
     public GuestEntity() {
     }
@@ -66,5 +66,13 @@ public class GuestEntity {
 
     public void setAddress(AddressEntity address) {
         this.address = address;
+    }
+
+    public Set<ReservationEntity> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(Set<ReservationEntity> reservations) {
+        this.reservations = reservations;
     }
 }
