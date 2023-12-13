@@ -30,6 +30,7 @@ class AddressEntityTest {
             // The registry would be destroyed by the SessionFactory, but we
             // had trouble building the SessionFactory so destroy it manually.
             StandardServiceRegistryBuilder.destroy(registry);
+            e.printStackTrace();
         }
     }
 
@@ -43,12 +44,12 @@ class AddressEntityTest {
     void create() {
         // given
         AddressEntity addressEntity = new AddressEntity();
-        addressEntity.setCity("Warszawa");
-        addressEntity.setCountry("Polska");
+        addressEntity.setCity("Wawa");
+        addressEntity.setCountry("PL");
 
         AddressEntity addressEntityTwo = new AddressEntity();
-        addressEntityTwo.setCity("Berlin");
-        addressEntityTwo.setCountry("Niemcy");
+        addressEntityTwo.setCity("Brn");
+        addressEntityTwo.setCountry("DE");
 
         AddressEntity addressEntityThree = new AddressEntity();
         addressEntityThree.setCity("Kraków");
@@ -64,10 +65,15 @@ class AddressEntityTest {
             // TODO: 08.12.2023 Stworzyć sytuacje w której 2 rekordy zostaną dodane a następnie zostanie rzucony wyjątek
             // Sprawdzić czy wiersze zostały wycofane
 
-            session.getTransaction().commit();
+//            double result = 1 / 0;
             session.save(addressEntityThree);
             session.getTransaction().commit();
+        } catch (ArithmeticException e) {
+            System.out.println("Rolling back!");
+            session.getTransaction().rollback();
+            e.printStackTrace();
         } catch (HibernateException e) {
+            System.out.println("Rolling back!");
             session.getTransaction().rollback();
             e.printStackTrace();
         } finally {
@@ -80,6 +86,8 @@ class AddressEntityTest {
                 () -> Assertions.assertNotNull(addressEntity.getId(), "Id is null")
         );
     }
+
+    // TODO: 13.12.2023 Zamienić try with resources na finally 
 
     @Test
     void read() {
