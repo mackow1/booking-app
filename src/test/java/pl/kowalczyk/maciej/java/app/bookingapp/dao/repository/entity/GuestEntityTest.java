@@ -57,4 +57,27 @@ class GuestEntityTest {
         // then
 
     }
+
+    @Test
+    void guestWithReservation() {
+        // given
+        GuestEntity guest = new GuestEntity();
+
+        ReservationEntity reservation = new ReservationEntity();
+        reservation.setCheckIn("12.12.12");
+        reservation.setCheckOut("15.12.12");
+        reservation.setNumberOfPersons(4);
+
+        guest.getReservations().add(reservation);
+
+        // when
+        Session session = sessionFactory.openSession();
+        session.getTransaction().begin();
+        session.save(reservation);
+        session.save(guest);
+        session.getTransaction().commit();
+
+        // then
+
+    }
 }
