@@ -34,12 +34,6 @@ class AddressEntityTest {
         }
     }
 
-    // TODO: 05.12.2023 PD
-    // Dodać wszystko do git
-
-    // Stworzyć nowe encje, napisać testy
-    // Nowa własna encja z dodatkowymi kolumnami
-
     @Test
     void create() {
         // given
@@ -47,33 +41,13 @@ class AddressEntityTest {
         addressEntity.setCity("Wawa");
         addressEntity.setCountry("PL");
 
-        AddressEntity addressEntityTwo = new AddressEntity();
-        addressEntityTwo.setCity("Brn");
-        addressEntityTwo.setCountry("DE");
-
-        AddressEntity addressEntityThree = new AddressEntity();
-        addressEntityThree.setCity("Kraków");
-        addressEntityThree.setCountry("Polska");
-
         // when
         Session session = sessionFactory.openSession();
         try {
             session.getTransaction().begin();
             session.save(addressEntity);
-            session.save(addressEntityTwo);
-
-            // TODO: 08.12.2023 Stworzyć sytuacje w której 2 rekordy zostaną dodane a następnie zostanie rzucony wyjątek
-            // Sprawdzić czy wiersze zostały wycofane
-
-//            double result = 1 / 0;
-            session.save(addressEntityThree);
             session.getTransaction().commit();
-        } catch (ArithmeticException e) {
-            System.out.println("Rolling back!");
-            session.getTransaction().rollback();
-            e.printStackTrace();
         } catch (HibernateException e) {
-            System.out.println("Rolling back!");
             session.getTransaction().rollback();
             e.printStackTrace();
         } finally {
@@ -81,13 +55,10 @@ class AddressEntityTest {
         }
 
         // then
-
         Assertions.assertAll(
                 () -> Assertions.assertNotNull(addressEntity.getId(), "Id is null")
         );
     }
-
-    // TODO: 13.12.2023 Zamienić try with resources na finally 
 
     @Test
     void read() {
@@ -98,7 +69,8 @@ class AddressEntityTest {
         AddressEntity addressRead = null;
 
         // when
-        try (Session session = sessionFactory.openSession()) {
+        Session session = sessionFactory.openSession();
+        try {
             session.beginTransaction();
             Long savedId = (Long) session.save(addressEntity);
 
@@ -106,8 +78,10 @@ class AddressEntityTest {
             System.out.println(addressRead);
             session.getTransaction().commit();
         } catch (HibernateException e) {
-            sessionFactory.getCurrentSession().getTransaction().rollback();
+            session.getTransaction().rollback();
             e.printStackTrace();
+        } finally {
+            session.close();
         }
 
         // then
@@ -123,23 +97,21 @@ class AddressEntityTest {
         String country = "Italy";
 
         // when
-        try (Session session = sessionFactory.openSession()) {
+        Session session = sessionFactory.openSession();
+        try {
             session.beginTransaction();
-
             session.persist(addressEntity);
-
-            System.out.println(addressEntity);
 
             addressEntity.setCity(city);
             addressEntity.setCountry(country);
             addressMerged = session.merge(addressEntity);
 
-            System.out.println(addressMerged);
-
             session.getTransaction().commit();
         } catch (HibernateException e) {
-            sessionFactory.getCurrentSession().getTransaction().rollback();
+            session.getTransaction().rollback();
             e.printStackTrace();
+        } finally {
+            session.close();
         }
 
         // then
@@ -155,7 +127,8 @@ class AddressEntityTest {
         addressEntity.setCity("Paris");
 
         // when
-        try (Session session = sessionFactory.openSession()) {
+        Session session = sessionFactory.openSession();
+        try {
             session.beginTransaction();
             Long savedId = (Long) session.save(addressEntity);
 
@@ -165,8 +138,10 @@ class AddressEntityTest {
             session.getTransaction().commit();
 
         } catch (HibernateException e) {
-            sessionFactory.getCurrentSession().getTransaction().rollback();
+            session.getTransaction().rollback();
             e.printStackTrace();
+        } finally {
+            session.close();
         }
 
         // then
