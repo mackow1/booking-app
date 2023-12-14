@@ -6,7 +6,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class PropertyEntity {
@@ -27,7 +28,7 @@ public class PropertyEntity {
     private HostEntity host;
 
     @OneToMany
-    private List<RentalEntity> rentals;
+    private Set<RentalEntity> rentals = new HashSet<>();
 
     public PropertyEntity() {
     }
@@ -64,11 +65,11 @@ public class PropertyEntity {
         this.host = host;
     }
 
-    public List<RentalEntity> getRentals() {
+    public Set<RentalEntity> getRentals() {
         return rentals;
     }
 
-    public void setRentals(List<RentalEntity> rentals) {
+    public void setRentals(Set<RentalEntity> rentals) {
         this.rentals = rentals;
     }
 }
