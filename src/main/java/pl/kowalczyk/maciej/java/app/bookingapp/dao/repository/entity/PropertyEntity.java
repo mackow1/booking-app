@@ -5,9 +5,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
-import pl.kowalczyk.maciej.java.app.bookingapp.model.Address;
-import pl.kowalczyk.maciej.java.app.bookingapp.model.Host;
-import pl.kowalczyk.maciej.java.app.bookingapp.model.Rental;
 
 import java.util.List;
 
