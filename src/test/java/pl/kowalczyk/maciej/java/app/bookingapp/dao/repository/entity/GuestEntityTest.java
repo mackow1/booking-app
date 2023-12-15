@@ -1,5 +1,6 @@
 package pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
@@ -31,12 +32,54 @@ class GuestEntityTest {
     }
 
     @Test
-    void create() {
+    void createWithAddress() {
         // given
+        GuestEntity guestEntity = new GuestEntity();
+        guestEntity.setName("Maciek");
+        guestEntity.setPhoneNumber("894375639");
+
+        AddressEntity guestAddress = new AddressEntity();
+        guestAddress.setCity("Kraków");
+        guestAddress.setCountry("Polska");
+
+        guestEntity.setAddress(guestAddress);
 
         // when
+        Session session = sessionFactory.openSession();
+        session.getTransaction().begin();
+        session.save(guestAddress);
+        session.save(guestEntity);
+        session.getTransaction().commit();
+
+//        session.getTransaction().begin();
+//        session.getTransaction().commit();
 
         // then
 
+    }
+
+    @Test
+    void guestWithReservation() {
+        // given
+        GuestEntity guest = new GuestEntity();
+
+        ReservationEntity reservation = new ReservationEntity();
+        reservation.setCheckIn("12.12.12");
+        reservation.setCheckOut("15.12.12");
+        reservation.setNumberOfPersons(4);
+
+        guest.getReservations().add(reservation);
+
+
+        // when
+        Session session = sessionFactory.openSession();
+        session.getTransaction().begin();
+        session.save(reservation);
+        session.save(guest);
+        session.getTransaction().commit();
+
+        // then
+        reservation.setGuest(guest);
+        System.out.println(guest);
     }
 }
