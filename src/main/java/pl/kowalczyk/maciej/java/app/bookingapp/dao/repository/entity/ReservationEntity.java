@@ -72,3 +72,5 @@ public class ReservationEntity {
                 '}';
     }
 }
+
+// TODO: 15.12.2023 Zaimplementować "automatyczne" dodawanie guest w reservation (add) 
