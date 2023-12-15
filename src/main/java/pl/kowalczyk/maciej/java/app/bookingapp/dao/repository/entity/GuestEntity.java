@@ -3,6 +3,7 @@ package pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
@@ -22,7 +23,8 @@ public class GuestEntity {
     @OneToOne
     private AddressEntity address;
 
-    @OneToMany
+    @OneToMany(mappedBy = "guest")
+//    @JoinColumn(name = "GUEST_ID")
     private Set<ReservationEntity> reservations = new HashSet<>();
 
     public GuestEntity() {
@@ -74,5 +76,17 @@ public class GuestEntity {
 
     public void setReservations(Set<ReservationEntity> reservations) {
         this.reservations = reservations;
+    }
+
+    @Override
+    public String toString() {
+        return "GuestEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", address=" + address +
+                ", reservations=" + reservations +
+                '}';
     }
 }

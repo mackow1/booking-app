@@ -3,6 +3,7 @@ package pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class ReservationEntity {
@@ -13,6 +14,9 @@ public class ReservationEntity {
     private String checkIn;
     private String checkOut;
     private int numberOfPersons;
+
+    @ManyToOne
+    private GuestEntity guest;
 
     public ReservationEntity() {
     }
@@ -47,5 +51,24 @@ public class ReservationEntity {
 
     public void setNumberOfPersons(int numberOfPersons) {
         this.numberOfPersons = numberOfPersons;
+    }
+
+    public GuestEntity getGuest() {
+        return guest;
+    }
+
+    public void setGuest(GuestEntity guest) {
+        this.guest = guest;
+    }
+
+    @Override
+    public String toString() {
+        return "ReservationEntity{" +
+                "id=" + id +
+                ", checkIn='" + checkIn + '\'' +
+                ", checkOut='" + checkOut + '\'' +
+                ", numberOfPersons=" + numberOfPersons +
+//                ", guest=" + guest +
+                '}';
     }
 }

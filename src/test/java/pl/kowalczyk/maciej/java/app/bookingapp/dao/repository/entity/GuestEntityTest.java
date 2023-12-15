@@ -70,6 +70,7 @@ class GuestEntityTest {
 
         guest.getReservations().add(reservation);
 
+
         // when
         Session session = sessionFactory.openSession();
         session.getTransaction().begin();
@@ -78,6 +79,7 @@ class GuestEntityTest {
         session.getTransaction().commit();
 
         // then
-
+        reservation.setGuest(guest);
+        System.out.println(guest);
     }
 }
