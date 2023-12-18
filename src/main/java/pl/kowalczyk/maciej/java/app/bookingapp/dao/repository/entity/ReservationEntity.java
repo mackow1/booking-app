@@ -53,6 +53,14 @@ public class ReservationEntity {
         this.numberOfPersons = numberOfPersons;
     }
 
+    public GuestEntity getGuest() {
+        return guest;
+    }
+
+    public void setGuest(GuestEntity guest) {
+        this.guest = guest;
+    }
+
     @Override
     public String toString() {
         return "ReservationEntity{" +

@@ -30,6 +30,16 @@ public class GuestEntity {
     public GuestEntity() {
     }
 
+    public void addReservation(ReservationEntity reservation) {
+        reservations.add(reservation);
+        reservation.setGuest(this);
+    }
+
+    public void removeReservation(ReservationEntity reservation) {
+        reservations.remove(reservation);
+        reservation.setGuest(null);
+    }
+
     public Long getId() {
         return id;
     }
