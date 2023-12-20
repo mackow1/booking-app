@@ -1,11 +1,15 @@
 package pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -33,6 +37,24 @@ class GuestEntityIntegrationTest {
     }
 
     @Test
-    void removeReservation() {
+    void givenGuestEntityAndReservation_whenRemoveReservation_thenGuestReservationIsNull() {
+        // given
+        GuestEntity guest = new GuestEntity();
+        ReservationEntity reservation = new ReservationEntity();
+        int setSize = 0;
+
+        // when
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        guest.addReservation(reservation);
+        Set<ReservationEntity> reservations = guest.getReservations();
+        guest.removeReservation(reservation);
+
+        setSize = reservations.size();
+        session.getTransaction().commit();
+
+        // then
+        Assertions.assertEquals(0, setSize, "Reservation was not removed");
     }
 }
