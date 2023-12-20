@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -81,5 +82,22 @@ class GuestEntityTest {
         // then
         reservation.setGuest(guest);
         System.out.println(guest);
+    }
+
+    @Test
+    void givenGuestEntityAndReservationEntity_whenAddReservation_thenReservationGuestIsEqualToGuest() {
+        // give
+        GuestEntity guest = new GuestEntity();
+        ReservationEntity reservation = new ReservationEntity();
+
+        // when
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        guest.addReservation(reservation);
+
+        session.getTransaction().commit();
+
+        // then
+        Assertions.assertEquals(guest, reservation.getGuest(), "Guests are not equal");
     }
 }

@@ -30,6 +30,18 @@ public class GuestEntity {
     public GuestEntity() {
     }
 
+    // TODO: 19.12.2023 Dodac testy jednostkowe do metod add i remove 
+    
+    public void addReservation(ReservationEntity reservation) {
+        reservations.add(reservation);
+        reservation.setGuest(this);
+    }
+
+    public void removeReservation(ReservationEntity reservation) {
+        reservations.remove(reservation);
+        reservation.setGuest(null);
+    }
+
     public Long getId() {
         return id;
     }
