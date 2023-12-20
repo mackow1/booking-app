@@ -11,8 +11,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class GuestEntityIntegrationTest {
 
     private SessionFactory sessionFactory;
@@ -41,7 +39,7 @@ class GuestEntityIntegrationTest {
         // given
         GuestEntity guest = new GuestEntity();
         ReservationEntity reservation = new ReservationEntity();
-        int setSize = 0;
+        int setSize;
 
         // when
         Session session = sessionFactory.openSession();
