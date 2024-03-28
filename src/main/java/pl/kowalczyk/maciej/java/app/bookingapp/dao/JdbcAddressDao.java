@@ -1,5 +1,6 @@
 package pl.kowalczyk.maciej.java.app.bookingapp.dao;
 
+import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.AddressEntity;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Address;
 
 import java.util.logging.Logger;
@@ -9,9 +10,9 @@ public class JdbcAddressDao implements AddressDao {
     private static final Logger LOGGER = Logger.getLogger(JdbcAddressDao.class.getName());
 
     @Override
-    public Address create(Address address) {
+    public AddressEntity create(AddressEntity address) {
         LOGGER.info("create(" + address + ")");
-        Address createdAddress = null;
+        AddressEntity createdAddress = null;
         LOGGER.info("create(...) = " + createdAddress);
         return createdAddress;
     }
