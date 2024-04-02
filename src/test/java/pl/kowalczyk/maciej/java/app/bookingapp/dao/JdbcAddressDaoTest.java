@@ -4,16 +4,16 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Address;
 
-class AddressDaoTest {
+class JdbcAddressDaoTest {
 
     @Test
     void create() {
         // given
-        AddressDao addressDao = new AddressDao();
+        JdbcAddressDao jdbcAddressDao = new JdbcAddressDao();
         Address address = new Address();
 
         // when
-        Address createdAddress = addressDao.create(address);
+        Address createdAddress = jdbcAddressDao.create(address);
 
         // then
         Assertions.assertNotNull(createdAddress, "Address not created");
@@ -22,11 +22,11 @@ class AddressDaoTest {
     @Test
     void read() {
         // given
-        AddressDao addressDao = new AddressDao();
+        JdbcAddressDao jdbcAddressDao = new JdbcAddressDao();
         int id = 0;
 
         // when
-        Address addressFound = addressDao.read(id);
+        Address addressFound = jdbcAddressDao.read(id);
 
         // then
         Assertions.assertNotNull(addressFound, "Address not found");
