@@ -40,7 +40,7 @@ class AddressMapperTest {
 
         // then
         Assertions.assertAll(
-                () -> Assertions.assertNotNull(address, "Addess i s NULL"),
+                () -> Assertions.assertNotNull(address, "Address is NULL"),
                 () -> Assertions.assertEquals("Polska", address.getCountry(), "Countries are different")
         );
     }
