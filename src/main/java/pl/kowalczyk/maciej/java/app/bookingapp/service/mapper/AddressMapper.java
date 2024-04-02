@@ -1,11 +1,13 @@
 package pl.kowalczyk.maciej.java.app.bookingapp.service.mapper;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.AddressEntity;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Address;
 
 import java.util.logging.Logger;
 
+@Component
 public class AddressMapper {
 
     private static final Logger LOGGER = Logger.getLogger(AddressMapper.class.getName());
