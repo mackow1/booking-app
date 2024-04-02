@@ -17,10 +17,25 @@ public class JdbcAddressDao implements AddressDao {
         return createdAddress;
     }
 
-    public Address read(int id) {
+    @Override
+    public AddressEntity read(Long id) {
         LOGGER.info("read(" + id + ")");
-        Address addressFound = null;
+        AddressEntity addressFound = null;
         LOGGER.info("read(...) = " + addressFound);
         return addressFound;
+    }
+
+    @Override
+    public AddressEntity update(AddressEntity addressEntity) {
+        LOGGER.info("update(" + addressEntity + ")");
+        AddressEntity updatedAddressEntity = null;
+        LOGGER.info("update(...) = " + updatedAddressEntity);
+        return null;
+    }
+
+    @Override
+    public void delete(Long id) {
+        LOGGER.info("delete(" + id + ")");
+        LOGGER.info("delete(...)");
     }
 }
