@@ -20,6 +20,9 @@ class PropertyRepositorySpringIntegrationTest {
     @Test
     void list() {
         // given
+
+        // INSERT INTO PROPERTIES(ID, NAME, ADDRESS_ID, HOST_ID) VALUES(99, 'Villa Warszawska', null, null);
+
         PropertyEntity propertyEntity = new PropertyEntity();
         propertyEntity.setId(12345L);
         propertyEntity.setName("Villa Polska");
