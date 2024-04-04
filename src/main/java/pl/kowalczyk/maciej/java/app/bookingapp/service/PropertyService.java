@@ -31,4 +31,15 @@ public class PropertyService {
         LOGGER.info("list(...) = " + properties);
         return properties;
     }
+
+    public Property create(Property property) {
+        LOGGER.info("create(" + property + ")");
+
+        PropertyEntity propertyEntity = propertyMapper.from(property);
+        PropertyEntity savedPropertyEntity = propertyRepository.save(propertyEntity);
+        Property savedProperty = propertyMapper.from(savedPropertyEntity);
+
+        LOGGER.info("create(...) = " + savedProperty);
+        return savedProperty;
+    }
 }
