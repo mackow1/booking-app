@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Property {
 
+    private Long id;
     private String name;
     private Address address;
     private Host host;
@@ -14,13 +15,40 @@ public class Property {
         this.rentals = new ArrayList<>();
     }
 
-    public List<Rental> getRentals() {
-        return this.rentals;
+    public Long getId() {
+        return id;
     }
 
-    public Rental rent() {
-        System.out.println("renting a property");
-        return null;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public Host getHost() {
+        return host;
+    }
+
+    public void setHost(Host host) {
+        this.host = host;
+    }
+
+    public List<Rental> getRentals() {
+        return this.rentals;
     }
 
     public void newRental(Guest guest, Reservation reservation) {
@@ -30,7 +58,8 @@ public class Property {
     @Override
     public String toString() {
         return "Property{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", address=" + address +
                 ", host=" + host +
                 ", rentals=" + rentals +
