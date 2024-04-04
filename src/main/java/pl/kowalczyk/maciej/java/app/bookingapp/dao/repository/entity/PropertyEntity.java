@@ -1,15 +1,18 @@
 package pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(name = "PROPERTIES")
 public class PropertyEntity {
 
     // TODO: 13.12.2023 Dodać relację do addresu jak w classie GuestEntity + test 
@@ -21,14 +24,14 @@ public class PropertyEntity {
     private Long id;
     private String name;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private AddressEntity address;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private HostEntity host;
 
-    @OneToMany
-    private Set<RentalEntity> rentals = new HashSet<>();
+//    @OneToMany(fetch = FetchType.LAZY)
+//    private Set<RentalEntity> rentals = new HashSet<>();
 
     public PropertyEntity() {
     }
@@ -65,11 +68,22 @@ public class PropertyEntity {
         this.host = host;
     }
 
-    public Set<RentalEntity> getRentals() {
-        return rentals;
-    }
+//    public Set<RentalEntity> getRentals() {
+//        return rentals;
+//    }
+//
+//    public void setRentals(Set<RentalEntity> rentals) {
+//        this.rentals = rentals;
+//    }
 
-    public void setRentals(Set<RentalEntity> rentals) {
-        this.rentals = rentals;
+    @Override
+    public String toString() {
+        return "PropertyEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address=" + address +
+                ", host=" + host +
+//                ", rentals=" + rentals +
+                '}';
     }
 }

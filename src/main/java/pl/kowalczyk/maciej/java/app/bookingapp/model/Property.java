@@ -1,7 +1,9 @@
 package pl.kowalczyk.maciej.java.app.bookingapp.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.RentalEntity;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class Property {
 
@@ -9,10 +11,9 @@ public class Property {
     private String name;
     private Address address;
     private Host host;
-    private List<Rental> rentals;
+    private Set<RentalEntity> rentals = new HashSet<>();
 
     public Property() {
-        this.rentals = new ArrayList<>();
     }
 
     public Long getId() {
@@ -47,12 +48,8 @@ public class Property {
         this.host = host;
     }
 
-    public List<Rental> getRentals() {
+    public Set<RentalEntity> getRentals() {
         return this.rentals;
-    }
-
-    public void newRental(Guest guest, Reservation reservation) {
-        rentals.add(new Rental(guest, reservation));
     }
 
     @Override
