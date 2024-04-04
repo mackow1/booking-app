@@ -11,10 +11,10 @@ class AddressServiceTest {
     @Test
     void create() {
         // given
-        Address address = new Address();
-        AddressDao addressDao = new AddressDao();
-
-        AddressService addressService = new AddressService(addressDao);
+//        Address address = new Address();
+//        AddressDao addressDao = new AddressDao();
+//
+//        AddressService addressService = new AddressService(addressDao);
 
         // when
 

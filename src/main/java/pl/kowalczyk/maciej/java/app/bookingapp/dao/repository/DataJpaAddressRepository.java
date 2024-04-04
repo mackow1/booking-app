@@ -1,11 +1,13 @@
 package pl.kowalczyk.maciej.java.app.bookingapp.dao.repository;
 
+import org.springframework.stereotype.Repository;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.AddressDao;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.AddressEntity;
 
 import java.util.Optional;
 import java.util.logging.Logger;
 
+@Repository
 public class DataJpaAddressRepository implements AddressDao {
 
     private static final Logger LOGGER = Logger.getLogger(DataJpaAddressRepository.class.getName());

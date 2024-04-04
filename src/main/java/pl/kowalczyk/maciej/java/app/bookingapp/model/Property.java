@@ -1,36 +1,62 @@
 package pl.kowalczyk.maciej.java.app.bookingapp.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.RentalEntity;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class Property {
 
+    private Long id;
     private String name;
     private Address address;
     private Host host;
-    private List<Rental> rentals;
+    private Set<RentalEntity> rentals = new HashSet<>();
 
     public Property() {
-        this.rentals = new ArrayList<>();
     }
 
-    public List<Rental> getRentals() {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public Host getHost() {
+        return host;
+    }
+
+    public void setHost(Host host) {
+        this.host = host;
+    }
+
+    public Set<RentalEntity> getRentals() {
         return this.rentals;
-    }
-
-    public Rental rent() {
-        System.out.println("renting a property");
-        return null;
-    }
-
-    public void newRental(Guest guest, Reservation reservation) {
-        rentals.add(new Rental(guest, reservation));
     }
 
     @Override
     public String toString() {
         return "Property{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", address=" + address +
                 ", host=" + host +
                 ", rentals=" + rentals +
