@@ -1,6 +1,7 @@
 package pl.kowalczyk.maciej.java.app.bookingapp.dao.repository;
 
 import org.springframework.stereotype.Repository;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.address.AddressReadException;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.AddressDao;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.AddressEntity;
 
@@ -29,12 +30,12 @@ public class DataJpaAddressRepository implements AddressDao {
     }
 
     @Override
-    public AddressEntity read(Long id) throws Exception {
+    public AddressEntity read(Long id) throws AddressReadException {
         LOGGER.info("read(" + id + ")");
 
         Optional<AddressEntity> addressEntityOptional = addressRepository.findById(id);
         AddressEntity foundAddressEntity = addressEntityOptional.orElseThrow(
-                () -> new Exception("Unable to find Address")
+                () -> new AddressReadException("Unable to find Address")
         );
 
         LOGGER.info("read(...) = " + foundAddressEntity);
