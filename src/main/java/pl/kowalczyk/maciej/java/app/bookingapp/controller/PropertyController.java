@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Controller
-@RequestMapping(value = "/accommodations")
+@RequestMapping(value = "/properties")
 public class PropertyController {
 
     private static final Logger LOGGER = Logger.getLogger(PropertyController.class.getName());
@@ -27,8 +27,8 @@ public class PropertyController {
         LOGGER.info("list()");
 
         List<Property> properties = propertyService.list();
-        modelMap.addAttribute("accommodations", properties);
-        String result = "accommodations.html";
+        modelMap.addAttribute("properties", properties);
+        String result = "properties.html";
 
         LOGGER.info("list(...) = " + result);
         return result;
