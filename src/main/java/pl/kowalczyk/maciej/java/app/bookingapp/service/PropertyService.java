@@ -1,12 +1,15 @@
 package pl.kowalczyk.maciej.java.app.bookingapp.service;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyCreateException;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.PropertyRepository;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.PropertyEntity;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Property;
 import pl.kowalczyk.maciej.java.app.bookingapp.service.mapper.PropertyMapper;
 
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Service
@@ -32,14 +35,23 @@ public class PropertyService {
         return properties;
     }
 
-    public Property create(Property property) {
+    public Property create(Property property) throws PropertyCreateException {
         LOGGER.info("create(" + property + ")");
 
-        PropertyEntity propertyEntity = propertyMapper.from(property);
-        PropertyEntity savedPropertyEntity = propertyRepository.save(propertyEntity);
-        Property savedProperty = propertyMapper.from(savedPropertyEntity);
+        if (property == null) {
+            throw new PropertyCreateException("Property must not be null");
+        }
 
-        LOGGER.info("create(...) = " + savedProperty);
-        return savedProperty;
+        try {
+            PropertyEntity propertyEntity = propertyMapper.from(property);
+            PropertyEntity savedPropertyEntity = propertyRepository.save(propertyEntity);
+            Property savedProperty = propertyMapper.from(savedPropertyEntity);
+
+            LOGGER.info("create(...) = " + savedProperty);
+            return savedProperty;
+        } catch (DataAccessException e) {
+            LOGGER.log(Level.SEVERE, "Database access error while saving property: " + property, e);
+            throw new PropertyCreateException("Database access error while saving property:" + property);
+        }
     }
 }
