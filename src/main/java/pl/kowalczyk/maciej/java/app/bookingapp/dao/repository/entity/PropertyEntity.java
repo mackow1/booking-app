@@ -1,5 +1,6 @@
 package pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -24,7 +25,7 @@ public class PropertyEntity {
     private Long id;
     private String name;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private AddressEntity address;
 
     @OneToOne(fetch = FetchType.LAZY)
