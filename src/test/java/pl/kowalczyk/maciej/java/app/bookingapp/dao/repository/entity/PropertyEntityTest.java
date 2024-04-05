@@ -57,7 +57,7 @@ class PropertyEntityTest {
         try {
             session.beginTransaction();
 
-            session.save(address);
+//            session.save(address);
             session.save(host);
             Long savedId = (Long) session.save(property);
             propertyRead = session.get(PropertyEntity.class, savedId);
@@ -71,6 +71,10 @@ class PropertyEntityTest {
         }
 
         // then
-        Assertions.assertNotNull(propertyRead, "Property is not created");
+        PropertyEntity finalPropertyRead = propertyRead;
+        Assertions.assertAll(
+                () -> Assertions.assertNotNull(finalPropertyRead, "Property is not created"),
+                () -> Assertions.assertNotNull(finalPropertyRead.getAddress(), "Address of the property is NULL")
+        );
     }
 }
