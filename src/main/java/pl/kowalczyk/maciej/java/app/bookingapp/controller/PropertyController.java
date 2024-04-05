@@ -3,7 +3,9 @@ package pl.kowalczyk.maciej.java.app.bookingapp.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyCreateException;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Property;
 import pl.kowalczyk.maciej.java.app.bookingapp.service.PropertyService;
 
@@ -31,6 +33,28 @@ public class PropertyController {
         String result = "properties.html";
 
         LOGGER.info("list(...) = " + result);
+        return result;
+    }
+
+    @GetMapping(value = "/create")
+    public String createView(ModelMap modelMap) {
+        LOGGER.info("createView()");
+
+        modelMap.addAttribute("property", new Property());
+        String result = "create-property.html";
+
+        LOGGER.info("createView(...) = " + result);
+        return result;
+    }
+
+    @PostMapping
+    public String create(Property property) throws PropertyCreateException {
+        LOGGER.info("create(" + property + ")");
+
+        Property propertyCreated = propertyService.create(property);
+        String result = "redirect:/properties";
+
+        LOGGER.info("create(...) = " + result);
         return result;
     }
 
