@@ -1,6 +1,7 @@
 package pl.kowalczyk.maciej.java.app.bookingapp.service;
 
 import org.springframework.stereotype.Service;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.address.AddressReadException;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.AddressDao;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.DataJpaAddressRepository;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.AddressEntity;
@@ -33,7 +34,7 @@ public class AddressService {
         return mappedAddress;
     }
 
-    public Address read(Long id) throws Exception {
+    public Address read(Long id) throws AddressReadException {
         LOGGER.info("read(" + id + ")");
 
         AddressEntity readAddressEntity = dataJpaAddressRepository.read(id);
