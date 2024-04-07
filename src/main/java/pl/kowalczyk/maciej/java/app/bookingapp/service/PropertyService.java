@@ -60,19 +60,16 @@ public class PropertyService {
     public Property read(Long id) throws PropertyReadException {
         LOGGER.info("read(" + id + ")");
 
-        if (id == null) {
-            throw new PropertyReadException("ID must not be NULL");
-        }
-
         Optional<PropertyEntity> optionalPropertyEntity = propertyRepository.findById(id);
-//        optionalPropertyEntity.orElseThrow(() -> {
-//                    LOGGER.log(Level.SEVERE, "Property not found given id");
-//                }
-//        );
+        PropertyEntity propertyEntity = optionalPropertyEntity.orElseThrow(() -> {
+                    LOGGER.log(Level.SEVERE, "Property not found for given id: " + id);
+                    return new PropertyReadException("Property not found for given id: " + id);
+                }
+        );
 
-        Property result = null;
+        Property property = propertyMapper.from(propertyEntity);
 
-        LOGGER.info("read(...) = " + result);
-        return result;
+        LOGGER.info("read(...) = " + property);
+        return property;
     }
 }
