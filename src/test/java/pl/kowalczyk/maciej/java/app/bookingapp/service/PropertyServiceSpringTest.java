@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyCreateException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyReadException;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyUpdateException;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Property;
 
 import java.util.List;
@@ -68,6 +69,18 @@ class PropertyServiceSpringTest {
         // then
         Assertions.assertThrows(PropertyReadException.class, () -> {
             propertyService.read(id);
+        });
+    }
+
+    @Test
+    void givenNullObjectWhenUpdateThenThrowsException() {
+        // given
+        Property property = null;
+
+        // when
+        // then
+        Assertions.assertThrows(PropertyUpdateException.class, () -> {
+            propertyService.update(property);
         });
     }
 }
