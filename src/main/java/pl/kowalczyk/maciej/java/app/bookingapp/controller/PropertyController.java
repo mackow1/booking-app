@@ -3,9 +3,11 @@ package pl.kowalczyk.maciej.java.app.bookingapp.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyCreateException;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyReadException;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Property;
 import pl.kowalczyk.maciej.java.app.bookingapp.service.PropertyService;
 
@@ -55,6 +57,19 @@ public class PropertyController {
         String result = "redirect:/properties";
 
         LOGGER.info("create(...) = " + result);
+        return result;
+    }
+
+    @GetMapping(value = "/{id}")
+    public String read(@PathVariable Long id, ModelMap modelMap) throws PropertyReadException {
+        LOGGER.info("read(" + id + ")");
+
+        Property readProperty = propertyService.read(id);
+        modelMap.addAttribute("property", readProperty);
+
+        String result = "property-details.html";
+
+        LOGGER.info("read(...) = " + result);
         return result;
     }
 
