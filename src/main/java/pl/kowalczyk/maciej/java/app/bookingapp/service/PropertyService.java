@@ -3,6 +3,7 @@ package pl.kowalczyk.maciej.java.app.bookingapp.service;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyCreateException;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyDeleteException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyReadException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyUpdateException;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.PropertyRepository;
@@ -92,5 +93,18 @@ public class PropertyService {
             LOGGER.log(Level.SEVERE, "Database access error while updating property: " + property, e);
             throw new PropertyUpdateException("Database access error while updating property: " + property);
         }
+    }
+
+    public void delete(Long id) throws PropertyDeleteException {
+        LOGGER.info("delete(" + id + ")");
+
+        try {
+            propertyRepository.deleteById(id);
+        } catch(DataAccessException e) {
+            LOGGER.log(Level.SEVERE, "Database access error while deleting apartment with ID: " + id, e);
+            throw new PropertyDeleteException("Error while deleting apartment with ID: " + id);
+        }
+
+        LOGGER.info("delete(...) = ");
     }
 }

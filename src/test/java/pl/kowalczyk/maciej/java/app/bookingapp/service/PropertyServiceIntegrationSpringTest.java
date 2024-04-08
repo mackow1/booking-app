@@ -5,8 +5,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyCreateException;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyDeleteException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyReadException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyUpdateException;
+import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.PropertyRepository;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Property;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,6 +21,9 @@ class PropertyServiceIntegrationSpringTest {
 
     @Autowired
     private PropertyService propertyService;
+
+    @Autowired
+    private PropertyRepository propertyRepository;
 
     @Test
     void givenIdOfAnExistingPropertyWhenReadReturnProperProperty() throws PropertyCreateException, PropertyReadException {
@@ -61,5 +66,21 @@ class PropertyServiceIntegrationSpringTest {
                 () -> Assertions.assertNotNull(updatedProperty, "Property is NULL"),
                 () -> Assertions.assertEquals(SERVICE_TEST_UPDATE_WITH_PROPERTY_NAME, updatedProperty.getName(), "Names are not equal")
         );
+    }
+
+    @Test
+    void givenIdWhenDeleteObjectProperlyDeleted() throws PropertyCreateException, PropertyDeleteException {
+        // given
+        Property property = new Property();
+        property.setName("Villa removal");
+
+        Property propertyCreated = propertyService.create(property);
+        Long id = propertyCreated.getId();
+
+        // when
+        propertyService.delete(id);
+
+        // then
+        Assertions.assertFalse(propertyRepository.existsById(id));
     }
 }

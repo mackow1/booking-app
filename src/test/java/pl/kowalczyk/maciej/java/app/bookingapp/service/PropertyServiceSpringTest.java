@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyCreateException;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyDeleteException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyReadException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyUpdateException;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Property;
@@ -81,6 +82,18 @@ class PropertyServiceSpringTest {
         // then
         Assertions.assertThrows(PropertyUpdateException.class, () -> {
             propertyService.update(property);
+        });
+    }
+
+    @Test
+    void givenNonExistingIdWhenDeleteThenExceptionShouldBeThrown() {
+        // given
+        Long id = -1L;
+
+        // when
+        // then
+        Assertions.assertThrows(PropertyDeleteException.class, () -> {
+            propertyService.delete(id);
         });
     }
 }
