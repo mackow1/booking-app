@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyCreateException;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyReadException;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyUpdateException;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Property;
 import pl.kowalczyk.maciej.java.app.bookingapp.service.PropertyService;
 
@@ -50,7 +52,7 @@ public class PropertyController {
     }
 
     @PostMapping
-    public String create(Property property) throws PropertyCreateException {
+    public String create(Property property) throws PropertyException {
         LOGGER.info("create(" + property + ")");
 
         Property propertyCreated = propertyService.create(property);
@@ -61,7 +63,7 @@ public class PropertyController {
     }
 
     @GetMapping(value = "/{id}")
-    public String read(@PathVariable Long id, ModelMap modelMap) throws PropertyReadException {
+    public String read(@PathVariable Long id, ModelMap modelMap) throws PropertyException {
         LOGGER.info("read(" + id + ")");
 
         Property readProperty = propertyService.read(id);
@@ -73,8 +75,6 @@ public class PropertyController {
         return result;
     }
 
-    // TODO: 02.04.2024 Zaimplementować controller z metodą list()
-    // Stworzyć html z listą nieruchomości
-    // Zrobić mappera dla property
+
     // Zrobić dashboard dla nieruchomości analogicznie do tych ze spring-learn
 }
