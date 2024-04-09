@@ -6,10 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyCreateException;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyException;
-import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyReadException;
-import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyUpdateException;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Property;
 import pl.kowalczyk.maciej.java.app.bookingapp.service.PropertyService;
 
@@ -41,7 +39,7 @@ public class PropertyController {
     }
 
     @GetMapping(value = "/create")
-    public String createView(ModelMap modelMap) {
+    public String createView(@RequestParam(value = "id", required = false) Long id, ModelMap modelMap) {
         LOGGER.info("createView()");
 
         modelMap.addAttribute("property", new Property());
@@ -98,6 +96,16 @@ public class PropertyController {
         String result = "redirect:/properties";
 
         LOGGER.info("update(...) = " + result);
+        return result;
+    }
+
+    public String delete(@PathVariable Long id) throws PropertyException {
+        LOGGER.info("delete(" + id + ")");
+
+        propertyService.delete(id);
+        String result = "redirect:/";
+
+        LOGGER.info("delete(...) = " + result);
         return result;
     }
     // Zrobić dashboard dla nieruchomości analogicznie do tych ze spring-learn

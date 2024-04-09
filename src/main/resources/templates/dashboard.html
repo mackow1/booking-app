@@ -27,10 +27,11 @@
             <td><span th:text="${property.name}">Name</span></td>
             <td><a th:href="@{/properties/{id}(id = ${property.id})}">Details</a></td>
             <td><a th:href="@{/properties/update/{id}(id = ${property.id})}">Update</a></td>
-<!--            <td><a th:href="@{/properties/delete/{id}(id = ${property.id})}">Delete</a></td>-->
+            <td><a th:href="@{/properties/delete/{id}(id = ${property.id})}">Delete</a></td>
         </tr>
         </tbody>
     </table>
 </div>
+<div><a th:href="@{/properties/create}">Create</a></div>
 </body>
 </html>
