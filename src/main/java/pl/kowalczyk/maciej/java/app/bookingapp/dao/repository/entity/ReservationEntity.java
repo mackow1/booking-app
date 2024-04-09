@@ -19,8 +19,8 @@ public class ReservationEntity {
     private String checkOut;
     private int numberOfPersons;
 
-    @ManyToOne
-    private GuestEntity guest;
+//    @ManyToOne
+//    private GuestEntity guest;
 
     @OneToOne
     private PropertyEntity property;
@@ -60,13 +60,13 @@ public class ReservationEntity {
         this.numberOfPersons = numberOfPersons;
     }
 
-    public GuestEntity getGuest() {
-        return guest;
-    }
-
-    public void setGuest(GuestEntity guest) {
-        this.guest = guest;
-    }
+//    public GuestEntity getGuest() {
+//        return guest;
+//    }
+//
+//    public void setGuest(GuestEntity guest) {
+//        this.guest = guest;
+//    }
 
     public PropertyEntity getProperty() {
         return property;

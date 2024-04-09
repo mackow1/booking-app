@@ -34,12 +34,12 @@ public class GuestEntity {
     
     public void addReservation(ReservationEntity reservation) {
         reservations.add(reservation);
-        reservation.setGuest(this);
+//        reservation.setGuest(this);
     }
 
     public void removeReservation(ReservationEntity reservation) {
         reservations.remove(reservation);
-        reservation.setGuest(null);
+//        reservation.setGuest(null);
     }
 
     public Long getId() {
