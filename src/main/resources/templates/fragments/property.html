@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Property</title>
+</head>
+<body>
+    <div th:fragment="details">
+        <div>
+            <div>
+                <label for="property-name">Property Name</label>
+                <input th:field="${property.name}" class="form-control" id="property-name">
+                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span>
+            </div>
+            <div>
+                <label for="property-address-street">Address street</label>
+                <input th:field="${property.address.street}" class="form-control" id="property-address-street">
+                <!--            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span>-->
+            </div>
+            <button type="submit">Create</button>
+        </div>
+
+    </div>
+</body>
+</html>

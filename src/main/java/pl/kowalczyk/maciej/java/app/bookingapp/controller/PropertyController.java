@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyCreateException;
-import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyReadException;
+import org.springframework.web.bind.annotation.RequestParam;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyException;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Property;
 import pl.kowalczyk.maciej.java.app.bookingapp.service.PropertyService;
 
@@ -39,10 +39,11 @@ public class PropertyController {
     }
 
     @GetMapping(value = "/create")
-    public String createView(ModelMap modelMap) {
+    public String createView(@RequestParam(value = "id", required = false) Long id, ModelMap modelMap) {
         LOGGER.info("createView()");
 
         modelMap.addAttribute("property", new Property());
+        modelMap.addAttribute("id", false);
         String result = "create-property.html";
 
         LOGGER.info("createView(...) = " + result);
@@ -50,7 +51,7 @@ public class PropertyController {
     }
 
     @PostMapping
-    public String create(Property property) throws PropertyCreateException {
+    public String create(Property property) throws PropertyException {
         LOGGER.info("create(" + property + ")");
 
         Property propertyCreated = propertyService.create(property);
@@ -61,7 +62,7 @@ public class PropertyController {
     }
 
     @GetMapping(value = "/{id}")
-    public String read(@PathVariable Long id, ModelMap modelMap) throws PropertyReadException {
+    public String read(@PathVariable Long id, ModelMap modelMap) throws PropertyException {
         LOGGER.info("read(" + id + ")");
 
         Property readProperty = propertyService.read(id);
@@ -73,8 +74,40 @@ public class PropertyController {
         return result;
     }
 
-    // TODO: 02.04.2024 Zaimplementować controller z metodą list()
-    // Stworzyć html z listą nieruchomości
-    // Zrobić mappera dla property
+    @GetMapping(value = "/update/{id}")
+    public String updateView(@PathVariable Long id, ModelMap modelMap) throws PropertyException {
+        LOGGER.info("updateView(" + id + ")");
+
+        Property readProperty = propertyService.read(id);
+        modelMap.addAttribute("property", readProperty);
+        modelMap.addAttribute("id", true);
+
+        String result = "create-property.html";
+
+        LOGGER.info("updateView(...) = " + result);
+        return result;
+    }
+
+    @PostMapping(value = "/{id}")
+    public String update(Property property) throws PropertyException {
+        LOGGER.info("update(" + property + ")");
+
+        propertyService.update(property);
+        String result = "redirect:/properties";
+
+        LOGGER.info("update(...) = " + result);
+        return result;
+    }
+
+    @GetMapping(value = "/delete/{id}")
+    public String delete(@PathVariable Long id) throws PropertyException {
+        LOGGER.info("delete(" + id + ")");
+
+        propertyService.delete(id);
+        String result = "redirect:/dashboard";
+
+        LOGGER.info("delete(...) = " + result);
+        return result;
+    }
     // Zrobić dashboard dla nieruchomości analogicznie do tych ze spring-learn
 }

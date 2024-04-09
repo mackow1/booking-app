@@ -3,7 +3,9 @@ package pl.kowalczyk.maciej.java.app.bookingapp.service;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyCreateException;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyDeleteException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyReadException;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyUpdateException;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.PropertyRepository;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.PropertyEntity;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Property;
@@ -60,19 +62,49 @@ public class PropertyService {
     public Property read(Long id) throws PropertyReadException {
         LOGGER.info("read(" + id + ")");
 
-        if (id == null) {
-            throw new PropertyReadException("ID must not be NULL");
+        Optional<PropertyEntity> optionalPropertyEntity = propertyRepository.findById(id);
+        PropertyEntity propertyEntity = optionalPropertyEntity.orElseThrow(() -> {
+                    LOGGER.log(Level.SEVERE, "Property not found for given id: " + id);
+                    return new PropertyReadException("Property not found for given id: " + id);
+                }
+        );
+
+        Property property = propertyMapper.from(propertyEntity);
+
+        LOGGER.info("read(...) = " + property);
+        return property;
+    }
+
+    public Property update(Property property) throws PropertyUpdateException {
+        LOGGER.info("update(" + property + ")");
+
+        if (property == null) {
+            throw new PropertyUpdateException("Model must not be null");
         }
 
-        Optional<PropertyEntity> optionalPropertyEntity = propertyRepository.findById(id);
-//        optionalPropertyEntity.orElseThrow(() -> {
-//                    LOGGER.log(Level.SEVERE, "Property not found given id");
-//                }
-//        );
+        try {
+            PropertyEntity propertyEntity = propertyMapper.from(property);
+            PropertyEntity updatedPropertyEntity = propertyRepository.save(propertyEntity);
+            Property updatedProperty = propertyMapper.from(updatedPropertyEntity);
 
-        Property result = null;
+            LOGGER.info("update(...) = " + updatedProperty);
+            return updatedProperty;
+        } catch (DataAccessException e) {
+            LOGGER.log(Level.SEVERE, "Database access error while updating property: " + property, e);
+            throw new PropertyUpdateException("Database access error while updating property: " + property);
+        }
+    }
 
-        LOGGER.info("read(...) = " + result);
-        return result;
+    public void delete(Long id) throws PropertyDeleteException {
+        LOGGER.info("delete(" + id + ")");
+
+        try {
+            propertyRepository.deleteById(id);
+        } catch(DataAccessException e) {
+            LOGGER.log(Level.SEVERE, "Database access error while deleting apartment with ID: " + id, e);
+            throw new PropertyDeleteException("Error while deleting apartment with ID: " + id);
+        }
+
+        LOGGER.info("delete(...) = ");
     }
 }
