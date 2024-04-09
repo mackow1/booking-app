@@ -45,6 +45,7 @@ public class PropertyController {
         LOGGER.info("createView()");
 
         modelMap.addAttribute("property", new Property());
+        modelMap.addAttribute("id", false);
         String result = "create-property.html";
 
         LOGGER.info("createView(...) = " + result);
@@ -75,6 +76,29 @@ public class PropertyController {
         return result;
     }
 
+    @GetMapping(value = "/update/{id}")
+    public String updateView(@PathVariable Long id, ModelMap modelMap) throws PropertyException {
+        LOGGER.info("updateView(" + id + ")");
 
+        Property readProperty = propertyService.read(id);
+        modelMap.addAttribute("property", readProperty);
+        modelMap.addAttribute("id", true);
+
+        String result = "create-property.html";
+
+        LOGGER.info("updateView(...) = " + result);
+        return result;
+    }
+
+    @PostMapping(value = "/{id}")
+    public String update(Property property) throws PropertyException {
+        LOGGER.info("update(" + property + ")");
+
+        propertyService.update(property);
+        String result = "redirect:/properties";
+
+        LOGGER.info("update(...) = " + result);
+        return result;
+    }
     // Zrobić dashboard dla nieruchomości analogicznie do tych ze spring-learn
 }
