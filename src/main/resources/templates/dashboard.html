@@ -13,6 +13,7 @@
         <tr>
             <th scope="col">ID</th>
             <th scope="col">Name</th>
+            <th scope="col">Book</th>
             <th scope="col">Details</th>
             <th scope="col">Update</th>
             <th scope="col">Delete</th>
@@ -25,6 +26,7 @@
         <tr th:each="property : ${properties}">
             <td><span th:text="${property.id}">ID</span></td>
             <td><span th:text="${property.name}">Name</span></td>
+            <td><a th:href="@{/reservations/create/{id}(id = ${property.id})}">Book</a></td>
             <td><a th:href="@{/properties/{id}(id = ${property.id})}">Details</a></td>
             <td><a th:href="@{/properties/update/{id}(id = ${property.id})}">Update</a></td>
             <td><a th:href="@{/properties/delete/{id}(id = ${property.id})}">Delete</a></td>
