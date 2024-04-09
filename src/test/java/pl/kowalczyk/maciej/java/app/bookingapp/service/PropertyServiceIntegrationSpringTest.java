@@ -22,9 +22,6 @@ class PropertyServiceIntegrationSpringTest {
     @Autowired
     private PropertyService propertyService;
 
-    @Autowired
-    private PropertyRepository propertyRepository;
-
     @Test
     void givenIdOfAnExistingPropertyWhenReadReturnProperProperty() throws PropertyCreateException, PropertyReadException {
         // given
