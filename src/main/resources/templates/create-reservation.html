@@ -10,17 +10,17 @@
             <div>
                 <div>
                     <label for="check-in">Check-in</label>
-                    <input th:field="${reservation.checkIn}" class="form-control" id="check-in">
+                    <input type="date" th:field="${reservation.checkIn}" class="form-control" id="check-in">
 <!--                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span>-->
                 </div>
                 <div>
                     <label for="check-out">Check-out</label>
-                    <input th:field="${reservation.checkOut}" class="form-control" id="check-out">
+                    <input type="date" th:field="${reservation.checkOut}" class="form-control" id="check-out">
                     <!--            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span>-->
                 </div>
                 <div>
                     <label for="number-of-persons">Number of persons</label>
-                    <input th:field="${reservation.numberOfPersons}" class="form-control" id="number-of-persons">
+                    <input type="text" th:field="${reservation.numberOfPersons}" class="form-control" id="number-of-persons">
                     <!--            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span>-->
                 </div>
                 <button type="submit">Create</button>

@@ -2,9 +2,11 @@ package pl.kowalczyk.maciej.java.app.bookingapp.model;
 
 public class Reservation {
 
+    private Long id;
     private String checkIn;
     private String checkOut;
     private int numberOfPersons;
+    private Long propertyId;
 
     public Reservation() {
     }
@@ -13,6 +15,14 @@ public class Reservation {
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.numberOfPersons = numberOfPersons;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getCheckIn() {
@@ -39,12 +49,22 @@ public class Reservation {
         this.numberOfPersons = numberOfPersons;
     }
 
+    public Long getPropertyId() {
+        return propertyId;
+    }
+
+    public void setPropertyId(Long propertyId) {
+        this.propertyId = propertyId;
+    }
+
     @Override
     public String toString() {
         return "Reservation{" +
-                "checkIn='" + checkIn + '\'' +
+                "id=" + id +
+                ", checkIn='" + checkIn + '\'' +
                 ", checkOut='" + checkOut + '\'' +
                 ", numberOfPersons=" + numberOfPersons +
+                ", propertyId=" + propertyId +
                 '}';
     }
 }

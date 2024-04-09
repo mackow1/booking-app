@@ -18,20 +18,20 @@ public class ReservationController {
 
     @GetMapping(value = "/create/{id}")
     public String createView(@PathVariable Long id, ModelMap modelMap) {
-        LOGGER.info("create(" + id + ")");
+        LOGGER.info("createView(" + id + ")");
 
         modelMap.addAttribute("reservation", new Reservation());
         String result = "create-reservation";
 
-        LOGGER.info("create(...) = " + result);
+        LOGGER.info("createView(...) = " + result);
         return result;
     }
 
     @PostMapping
-    public String create() {
-        LOGGER.info("create()");
+    public String create(Reservation reservation) {
+        LOGGER.info("create(" + reservation + ")");
 
-        String result = null;
+        String result = "redirect:/dashboard";
 
         LOGGER.info("create(...) = " + result);
         return result;

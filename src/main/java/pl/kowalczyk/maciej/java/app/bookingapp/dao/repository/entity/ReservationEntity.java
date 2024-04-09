@@ -4,7 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import pl.kowalczyk.maciej.java.app.bookingapp.model.Property;
 
 @Entity
 @Table(name = "RESERVATIONS")
@@ -19,6 +21,9 @@ public class ReservationEntity {
 
     @ManyToOne
     private GuestEntity guest;
+
+    @OneToOne
+    private PropertyEntity property;
 
     public ReservationEntity() {
     }
@@ -63,14 +68,22 @@ public class ReservationEntity {
         this.guest = guest;
     }
 
+    public PropertyEntity getProperty() {
+        return property;
+    }
+
+    public void setProperty(PropertyEntity property) {
+        this.property = property;
+    }
+
     @Override
     public String toString() {
         return "ReservationEntity{" +
                 "id=" + id +
                 ", checkIn='" + checkIn + '\'' +
                 ", checkOut='" + checkOut + '\'' +
-                ", numberOfPersons=" + numberOfPersons +
-//                ", guest=" + guest +
+                ", numberOfPersons=" + numberOfPersons + '\'' +
+                ", property=" + property +
                 '}';
     }
 }
