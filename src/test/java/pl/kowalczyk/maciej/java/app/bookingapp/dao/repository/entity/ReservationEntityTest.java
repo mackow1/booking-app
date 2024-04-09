@@ -4,41 +4,33 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.ReservationRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest
 class ReservationEntityTest {
 
-    private SessionFactory sessionFactory;
-
-    @BeforeEach
-    void setUp() {
-        // A SessionFactory is set up once for an application!
-        final StandardServiceRegistry registry =
-                new StandardServiceRegistryBuilder()
-                        .configure("hibernate.cfg.xml")
-                        .build();
-        try {
-            sessionFactory =
-                    new MetadataSources(registry)
-                            .buildMetadata()
-                            .buildSessionFactory();
-        } catch (Exception e) {
-            // The registry would be destroyed by the SessionFactory, but we
-            // had trouble building the SessionFactory so destroy it manually.
-            StandardServiceRegistryBuilder.destroy(registry);
-        }
-    }
+    @Autowired
+    private ReservationRepository reservationRepository;
 
     @Test
     void create() {
         // given
+        ReservationEntity reservationEntity = new ReservationEntity();
+        reservationEntity.setNumberOfPersons(5);
+        reservationEntity.setCheckIn("12-12-2020");
+        reservationEntity.setCheckOut("15-12-2020");
 
         // when
+        ReservationEntity savedReservation = reservationRepository.save(reservationEntity);
 
         // then
-
+        Assertions.assertNotNull(savedReservation, "Entity is NULL");
     }
 }
