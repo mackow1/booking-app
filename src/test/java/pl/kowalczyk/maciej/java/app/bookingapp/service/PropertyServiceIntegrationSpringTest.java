@@ -81,6 +81,6 @@ class PropertyServiceIntegrationSpringTest {
         propertyService.delete(id);
 
         // then
-        Assertions.assertFalse(propertyRepository.existsById(id));
+        Assertions.assertThrows(PropertyReadException.class, () -> propertyService.read(id));
     }
 }
