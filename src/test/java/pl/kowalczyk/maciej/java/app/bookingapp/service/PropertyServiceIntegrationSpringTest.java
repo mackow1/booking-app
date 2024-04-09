@@ -22,9 +22,6 @@ class PropertyServiceIntegrationSpringTest {
     @Autowired
     private PropertyService propertyService;
 
-    @Autowired
-    private PropertyRepository propertyRepository;
-
     @Test
     void givenIdOfAnExistingPropertyWhenReadReturnProperProperty() throws PropertyCreateException, PropertyReadException {
         // given
@@ -81,6 +78,6 @@ class PropertyServiceIntegrationSpringTest {
         propertyService.delete(id);
 
         // then
-        Assertions.assertFalse(propertyRepository.existsById(id));
+        Assertions.assertThrows(PropertyReadException.class, () -> propertyService.read(id));
     }
 }

@@ -26,7 +26,7 @@ public class DataJpaAddressRepository implements AddressDao {
         AddressEntity savedAddressEntity = addressRepository.save(addressEntity);
 
         LOGGER.info("create(...) = " + savedAddressEntity);
-        return null;
+        return savedAddressEntity;
     }
 
     @Override
