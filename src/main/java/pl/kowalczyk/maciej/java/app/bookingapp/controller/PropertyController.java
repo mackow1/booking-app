@@ -99,11 +99,12 @@ public class PropertyController {
         return result;
     }
 
+    @GetMapping(value = "/delete/{id}")
     public String delete(@PathVariable Long id) throws PropertyException {
         LOGGER.info("delete(" + id + ")");
 
         propertyService.delete(id);
-        String result = "redirect:/";
+        String result = "redirect:/dashboard";
 
         LOGGER.info("delete(...) = " + result);
         return result;
