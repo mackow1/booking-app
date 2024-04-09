@@ -23,24 +23,24 @@ public class GuestEntity {
     @OneToOne
     private AddressEntity address;
 
-    @OneToMany(mappedBy = "guest")
-//    @JoinColumn(name = "GUEST_ID")
-    private Set<ReservationEntity> reservations = new HashSet<>();
+//    @OneToMany(mappedBy = "guest")
+////    @JoinColumn(name = "GUEST_ID")
+//    private Set<ReservationEntity> reservations = new HashSet<>();
 
     public GuestEntity() {
     }
 
     // TODO: 19.12.2023 Dodac testy jednostkowe do metod add i remove 
     
-    public void addReservation(ReservationEntity reservation) {
-        reservations.add(reservation);
-//        reservation.setGuest(this);
-    }
-
-    public void removeReservation(ReservationEntity reservation) {
-        reservations.remove(reservation);
-//        reservation.setGuest(null);
-    }
+//    public void addReservation(ReservationEntity reservation) {
+//        reservations.add(reservation);
+////        reservation.setGuest(this);
+//    }
+//
+//    public void removeReservation(ReservationEntity reservation) {
+//        reservations.remove(reservation);
+////        reservation.setGuest(null);
+//    }
 
     public Long getId() {
         return id;
@@ -82,13 +82,13 @@ public class GuestEntity {
         this.address = address;
     }
 
-    public Set<ReservationEntity> getReservations() {
-        return reservations;
-    }
-
-    public void setReservations(Set<ReservationEntity> reservations) {
-        this.reservations = reservations;
-    }
+//    public Set<ReservationEntity> getReservations() {
+//        return reservations;
+//    }
+//
+//    public void setReservations(Set<ReservationEntity> reservations) {
+//        this.reservations = reservations;
+//    }
 
     @Override
     public String toString() {
@@ -98,7 +98,7 @@ public class GuestEntity {
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", address=" + address +
-                ", reservations=" + reservations +
+//                ", reservations=" + reservations +
                 '}';
     }
 }

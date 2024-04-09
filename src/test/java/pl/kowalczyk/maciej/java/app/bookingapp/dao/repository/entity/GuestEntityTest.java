@@ -69,7 +69,7 @@ class GuestEntityTest {
         reservation.setCheckOut("15.12.12");
         reservation.setNumberOfPersons(4);
 
-        guest.getReservations().add(reservation);
+//        guest.getReservations().add(reservation);
 
 
         // when
@@ -93,7 +93,7 @@ class GuestEntityTest {
         // when
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        guest.addReservation(reservation);
+//        guest.addReservation(reservation);
 
         session.getTransaction().commit();
 
