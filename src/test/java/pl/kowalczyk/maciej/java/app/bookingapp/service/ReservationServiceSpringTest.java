@@ -18,7 +18,7 @@ class ReservationServiceSpringTest {
     private ReservationService reservationService;
 
     @Test
-    void givenReservationModelWhenCreateThenReservationReturned() throws PropertyReadException, ReservationCreateException {
+    void givenReservationModelWhenCreateThenReservationReturned() throws ReservationCreateException {
         // given
         Reservation reservation = new Reservation();
         reservation.setCheckIn("12-12-2020");

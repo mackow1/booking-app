@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyReadException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationCreateException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationReadException;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationUpdateException;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.ReservationRepository;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.ReservationEntity;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Property;
@@ -30,7 +31,7 @@ public class ReservationService {
         this.reservationMapper = reservationMapper;
     }
 
-    public Reservation create(Reservation reservation) throws ReservationCreateException, PropertyReadException {
+    public Reservation create(Reservation reservation) throws ReservationCreateException {
         LOGGER.info("create(" + reservation + ")");
 
         if (reservation == null) {
@@ -67,4 +68,26 @@ public class ReservationService {
         LOGGER.info("read(...) = " + reservation);
         return reservation;
     }
+
+    public Reservation update(Reservation reservation) throws ReservationUpdateException {
+        LOGGER.info("update(" + reservation + ")");
+
+        if (reservation == null) {
+            throw new ReservationUpdateException("Model must not be NULL");
+        }
+
+        try {
+            ReservationEntity reservationEntity = reservationMapper.from(reservation);
+            ReservationEntity reservationSaved = reservationRepository.save(reservationEntity);
+            Reservation reservationUpdated = reservationMapper.from(reservationSaved);
+
+            LOGGER.info("update(...) = " + reservationUpdated);
+            return reservationUpdated;
+        } catch (DataAccessException e) {
+            LOGGER.log(Level.SEVERE, "Database access error while updating reservation: " + reservation, e);
+            throw new ReservationUpdateException("Database access error while updating reservation: " + reservation);
+        }
+    }
+
+
 }
