@@ -35,8 +35,8 @@ public class ReservationService {
             throw new ReservationCreateException("Reservation must not be NULL");
         }
         try {
-            Long propertyId = reservation.getPropertyId();
-            Property readProperty = propertyService.read(propertyId);
+//            Long propertyId = reservation.getPropertyId();
+//            Property readProperty = propertyService.read(propertyId);
 
             ReservationEntity reservationEntity = reservationMapper.from(reservation);
             ReservationEntity saveReservation = reservationRepository.save(reservationEntity);
