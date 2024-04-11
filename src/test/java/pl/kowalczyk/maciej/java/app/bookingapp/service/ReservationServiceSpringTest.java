@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyReadException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationCreateException;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationDeleteException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationReadException;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Reservation;
 
@@ -14,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class ReservationServiceSpringTest {
 
+    public static final long ID = -1L;
     @Autowired
     private ReservationService reservationService;
 
@@ -49,6 +51,15 @@ class ReservationServiceSpringTest {
 
         // when
         // then
-        Assertions.assertThrows(ReservationReadException.class, () -> reservationService.read(-1L));
+        Assertions.assertThrows(ReservationReadException.class, () -> reservationService.read(ID));
+    }
+
+    @Test
+    void givenNullExistingIdWhenDeleteThenThrowsException() {
+        // given
+        // when
+
+        // then
+        Assertions.assertThrows(ReservationDeleteException.class, () -> reservationService.delete(null));
     }
 }

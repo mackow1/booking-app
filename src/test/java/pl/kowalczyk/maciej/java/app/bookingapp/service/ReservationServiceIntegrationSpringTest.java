@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyReadException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationCreateException;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationDeleteException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationReadException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationUpdateException;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Reservation;
@@ -66,5 +67,22 @@ class ReservationServiceIntegrationSpringTest {
                 () -> Assertions.assertEquals("16-10-2022", reservationRead.getCheckOut(), "Dates are not equal")
         );
 
+    }
+
+    @Test
+    void givenIdWhenDeleteThenReservationRemoved() throws ReservationCreateException, ReservationDeleteException {
+        // given
+        Reservation reservation = new Reservation();
+        reservation.setCheckIn("20-10-2022");
+        reservation.setCheckOut("23-10-2022");
+
+        Reservation reservationCreated = reservationService.create(reservation);
+        Long id = reservationCreated.getId();
+
+        // when
+        reservationService.delete(id);
+
+        // then
+        Assertions.assertThrows(ReservationReadException.class, () -> reservationService.read(id));
     }
 }

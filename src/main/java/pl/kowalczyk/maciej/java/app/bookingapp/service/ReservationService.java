@@ -4,6 +4,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyReadException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationCreateException;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationDeleteException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationReadException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationUpdateException;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.ReservationRepository;
@@ -89,5 +90,19 @@ public class ReservationService {
         }
     }
 
+    public void delete(Long id) throws ReservationDeleteException {
+        LOGGER.info("delete(" + id + ")");
 
+        try {
+            reservationRepository.deleteById(id);
+        } catch(DataAccessException e) {
+            LOGGER.log(Level.SEVERE, "Database access error while deleting apartment with ID: " + id, e);
+            throw new ReservationDeleteException("Database access error while deleting apartment with ID: " + id);
+        } catch(IllegalArgumentException e) {
+            LOGGER.log(Level.SEVERE, "Id cannot be NULL");
+            throw new ReservationDeleteException("Id was NULL");
+        }
+
+        LOGGER.info("delete(...) = ");
+    }
 }
