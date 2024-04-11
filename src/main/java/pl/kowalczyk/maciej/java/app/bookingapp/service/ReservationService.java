@@ -4,12 +4,14 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyReadException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationCreateException;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationReadException;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.ReservationRepository;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.ReservationEntity;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Property;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Reservation;
 import pl.kowalczyk.maciej.java.app.bookingapp.service.mapper.ReservationMapper;
 
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -49,5 +51,20 @@ public class ReservationService {
             LOGGER.log(Level.SEVERE, "Database access error while saving reservation: " + reservation, e);
             throw new ReservationCreateException("Database access error while saving reservation: " + reservation);
         }
+    }
+
+    public Reservation read(Long id) throws ReservationReadException {
+        LOGGER.info("read(" + id + ")");
+
+        Optional<ReservationEntity> optionalReservationEntity = reservationRepository.findById(id);
+        ReservationEntity reservationEntity = optionalReservationEntity.orElseThrow(() -> {
+            LOGGER.log(Level.SEVERE, "Reservation not found for given id: " + id);
+            return new ReservationReadException("Reservation not found for given id: " + id);
+        });
+
+        Reservation reservation = reservationMapper.from(reservationEntity);
+
+        LOGGER.info("read(...) = " + reservation);
+        return reservation;
     }
 }

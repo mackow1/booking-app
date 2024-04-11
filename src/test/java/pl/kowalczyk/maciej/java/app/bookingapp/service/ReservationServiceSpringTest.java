@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyReadException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationCreateException;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationReadException;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Reservation;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -40,5 +41,14 @@ class ReservationServiceSpringTest {
         // when
         // then
         Assertions.assertThrows(ReservationCreateException.class, () -> reservationService.create(null));
+    }
+
+    @Test
+    void givenNonExistingIdWhenReadThenThrowsException() {
+        // given
+
+        // when
+        // then
+        Assertions.assertThrows(ReservationReadException.class, () -> reservationService.read(-1L));
     }
 }
