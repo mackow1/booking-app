@@ -3,10 +3,7 @@ package pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import pl.kowalczyk.maciej.java.app.bookingapp.model.Property;
 
 @Entity
 @Table(name = "RESERVATIONS")
@@ -18,12 +15,10 @@ public class ReservationEntity {
     private String checkIn;
     private String checkOut;
     private int numberOfPersons;
+    private Long propertyId;
 
 //    @ManyToOne
 //    private GuestEntity guest;
-
-    @OneToOne
-    private PropertyEntity property;
 
     public ReservationEntity() {
     }
@@ -68,12 +63,12 @@ public class ReservationEntity {
 //        this.guest = guest;
 //    }
 
-    public PropertyEntity getProperty() {
-        return property;
+    public Long getPropertyId() {
+        return propertyId;
     }
 
-    public void setProperty(PropertyEntity property) {
-        this.property = property;
+    public void setPropertyId(Long propertyId) {
+        this.propertyId = propertyId;
     }
 
     @Override
@@ -83,7 +78,7 @@ public class ReservationEntity {
                 ", checkIn='" + checkIn + '\'' +
                 ", checkOut='" + checkOut + '\'' +
                 ", numberOfPersons=" + numberOfPersons + '\'' +
-                ", property=" + property +
+                ", propertyId=" + propertyId +
                 '}';
     }
 }
