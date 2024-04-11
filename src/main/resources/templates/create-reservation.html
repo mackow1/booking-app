@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>New reservation</title>
+</head>
+<body>
+    <div>
+        <form action="#" th:action="@{/reservations}" th:object="${reservation}" method="post">
+            <div>
+                <div>
+                    <label for="check-in">Check-in</label>
+                    <input type="date" th:field="${reservation.checkIn}" class="form-control" id="check-in">
+<!--                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span>-->
+                </div>
+                <div>
+                    <label for="check-out">Check-out</label>
+                    <input type="date" th:field="${reservation.checkOut}" class="form-control" id="check-out">
+                    <!--            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span>-->
+                </div>
+                <div>
+                    <label for="number-of-persons">Number of persons</label>
+                    <input type="text" th:field="${reservation.numberOfPersons}" class="form-control" id="number-of-persons">
+                    <!--            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span>-->
+                </div>
+                <button type="submit">Create</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

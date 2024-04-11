@@ -36,15 +36,16 @@ class HostEntityTest {
     @Test
     void createHostWithAddress() {
         // given
-        HostEntity hostRead = new HostEntity();
         AddressEntity addressEntity = new AddressEntity();
         addressEntity.setCountry("Poland");
         addressEntity.setCity("Poznan");
 
-        HostEntity hostCreated = new HostEntity();
-        hostCreated.setName("Marcin");
-        hostCreated.setEmail("fsda@gd.com");
-        hostCreated.setAddress(addressEntity);
+        HostEntity hostEntity = new HostEntity();
+        hostEntity.setName("Marcin");
+        hostEntity.setEmail("fsda@gd.com");
+        hostEntity.setAddress(addressEntity);
+
+        Long savedHostId = null;
 
         // when
         Session session = sessionFactory.openSession();
@@ -52,9 +53,9 @@ class HostEntityTest {
         try {
             session.beginTransaction();
             session.save(addressEntity);
-            Long savedId = (Long) session.save(hostCreated);
+            savedHostId = (Long) session.save(hostEntity);
 
-            hostRead = session.get(HostEntity.class, savedId);
+//            hostRead = session.get(HostEntity.class, savedHostId);
             session.getTransaction().commit();
         } catch (HibernateException e) {
             session.getTransaction().rollback();
@@ -64,7 +65,7 @@ class HostEntityTest {
         }
 
         // then
-        Assertions.assertNotNull(hostRead, "Host was not created");
+        Assertions.assertNotNull(savedHostId, "Host was not created");
     }
 
 }
