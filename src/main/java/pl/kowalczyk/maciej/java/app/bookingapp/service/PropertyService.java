@@ -101,8 +101,8 @@ public class PropertyService {
         try {
             propertyRepository.deleteById(id);
         } catch(DataAccessException e) {
-            LOGGER.log(Level.SEVERE, "Database access error while deleting apartment with ID: " + id, e);
-            throw new PropertyDeleteException("Error while deleting apartment with ID: " + id);
+            LOGGER.log(Level.SEVERE, "Database access error while deleting property with ID: " + id, e);
+            throw new PropertyDeleteException("Error while deleting property with ID: " + id);
         }
 
         LOGGER.info("delete(...) = ");
