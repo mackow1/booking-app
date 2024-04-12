@@ -60,4 +60,15 @@ public class HostEntity {
     public void setAddress(AddressEntity address) {
         this.address = address;
     }
+
+    @Override
+    public String toString() {
+        return "HostEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", address=" + address +
+                '}';
+    }
 }
