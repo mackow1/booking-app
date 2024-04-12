@@ -2,6 +2,7 @@ package pl.kowalczyk.maciej.java.app.bookingapp.model;
 
 public class Host {
 
+    private Long id;
     private String name;
     private String email;
     private String phoneNumber;
@@ -23,6 +24,14 @@ public class Host {
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -60,7 +69,8 @@ public class Host {
     @Override
     public String toString() {
         return "Host{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", address=" + address +
