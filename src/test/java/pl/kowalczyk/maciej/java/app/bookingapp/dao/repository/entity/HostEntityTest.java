@@ -43,7 +43,7 @@ class HostEntityTest {
         HostEntity hostEntity = new HostEntity();
         hostEntity.setName("Marcin");
         hostEntity.setEmail("fsda@gd.com");
-        hostEntity.setAddress(addressEntity);
+//        hostEntity.setAddress(addressEntity);
 
         Long savedHostId = null;
 

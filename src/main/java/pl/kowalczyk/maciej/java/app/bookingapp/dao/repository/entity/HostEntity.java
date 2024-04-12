@@ -17,8 +17,8 @@ public class HostEntity {
     private String email;
     private String phoneNumber;
 
-    @OneToOne
-    private AddressEntity address;
+//    @OneToOne
+//    private AddressEntity address;
 
     public HostEntity() {
     }
@@ -55,13 +55,13 @@ public class HostEntity {
         this.phoneNumber = phoneNumber;
     }
 
-    public AddressEntity getAddress() {
-        return address;
-    }
-
-    public void setAddress(AddressEntity address) {
-        this.address = address;
-    }
+//    public AddressEntity getAddress() {
+//        return address;
+//    }
+//
+//    public void setAddress(AddressEntity address) {
+//        this.address = address;
+//    }
 
     @Override
     public String toString() {
@@ -70,7 +70,7 @@ public class HostEntity {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", address=" + address +
+//                ", address=" + address +
                 '}';
     }
 }
