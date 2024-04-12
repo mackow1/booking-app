@@ -3,7 +3,6 @@ package pl.kowalczyk.maciej.java.app.bookingapp.service.mapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.HostEntity;
-import pl.kowalczyk.maciej.java.app.bookingapp.model.Address;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Host;
 
 import java.util.logging.Logger;
