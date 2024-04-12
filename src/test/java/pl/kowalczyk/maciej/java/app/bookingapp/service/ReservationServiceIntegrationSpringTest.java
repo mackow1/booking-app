@@ -4,11 +4,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyCreateException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyReadException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationCreateException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationDeleteException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationReadException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationUpdateException;
+import pl.kowalczyk.maciej.java.app.bookingapp.model.Property;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Reservation;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,6 +21,34 @@ class ReservationServiceIntegrationSpringTest {
     @Autowired
     private ReservationService reservationService;
 
+    @Autowired
+    private PropertyService propertyService;
+
+    @Test
+    void givenPropertyAndReservationWhenCreateThenNewReservationCreated() throws PropertyCreateException, ReservationCreateException {
+        // given
+        Property property = new Property();
+        property.setName("Villa Testowa");
+
+        Reservation reservation = new Reservation();
+        reservation.setCheckIn("13-10-2020");
+        reservation.setCheckOut("15-10-2020");
+        reservation.setNumberOfPersons(5);
+
+        // when
+        Property propertyCreated = propertyService.create(property);
+        Long propertyCreatedId = propertyCreated.getId();
+        reservation.setPropertyId(propertyCreatedId);
+
+        Reservation reservationCreated = reservationService.create(reservation);
+
+        // then
+        Assertions.assertAll(
+                () -> Assertions.assertNotNull(reservationCreated, "Reservation is NULL"),
+                () -> Assertions.assertEquals(propertyCreatedId, reservationCreated.getPropertyId(), "Ids are different")
+        );
+    }
+
     @Test
     void givenReservationWhenReadThenReservationFound() throws ReservationCreateException, ReservationReadException {
         // given
@@ -27,11 +57,9 @@ class ReservationServiceIntegrationSpringTest {
         reservation.setCheckOut("15-10-2020");
         reservation.setNumberOfPersons(5);
 
-        Reservation reservationCreated = reservationService.create(reservation);
-
-        Long id = reservationCreated.getId();
-
         // when
+        Reservation reservationCreated = reservationService.create(reservation);
+        Long id = reservationCreated.getId();
         Reservation reservationRead = reservationService.read(id);
 
         // then
