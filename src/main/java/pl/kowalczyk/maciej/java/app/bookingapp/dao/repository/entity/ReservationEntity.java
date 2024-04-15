@@ -1,8 +1,10 @@
 package pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -15,7 +17,10 @@ public class ReservationEntity {
     private String checkIn;
     private String checkOut;
     private int numberOfPersons;
-    private Long propertyId;
+//    private Long propertyId;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private PropertyEntity property;
 
 //    @ManyToOne
 //    private GuestEntity guest;
@@ -55,7 +60,23 @@ public class ReservationEntity {
         this.numberOfPersons = numberOfPersons;
     }
 
-//    public GuestEntity getGuest() {
+//    public Long getPropertyId() {
+//        return propertyId;
+//    }
+//
+//    public void setPropertyId(Long propertyId) {
+//        this.propertyId = propertyId;
+//    }
+
+    public PropertyEntity getProperty() {
+        return property;
+    }
+
+    public void setProperty(PropertyEntity property) {
+        this.property = property;
+    }
+
+    //    public GuestEntity getGuest() {
 //        return guest;
 //    }
 //
@@ -63,13 +84,6 @@ public class ReservationEntity {
 //        this.guest = guest;
 //    }
 
-    public Long getPropertyId() {
-        return propertyId;
-    }
-
-    public void setPropertyId(Long propertyId) {
-        this.propertyId = propertyId;
-    }
 
     @Override
     public String toString() {
@@ -77,8 +91,9 @@ public class ReservationEntity {
                 "id=" + id +
                 ", checkIn='" + checkIn + '\'' +
                 ", checkOut='" + checkOut + '\'' +
-                ", numberOfPersons=" + numberOfPersons + '\'' +
-                ", propertyId=" + propertyId +
+                ", numberOfPersons=" + numberOfPersons +
+//                ", propertyId=" + propertyId +
+                ", property=" + property +
                 '}';
     }
 }
