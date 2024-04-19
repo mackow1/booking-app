@@ -11,6 +11,8 @@ import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyUp
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.PropertyRepository;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Property;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -21,6 +23,21 @@ class PropertyServiceIntegrationSpringTest {
 
     @Autowired
     private PropertyService propertyService;
+
+    @Test
+    void givenPropertyWhenListThenListSizeIs1() throws PropertyCreateException {
+        // given
+        Property property = new Property();
+        property.setName("Villa_test_list");
+
+        propertyService.create(property);
+
+        // when
+        List<Property> properties = propertyService.list();
+
+        // then
+        Assertions.assertEquals(1, properties.size(), "List is not equal 1");
+    }
 
     @Test
     void givenIdOfAnExistingPropertyWhenReadReturnProperProperty() throws PropertyCreateException, PropertyReadException {

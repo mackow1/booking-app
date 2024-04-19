@@ -55,6 +55,7 @@ public class PropertyController {
         LOGGER.info("create(" + property + ")");
 
         Property propertyCreated = propertyService.create(property);
+        LOGGER.info("##### --- Property created " + propertyCreated);
         String result = "redirect:/properties";
 
         LOGGER.info("create(...) = " + result);

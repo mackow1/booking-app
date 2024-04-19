@@ -5,7 +5,8 @@
     <title>Create property</title>
 </head>
 <body>
-<form action="#" th:action="${id} == false ? @{/apartments} : @{/apartments/{id}(id = ${apartmentModel.id})}" th:object="${property}" method="post">
+<!--<form action="#" th:action="${id} == false ? @{/properties} : @{/properties/{id}(id = ${property.id})}" th:object="${property}" method="post">-->
+<form action="#" th:action="@{/properties}" th:object="${property}" method="post">
         <div th:replace="fragments/property :: details"></div>
 </form>
 </body>
