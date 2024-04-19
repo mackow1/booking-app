@@ -1,5 +1,6 @@
 package pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity;
 
+import jakarta.persistence.Embeddable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -10,12 +11,13 @@ import jakarta.persistence.OneToOne;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
+//@Entity
+@Embeddable
 public class GuestEntity {
 
-    @Id
-    @GeneratedValue
-    private Long id;
+//    @Id
+//    @GeneratedValue
+//    private Long id;
     private String name;
     private String email;
     private String phoneNumber;
@@ -42,13 +44,13 @@ public class GuestEntity {
 ////        reservation.setGuest(null);
 //    }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+//    public Long getId() {
+//        return id;
+//    }
+//
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
 
     public String getName() {
         return name;
@@ -93,7 +95,7 @@ public class GuestEntity {
     @Override
     public String toString() {
         return "GuestEntity{" +
-                "id=" + id +
+//                "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +

@@ -13,8 +13,8 @@ public class RentalEntity {
     @GeneratedValue
     private Long id;
 
-    @OneToOne
-    private GuestEntity guest;
+//    @OneToOne
+//    private GuestEntity guest;
 
     @OneToOne
     private ReservationEntity reservation;
@@ -30,13 +30,13 @@ public class RentalEntity {
         this.id = id;
     }
 
-    public GuestEntity getGuest() {
-        return guest;
-    }
-
-    public void setGuest(GuestEntity guest) {
-        this.guest = guest;
-    }
+//    public GuestEntity getGuest() {
+//        return guest;
+//    }
+//
+//    public void setGuest(GuestEntity guest) {
+//        this.guest = guest;
+//    }
 
     public ReservationEntity getReservation() {
         return reservation;

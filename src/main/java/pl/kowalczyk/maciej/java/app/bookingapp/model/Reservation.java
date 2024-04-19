@@ -7,6 +7,10 @@ public class Reservation {
     private String checkOut;
     private int numberOfPersons;
     private Long propertyId;
+//    private String guestFirstName;
+//    private String guestLastName;
+
+    private Guest guest;
 
     public Reservation() {
     }
@@ -57,6 +61,31 @@ public class Reservation {
         this.propertyId = propertyId;
     }
 
+//    public String getGuestFirstName() {
+//        return guestFirstName;
+//    }
+//
+//    public void setGuestFirstName(String guestFirstName) {
+//        this.guestFirstName = guestFirstName;
+//    }
+//
+//    public String getGuestLastName() {
+//        return guestLastName;
+//    }
+//
+//    public void setGuestLastName(String guestLastName) {
+//        this.guestLastName = guestLastName;
+//    }
+
+
+    public Guest getGuest() {
+        return guest;
+    }
+
+    public void setGuest(Guest guest) {
+        this.guest = guest;
+    }
+
     @Override
     public String toString() {
         return "Reservation{" +
@@ -65,6 +94,7 @@ public class Reservation {
                 ", checkOut='" + checkOut + '\'' +
                 ", numberOfPersons=" + numberOfPersons +
                 ", propertyId=" + propertyId +
+                ", guest=" + guest +
                 '}';
     }
 }
