@@ -11,9 +11,7 @@ import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.PropertyRepository
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.ReservationRepository;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.PropertyEntity;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.ReservationEntity;
-import pl.kowalczyk.maciej.java.app.bookingapp.model.Property;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Reservation;
-import pl.kowalczyk.maciej.java.app.bookingapp.service.mapper.PropertyMapper;
 import pl.kowalczyk.maciej.java.app.bookingapp.service.mapper.ReservationMapper;
 
 import java.util.Optional;
@@ -25,32 +23,24 @@ public class ReservationService {
 
     private static final Logger LOGGER = Logger.getLogger(ReservationService.class.getName());
 
-    private final PropertyService propertyService;
     private final ReservationRepository reservationRepository;
     private final ReservationMapper reservationMapper;
-    private final PropertyMapper propertyMapper;
+    private final PropertyRepository propertyRepository;
 
-    public ReservationService(PropertyService propertyService, ReservationRepository reservationRepository, ReservationMapper reservationMapper, PropertyRepository propertyRepository, PropertyMapper propertyMapper) {
-        this.propertyService = propertyService;
+    public ReservationService(ReservationRepository reservationRepository, ReservationMapper reservationMapper, PropertyRepository propertyRepository1) {
         this.reservationRepository = reservationRepository;
         this.reservationMapper = reservationMapper;
-        this.propertyMapper = propertyMapper;
+        this.propertyRepository = propertyRepository1;
     }
 
-    public Reservation create(Reservation reservation) throws ReservationCreateException, PropertyReadException {
+    public Reservation create(Reservation reservation) throws ReservationCreateException {
         LOGGER.info("create(" + reservation + ")");
 
-//        if (reservation == null) {
-//            throw new ReservationCreateException("Reservation must not be NULL");
-//        }
-        Long propertyId = null;
-
         try {
-            propertyId = reservation.getPropertyId();
-            Property readProperty = propertyService.read(propertyId);
-            PropertyEntity propertyEntity = propertyMapper.from(readProperty);
-
-            // TODO: 12.04.2024 Za pomocą propertRepository pobrać property na podstawie propertyId i ustawić w reservation 
+            Long propertyId = reservation.getPropertyId();
+            Optional<PropertyEntity> readPropertyOptional = propertyRepository.findById(propertyId);
+            PropertyEntity propertyEntity = readPropertyOptional.orElseThrow(
+                    () -> new ReservationCreateException("Property not found in database for property id: " + propertyId));
 
             ReservationEntity reservationEntity = reservationMapper.from(reservation);
             reservationEntity.setProperty(propertyEntity);
@@ -63,9 +53,6 @@ public class ReservationService {
         } catch (DataAccessException e) {
             LOGGER.log(Level.SEVERE, "Database access error while saving reservation: " + reservation, e);
             throw new ReservationCreateException("Database access error while saving reservation: " + reservation);
-        } catch (PropertyReadException e) {
-            LOGGER.log(Level.SEVERE,"Database access error while accesssing property with id: " + propertyId, e);
-            throw new PropertyReadException("Database access error while accesssing property with id: " + propertyId);
         }
     }
 

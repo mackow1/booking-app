@@ -1,11 +1,11 @@
 package pl.kowalczyk.maciej.java.app.bookingapp.service;
 
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyCreateException;
-import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyReadException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationCreateException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationDeleteException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationReadException;
@@ -25,6 +25,7 @@ class ReservationServiceIntegrationSpringTest {
     private PropertyService propertyService;
 
     @Test
+    @Transactional
     void givenPropertyAndReservationWhenCreateThenNewReservationCreated() throws PropertyCreateException, ReservationCreateException {
         // given
         Property property = new Property();
