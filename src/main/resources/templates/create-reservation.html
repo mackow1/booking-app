@@ -23,6 +23,16 @@
                     <input type="text" th:field="${reservation.numberOfPersons}" class="form-control" id="number-of-persons">
                     <!--            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span>-->
                 </div>
+                <div>
+                    <label for="guest-first-name">Guest first name</label>
+                    <input type="text" th:field="${reservation.guest.name}" class="form-control" id="guest-first-name">
+                    <!--            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span>-->
+                </div>
+                <div>
+                    <label for="guest-last-name">Guest last name</label>
+                    <input type="text" th:field="${reservation.guest.email}" class="form-control" id="guest-last-name">
+                    <!--            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span>-->
+                </div>
                 <button type="submit">Create</button>
             </div>
         </form>
