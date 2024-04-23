@@ -51,7 +51,7 @@ class RentalEntityTest {
 
         RentalEntity rental = new RentalEntity();
         rental.setReservation(reservation);
-        rental.setGuest(guest);
+//        rental.setGuest(guest);
 
         // when
         Session session = sessionFactory.openSession();

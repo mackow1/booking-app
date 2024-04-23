@@ -1,10 +1,11 @@
 package pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,8 +20,14 @@ public class ReservationEntity {
     private int numberOfPersons;
 //    private Long propertyId;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     private PropertyEntity property;
+
+//    private String guestFirstName;
+//    private String guestLastName;
+
+    @Embedded
+    private GuestEntity guest;
 
 //    @ManyToOne
 //    private GuestEntity guest;
@@ -85,6 +92,31 @@ public class ReservationEntity {
 //    }
 
 
+//    public String getGuestFirstName() {
+//        return guestFirstName;
+//    }
+//
+//    public void setGuestFirstName(String guestFirstName) {
+//        this.guestFirstName = guestFirstName;
+//    }
+
+//    public String getGuestLastName() {
+//        return guestLastName;
+//    }
+//
+//    public void setGuestLastName(String guestLastName) {
+//        this.guestLastName = guestLastName;
+//    }
+
+
+    public GuestEntity getGuest() {
+        return guest;
+    }
+
+    public void setGuest(GuestEntity guest) {
+        this.guest = guest;
+    }
+
     @Override
     public String toString() {
         return "ReservationEntity{" +
@@ -92,8 +124,8 @@ public class ReservationEntity {
                 ", checkIn='" + checkIn + '\'' +
                 ", checkOut='" + checkOut + '\'' +
                 ", numberOfPersons=" + numberOfPersons +
-//                ", propertyId=" + propertyId +
                 ", property=" + property +
+                ", guest=" + guest +
                 '}';
     }
 }
