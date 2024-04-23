@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Reservations</title>
+    <link th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+    <h1>All reservations</h1>
+    <div>
+        <table class="table table-bordered">
+            <thead class="table-light">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">ACCEPT</th>
+                <th scope="col">CANCEL</th>
+            </tr>
+            </thead>
+            <tbody class="table-group-divider">
+            <tr th:if="${reservations.empty}">
+                <td colspan="2">No Reservations Available</td>
+            </tr>
+            <tr th:each="reservation : ${reservations}">
+                <td><span th:text="${reservation.id}">ID</span></td>
+                <td><span th:text="${reservation.id}">ACCEPT</span></td>
+                <td><span th:text="${reservation.id}">CANCEL</span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

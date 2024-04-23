@@ -11,6 +11,7 @@ import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.Reserva
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Reservation;
 import pl.kowalczyk.maciej.java.app.bookingapp.service.ReservationService;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 @Controller
@@ -25,6 +26,18 @@ public class ReservationController {
 
     public ReservationController(ReservationService reservationService) {
         this.reservationService = reservationService;
+    }
+
+    @GetMapping
+    public String list(ModelMap modelMap) {
+        LOGGER.info("list()");
+
+        List<Reservation> reservations = reservationService.list();
+        modelMap.addAttribute("reservations", reservations);
+        String result = "reservations.html";
+
+        LOGGER.info("list(...) = " + result);
+        return result;
     }
 
     @GetMapping(value = "/create/{id}")

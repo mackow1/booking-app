@@ -14,6 +14,7 @@ import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.Reservation
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Reservation;
 import pl.kowalczyk.maciej.java.app.bookingapp.service.mapper.ReservationMapper;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,6 +32,16 @@ public class ReservationService {
         this.reservationRepository = reservationRepository;
         this.reservationMapper = reservationMapper;
         this.propertyRepository = propertyRepository1;
+    }
+
+    public List<Reservation> list() {
+        LOGGER.info("list()");
+
+        List<ReservationEntity> reservationEntityList = reservationRepository.findAll();
+        List<Reservation> reservations = reservationMapper.fromEntities(reservationEntityList);
+
+        LOGGER.info("list(...) = " + reservations);
+        return reservations;
     }
 
     public Reservation create(Reservation reservation) throws ReservationCreateException {

@@ -8,6 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.PropertyEntity;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.ReservationEntity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @SpringBootTest
 class ReservationRepositorySpringIntegrationTest {
 
@@ -41,6 +44,25 @@ class ReservationRepositorySpringIntegrationTest {
                 () -> Assertions.assertNotNull(savedReservation, "Entity is NULL"),
                 () -> Assertions.assertEquals(savedPropertyId, reservationPropertyId, "Ids are not equal")
         );
+    }
+
+    @Test
+    void givenTwoReservationsWhenListThenListOfTwoElementsReturned() {
+        // given
+        ReservationEntity firstReservationEntity = new ReservationEntity();
+        firstReservationEntity.setNumberOfPersons(5);
+
+        ReservationEntity secondReservationEntity = new ReservationEntity();
+        secondReservationEntity.setNumberOfPersons(1);
+
+        reservationRepository.save(firstReservationEntity);
+        reservationRepository.save(secondReservationEntity);
+
+        // when
+        List<ReservationEntity> reservationEntityList = reservationRepository.findAll();
+
+        // then
+        Assertions.assertEquals(2, reservationEntityList.size(), "List is not equal 2");
     }
 
     /*
