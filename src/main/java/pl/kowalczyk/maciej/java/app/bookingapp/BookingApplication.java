@@ -15,3 +15,7 @@ public class BookingApplication {
 // TODO: 28.03.2024 Dokończyć implementację serviców
 
 // TODO: 02.04.2024 https://bootsnipp.com/snippets/PEZZ7 - kalendarz
+
+// TODO: 19.04.2024 Stworzyć widok z listą rezerwacji, który bedzie zawierał link do rental,
+//  zamaiana reservation na rental poprzez akceptacje rezerwacj, bądz odrzucenie reserwacji
+// Dodać status dla rezerwacji
