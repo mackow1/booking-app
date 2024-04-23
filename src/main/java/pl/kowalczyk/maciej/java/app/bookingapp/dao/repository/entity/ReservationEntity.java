@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.core.ReservationStatus;
 
 @Entity
 @Table(name = "RESERVATIONS")
@@ -23,11 +24,10 @@ public class ReservationEntity {
     @ManyToOne(cascade = CascadeType.ALL)
     private PropertyEntity property;
 
-//    private String guestFirstName;
-//    private String guestLastName;
-
     @Embedded
     private GuestEntity guest;
+
+    private ReservationStatus status = ReservationStatus.NEW;
 
 //    @ManyToOne
 //    private GuestEntity guest;
@@ -67,14 +67,6 @@ public class ReservationEntity {
         this.numberOfPersons = numberOfPersons;
     }
 
-//    public Long getPropertyId() {
-//        return propertyId;
-//    }
-//
-//    public void setPropertyId(Long propertyId) {
-//        this.propertyId = propertyId;
-//    }
-
     public PropertyEntity getProperty() {
         return property;
     }
@@ -91,30 +83,20 @@ public class ReservationEntity {
 //        this.guest = guest;
 //    }
 
-
-//    public String getGuestFirstName() {
-//        return guestFirstName;
-//    }
-//
-//    public void setGuestFirstName(String guestFirstName) {
-//        this.guestFirstName = guestFirstName;
-//    }
-
-//    public String getGuestLastName() {
-//        return guestLastName;
-//    }
-//
-//    public void setGuestLastName(String guestLastName) {
-//        this.guestLastName = guestLastName;
-//    }
-
-
     public GuestEntity getGuest() {
         return guest;
     }
 
     public void setGuest(GuestEntity guest) {
         this.guest = guest;
+    }
+
+    public ReservationStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ReservationStatus status) {
+        this.status = status;
     }
 
     @Override
@@ -126,6 +108,7 @@ public class ReservationEntity {
                 ", numberOfPersons=" + numberOfPersons +
                 ", property=" + property +
                 ", guest=" + guest +
+                ", status=" + status +
                 '}';
     }
 }
