@@ -19,3 +19,6 @@ public class BookingApplication {
 // TODO: 19.04.2024 Stworzyć widok z listą rezerwacji, który bedzie zawierał link do rental,
 //  zamaiana reservation na rental poprzez akceptacje rezerwacj, bądz odrzucenie reserwacji
 // Dodać status dla rezerwacji
+
+// TODO: 23.04.2024 Dodać link do "zmiany statusu rezerwacji" NEW -> CANCELED
+// TODO: 23.04.2024 Zamiana rezerwacji na rental

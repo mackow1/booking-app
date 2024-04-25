@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.core.ReservationStatus;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.ReservationRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,5 +33,18 @@ class ReservationEntityTest {
 
         // then
         Assertions.assertNotNull(savedReservation, "Entity is NULL");
+    }
+
+    @Test
+    void createWithStatus() {
+        // given
+        ReservationEntity reservationEntity = new ReservationEntity();
+        reservationEntity.setNumberOfPersons(3);
+
+        // when
+        ReservationEntity savedReservationEntity = reservationRepository.save(reservationEntity);
+
+        // then
+        Assertions.assertEquals(ReservationStatus.NEW, savedReservationEntity.getStatus(), "Status is not equal NEW");
     }
 }
