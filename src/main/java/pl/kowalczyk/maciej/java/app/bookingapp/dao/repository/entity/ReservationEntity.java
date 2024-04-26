@@ -3,6 +3,8 @@ package pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
@@ -27,6 +29,7 @@ public class ReservationEntity {
     @Embedded
     private GuestEntity guest;
 
+    @Enumerated(EnumType.STRING)
     private ReservationStatus status = ReservationStatus.NEW;
 
 //    @ManyToOne

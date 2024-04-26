@@ -2,6 +2,7 @@ package pl.kowalczyk.maciej.java.app.bookingapp.service;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.core.ReservationStatus;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyReadException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationCreateException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationDeleteException;
@@ -102,19 +103,35 @@ public class ReservationService {
         }
     }
 
-    public void delete(Long id) throws ReservationDeleteException {
+    public Reservation delete(Long id) throws ReservationDeleteException {
         LOGGER.info("delete(" + id + ")");
 
-        try {
-            reservationRepository.deleteById(id);
-        } catch(DataAccessException e) {
-            LOGGER.log(Level.SEVERE, "Database access error while deleting apartment with ID: " + id, e);
-            throw new ReservationDeleteException("Database access error while deleting apartment with ID: " + id);
-        } catch(IllegalArgumentException e) {
-            LOGGER.log(Level.SEVERE, "Id cannot be NULL");
-            throw new ReservationDeleteException("Id was NULL");
-        }
+//        try {
+//            reservationRepository.deleteById(id);
+//        } catch(DataAccessException e) {
+//            LOGGER.log(Level.SEVERE, "Database access error while deleting apartment with ID: " + id, e);
+//            throw new ReservationDeleteException("Database access error while deleting apartment with ID: " + id);
+//        } catch(IllegalArgumentException e) {
+//            LOGGER.log(Level.SEVERE, "Id cannot be NULL");
+//            throw new ReservationDeleteException("Id was NULL");
+//        }
 
-        LOGGER.info("delete(...) = ");
+        Optional<ReservationEntity> optionalReservationEntity = reservationRepository.findById(id);
+        ReservationEntity reservationEntity = optionalReservationEntity.orElseThrow(
+                () -> new ReservationDeleteException("Reservation not found for given id: " + id)
+        );
+
+        reservationEntity.setStatus(ReservationStatus.CANCELED);
+
+        try {
+            ReservationEntity savedReservationEntity = reservationRepository.save(reservationEntity);
+            Reservation reservation = reservationMapper.from(savedReservationEntity);
+
+            LOGGER.info("delete(...) = " + reservation);
+            return reservation;
+        } catch (DataAccessException e) {
+            LOGGER.log(Level.SEVERE, "Database access exception while saving entity with new status", e);
+            throw new ReservationDeleteException("Database access exception while saving entity with new status");
+        }
     }
 }

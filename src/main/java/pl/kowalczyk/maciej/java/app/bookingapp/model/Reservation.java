@@ -11,7 +11,7 @@ public class Reservation {
     private Long propertyId;
 
     private Guest guest;
-    private ReservationStatus status;
+    private ReservationStatus status = ReservationStatus.NEW;
 
     public Reservation() {
     }
