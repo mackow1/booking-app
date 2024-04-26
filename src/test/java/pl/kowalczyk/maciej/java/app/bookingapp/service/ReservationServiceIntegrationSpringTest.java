@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.core.ReservationStatus;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyCreateException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationCreateException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationDeleteException;
@@ -99,19 +100,28 @@ class ReservationServiceIntegrationSpringTest {
     }
 
     @Test
-    void givenIdWhenDeleteThenReservationRemoved() throws ReservationCreateException, ReservationDeleteException {
+    @Transactional
+    void givenIdWhenDeleteThenReservationCanceled() throws ReservationCreateException, ReservationDeleteException, ReservationReadException, PropertyCreateException {
         // given
+        Property property = new Property();
+        property.setName("Villa Testowa Canceled");
+
         Reservation reservation = new Reservation();
         reservation.setCheckIn("20-10-2022");
         reservation.setCheckOut("23-10-2022");
+
+        Property propertyCreated = propertyService.create(property);
+        Long propertyCreatedId = propertyCreated.getId();
+        reservation.setPropertyId(propertyCreatedId);
 
         Reservation reservationCreated = reservationService.create(reservation);
         Long id = reservationCreated.getId();
 
         // when
         reservationService.delete(id);
+        Reservation readDeletedReservation = reservationService.read(id);
 
         // then
-        Assertions.assertThrows(ReservationReadException.class, () -> reservationService.read(id));
+        Assertions.assertEquals(ReservationStatus.CANCELED, readDeletedReservation.getStatus(), "Status of the reservation is not equal to CANCELED");
     }
 }

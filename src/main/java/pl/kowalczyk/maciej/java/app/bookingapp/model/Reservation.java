@@ -1,5 +1,7 @@
 package pl.kowalczyk.maciej.java.app.bookingapp.model;
 
+import pl.kowalczyk.maciej.java.app.bookingapp.api.core.ReservationStatus;
+
 public class Reservation {
 
     private Long id;
@@ -7,10 +9,9 @@ public class Reservation {
     private String checkOut;
     private int numberOfPersons;
     private Long propertyId;
-//    private String guestFirstName;
-//    private String guestLastName;
 
     private Guest guest;
+    private ReservationStatus status = ReservationStatus.NEW;
 
     public Reservation() {
     }
@@ -61,29 +62,20 @@ public class Reservation {
         this.propertyId = propertyId;
     }
 
-//    public String getGuestFirstName() {
-//        return guestFirstName;
-//    }
-//
-//    public void setGuestFirstName(String guestFirstName) {
-//        this.guestFirstName = guestFirstName;
-//    }
-//
-//    public String getGuestLastName() {
-//        return guestLastName;
-//    }
-//
-//    public void setGuestLastName(String guestLastName) {
-//        this.guestLastName = guestLastName;
-//    }
-
-
     public Guest getGuest() {
         return guest;
     }
 
     public void setGuest(Guest guest) {
         this.guest = guest;
+    }
+
+    public ReservationStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ReservationStatus status) {
+        this.status = status;
     }
 
     @Override
@@ -95,6 +87,7 @@ public class Reservation {
                 ", numberOfPersons=" + numberOfPersons +
                 ", propertyId=" + propertyId +
                 ", guest=" + guest +
+                ", status=" + status +
                 '}';
     }
 }
