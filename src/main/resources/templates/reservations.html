@@ -32,7 +32,7 @@
             <td><span th:text="${reservation.checkIn}">ID</span></td>
             <td><span th:text="${reservation.checkOut}">ID</span></td>
             <td><span th:text="${reservation.status}">Status</span></td>
-            <td><span th:text="${reservation.id}">ACCEPT</span></td>
+            <td><a th:text="@{/rentals/create/{id}(id=${reservation.id})}">ACCEPT</a></td>
             <td><a th:href="@{/reservations/delete/{id}(id=${reservation.id})}">CANCEL</a></td>
         </tr>
         </tbody>
