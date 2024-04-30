@@ -11,13 +11,14 @@ import jakarta.persistence.OneToOne;
 import java.util.HashSet;
 import java.util.Set;
 
-//@Entity
-@Embeddable
+@Entity
+//@Embeddable
 public class GuestEntity {
 
-//    @Id
-//    @GeneratedValue
-//    private Long id;
+    @Id
+    @GeneratedValue
+    private Long id;
+
     private String name;
     private String email;
     private String phoneNumber;

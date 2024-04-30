@@ -11,6 +11,8 @@ import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.Reserva
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationDeleteException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationReadException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationUpdateException;
+import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.GuestEntity;
+import pl.kowalczyk.maciej.java.app.bookingapp.model.Guest;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Property;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Reservation;
 
@@ -48,6 +50,36 @@ class ReservationServiceIntegrationSpringTest {
         Assertions.assertAll(
                 () -> Assertions.assertNotNull(reservationCreated, "Reservation is NULL"),
                 () -> Assertions.assertEquals(propertyCreatedId, reservationCreated.getPropertyId(), "Ids are different")
+        );
+    }
+
+    @Test
+    @Transactional
+    void givenReservationAndGuestWhenCreateThenReservationCreated() throws ReservationCreateException, PropertyCreateException {
+        // given
+        Property property = new Property();
+        property.setName("Villa Testowa");
+        Property propertyCreated = propertyService.create(property);
+        Long propertyCreatedId = propertyCreated.getId();
+
+        Guest guest = new Guest();
+        guest.setName("Gosc testowy");
+
+        Reservation reservation = new Reservation();
+        reservation.setCheckIn("13-10-2020");
+        reservation.setCheckOut("15-10-2020");
+        reservation.setNumberOfPersons(5);
+        reservation.setGuest(guest);
+        reservation.setPropertyId(propertyCreatedId);
+
+        // when
+        Reservation reservationCreated = reservationService.create(reservation);
+        Guest guestFromReservation = reservation.getGuest();
+
+        // then
+        Assertions.assertAll(
+                () -> Assertions.assertNotNull(guestFromReservation, "Guest is NULL"),
+                () -> Assertions.assertEquals(guest.getName(), guestFromReservation.getName(), "Names of guest are not equal")
         );
     }
 

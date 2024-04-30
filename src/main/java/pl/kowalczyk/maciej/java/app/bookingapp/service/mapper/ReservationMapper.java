@@ -18,6 +18,8 @@ public class ReservationMapper {
         LOGGER.info("from(" + reservation + ")");
 
         ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setAmbiguityIgnored(true);
+
         ReservationEntity reservationEntity = modelMapper.map(reservation, ReservationEntity.class);
 
         LOGGER.info("from(...) = " + reservationEntity);
