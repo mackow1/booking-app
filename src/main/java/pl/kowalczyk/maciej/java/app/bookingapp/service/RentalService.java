@@ -3,10 +3,12 @@ package pl.kowalczyk.maciej.java.app.bookingapp.service;
 import org.springframework.stereotype.Service;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationReadException;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.RentalRepository;
+import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.RentalEntity;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Rental;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Reservation;
 import pl.kowalczyk.maciej.java.app.bookingapp.service.mapper.RentalMapper;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 @Service
@@ -22,6 +24,15 @@ public class RentalService {
         this.rentalRepository = rentalRepository;
         this.reservationService = reservationService;
         this.rentalMapper = rentalMapper;
+    }
+
+    public List<Rental> list() {
+        LOGGER.info("list()");
+
+        List<RentalEntity> rentalEntities = rentalRepository.findAll();
+
+        LOGGER.info("list(...) = " + rentalEntities);
+        return null;
     }
 
     public Rental create(Rental rental) {

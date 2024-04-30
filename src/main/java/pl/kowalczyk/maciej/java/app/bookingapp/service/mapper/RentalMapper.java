@@ -2,6 +2,7 @@ package pl.kowalczyk.maciej.java.app.bookingapp.service.mapper;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
+import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.RentalEntity;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Property;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Rental;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Reservation;
@@ -23,5 +24,17 @@ public class RentalMapper {
 
         LOGGER.info("fromReservation(...) = " + mappedRental);
         return mappedRental;
+    }
+
+    public RentalEntity from(Rental rental) {
+        LOGGER.info("from(" + rental + ")");
+
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setAmbiguityIgnored(true);
+
+        RentalEntity rentalEntity = modelMapper.map(rental, RentalEntity.class);
+
+        LOGGER.info("from(...) = " + rentalEntity);
+        return rentalEntity;
     }
 }
