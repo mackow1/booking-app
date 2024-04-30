@@ -9,20 +9,20 @@ import pl.kowalczyk.maciej.java.app.bookingapp.model.GuestBuilder;
 import java.util.List;
 import java.util.Random;
 
-class GuestDaoTest {
+class JdbcGuestDaoTest {
 
     public static final String GUEST_NAME_MACIEJ = "Maciej";
 
     @Test
     void givenGuestDaoAndEmptyGuest_whenCreate_thenCreatedGuestNotNull() {
         // given
-        GuestDao guestDao = new GuestDao();
+        JdbcGuestDao jdbcGuestDao = new JdbcGuestDao();
         Guest guest = new Guest();
         Random random = new Random();
 
         // when
         guest.setId(random.nextLong());
-        Guest createdGuest = guestDao.create(guest);
+        Guest createdGuest = jdbcGuestDao.create(guest);
 
         // then
         Assertions.assertNotNull(createdGuest, "Guest not created");
@@ -31,14 +31,14 @@ class GuestDaoTest {
     @Test
     void givenGuestDaoAndGuestWithData_whenCreate_thenCreatedGuestNotNull() {
         // given
-        GuestDao guestDao = new GuestDao();
+        JdbcGuestDao jdbcGuestDao = new JdbcGuestDao();
         Guest guest = new GuestBuilder()
                 .addId(UniqueId.generate())
                 .addName(GUEST_NAME_MACIEJ)
                 .build();
 
         // when
-        Guest createdGuest = guestDao.create(guest);
+        Guest createdGuest = jdbcGuestDao.create(guest);
 
         // then
         Assertions.assertAll(
@@ -51,11 +51,11 @@ class GuestDaoTest {
     @Test
     void read() {
         // given
-        GuestDao guestDao = new GuestDao();
+        JdbcGuestDao jdbcGuestDao = new JdbcGuestDao();
         int id = 2;
 
         // when
-        Guest guestFound = guestDao.read(id);
+        Guest guestFound = jdbcGuestDao.read(id);
 
         // then
         Assertions.assertNotNull(guestFound, "Guest not found");
@@ -64,11 +64,11 @@ class GuestDaoTest {
     @Test
     void list() {
         // given
-        GuestDao guestDao = new GuestDao();
+        JdbcGuestDao jdbcGuestDao = new JdbcGuestDao();
         List<Guest> list;
 
         // when
-        list = guestDao.list();
+        list = jdbcGuestDao.list();
 
         // then
         Assertions.assertNotNull(list, "List is null");
@@ -78,13 +78,13 @@ class GuestDaoTest {
     @Test
     void update() {
         // given
-        GuestDao guestDao = new GuestDao();
+        JdbcGuestDao jdbcGuestDao = new JdbcGuestDao();
         int id = 2;
         String name = "name";
         Guest guest;
 
         // when
-        guest = guestDao.update(id, name);
+        guest = jdbcGuestDao.update(id, name);
 
         // then
         Assertions.assertNotNull(guest, "Guest not updated");
@@ -94,12 +94,12 @@ class GuestDaoTest {
     @Test
     void delete() {
         // given
-        GuestDao guestDao = new GuestDao();
+        JdbcGuestDao jdbcGuestDao = new JdbcGuestDao();
         Guest guest;
         int id = 1;
 
         // when
-        guest = guestDao.delete(1);
+        guest = jdbcGuestDao.delete(1);
 
         // then
         Assertions.assertNotNull(guest, "Guest not deleted");

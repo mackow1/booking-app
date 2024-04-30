@@ -22,3 +22,6 @@ public class BookingApplication {
 
 // TODO: 23.04.2024 Dodać link do "zmiany statusu rezerwacji" NEW -> CANCELED
 // TODO: 23.04.2024 Zamiana rezerwacji na rental
+
+// TODO: 26.04.2024 Dokończyć test integracyjny
+// TODO: 26.04.2024 Stworzyć widok z listą rentals i zaimplementować niezbędne warstwy

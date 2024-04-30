@@ -15,7 +15,7 @@ class RentalDaoTest {
         Reservation reservation = new Reservation("", "", 0);
 
         RentalDao rentalDao = new RentalDao();
-        Rental rental = new Rental(guest, reservation);
+        Rental rental = new Rental();
 
         // when
         Rental createdRental = rentalDao.create(rental);

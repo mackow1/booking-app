@@ -10,6 +10,7 @@ public class Reservation {
     private int numberOfPersons;
     private Long propertyId;
 
+    private Property property;
     private Guest guest;
     private ReservationStatus status = ReservationStatus.NEW;
 
@@ -62,6 +63,14 @@ public class Reservation {
         this.propertyId = propertyId;
     }
 
+    public Property getProperty() {
+        return property;
+    }
+
+    public void setProperty(Property property) {
+        this.property = property;
+    }
+
     public Guest getGuest() {
         return guest;
     }
@@ -86,6 +95,7 @@ public class Reservation {
                 ", checkOut='" + checkOut + '\'' +
                 ", numberOfPersons=" + numberOfPersons +
                 ", propertyId=" + propertyId +
+                ", property=" + property +
                 ", guest=" + guest +
                 ", status=" + status +
                 '}';
