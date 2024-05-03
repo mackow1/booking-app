@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Controller
-@RequestMapping(name = "/rentals")
+@RequestMapping(value = "/rentals")
 public class RentalController {
 
     private static final Logger LOGGER = Logger.getLogger(RentalController.class.getName());
