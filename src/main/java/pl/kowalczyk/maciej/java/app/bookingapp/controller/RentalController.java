@@ -1,10 +1,13 @@
 package pl.kowalczyk.maciej.java.app.bookingapp.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.kowalczyk.maciej.java.app.bookingapp.model.Rental;
 import pl.kowalczyk.maciej.java.app.bookingapp.service.RentalService;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 @Controller
@@ -20,10 +23,12 @@ public class RentalController {
     }
 
     @GetMapping
-    public String list() {
+    public String list(ModelMap modelMap) {
         LOGGER.info("list()");
 
-        rentalService.list();
+        List<Rental> rentals = rentalService.list();
+        modelMap.addAttribute("rentals", rentals);
+
         String result = "rentals.html";
 
         LOGGER.info("list(...) = " + result);

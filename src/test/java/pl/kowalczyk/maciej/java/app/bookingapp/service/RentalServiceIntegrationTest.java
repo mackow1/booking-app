@@ -13,6 +13,8 @@ import pl.kowalczyk.maciej.java.app.bookingapp.model.Property;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Rental;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Reservation;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -63,6 +65,25 @@ class RentalServiceIntegrationTest {
                 () -> Assertions.assertNotNull(rentalFromReservation.getReservation(), "Reservation is NULL"),
                 () -> Assertions.assertEquals(reservation.getCheckIn(), rentalFromReservation.getCheckIn(), "Check-ins are not equal"),
                 () -> Assertions.assertEquals(property.getName(), rentalFromReservation.getProperty().getName(), "Property names are not equal")
+        );
+    }
+
+    @Test
+    void list() {
+        // given
+        Rental rental = new Rental();
+        rental.setCheckIn("12-12-2020");
+        rental.setCheckOut("16-12-2020");
+
+        rentalService.create(rental);
+
+        // when
+        List<Rental> rentalsRead = rentalService.list();
+
+        // then
+        Assertions.assertAll(
+                () -> Assertions.assertNotNull(rentalsRead, "Rentals list is NULL"),
+                () -> Assertions.assertEquals(1, rentalsRead.size(), "Rental list is not equal 1")
         );
     }
 }

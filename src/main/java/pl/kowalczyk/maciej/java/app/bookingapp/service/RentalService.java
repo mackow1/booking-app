@@ -30,18 +30,21 @@ public class RentalService {
         LOGGER.info("list()");
 
         List<RentalEntity> rentalEntities = rentalRepository.findAll();
+        List<Rental> rentals = rentalMapper.fromEntities(rentalEntities);
 
-        LOGGER.info("list(...) = " + rentalEntities);
-        return null;
+        LOGGER.info("list(...) = " + rentals);
+        return rentals;
     }
 
     public Rental create(Rental rental) {
         LOGGER.info("create(" + rental + ")");
 
-        Rental result = null;
+        RentalEntity rentalEntity = rentalMapper.from(rental);
+        RentalEntity savedRentalEntity = rentalRepository.save(rentalEntity);
+        Rental rentalSaved = rentalMapper.from(savedRentalEntity);
 
-        LOGGER.info("create(...) = " + result);
-        return result;
+        LOGGER.info("create(...) = " + rentalSaved);
+        return rentalSaved;
     }
 
     public Rental createFromReservation(Long id) throws ReservationReadException {
