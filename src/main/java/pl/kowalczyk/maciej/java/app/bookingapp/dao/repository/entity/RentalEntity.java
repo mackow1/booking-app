@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.core.RentalStatus;
 
 @Entity
 public class RentalEntity {
@@ -24,6 +25,8 @@ public class RentalEntity {
 
     @OneToOne
     private ReservationEntity reservation;
+
+    private RentalStatus status = RentalStatus.NEW;
 
     public RentalEntity() {
     }
@@ -84,6 +87,14 @@ public class RentalEntity {
         this.reservation = reservation;
     }
 
+    public RentalStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(RentalStatus status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "RentalEntity{" +
@@ -94,6 +105,7 @@ public class RentalEntity {
                 ", property=" + property +
                 ", guest=" + guest +
                 ", reservation=" + reservation +
+                ", status=" + status +
                 '}';
     }
 }
