@@ -31,7 +31,7 @@ public class ReservationEntity {
     private GuestEntity guest;
 
     @Enumerated(EnumType.STRING)
-    private ReservationStatus status = ReservationStatus.NEW;
+    private ReservationStatus status;
 
     public ReservationEntity() {
     }

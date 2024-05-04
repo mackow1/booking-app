@@ -2,6 +2,7 @@ package pl.kowalczyk.maciej.java.app.bookingapp.service.mapper;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.core.RentalStatus;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.RentalEntity;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Guest;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Property;
@@ -36,7 +37,8 @@ class RentalMapperTest {
 
         // then
         Assertions.assertAll(
-                () -> Assertions.assertNotNull(rentalMapped)
+                () -> Assertions.assertNotNull(rentalMapped, "Rental is NULL"),
+                () -> Assertions.assertEquals(RentalStatus.NEW, rentalMapped.getStatus(), "Rental status is not equal NEW")
         );
     }
 

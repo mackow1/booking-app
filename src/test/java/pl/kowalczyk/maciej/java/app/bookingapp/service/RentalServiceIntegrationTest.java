@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.core.RentalStatus;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.core.ReservationStatus;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyCreateException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.rental.RentalDeleteException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.rental.RentalReadException;
@@ -59,9 +60,9 @@ class RentalServiceIntegrationTest {
 
         // when
         Rental rentalFromReservation = rentalService.createFromReservation(id);
-        Long rentalId = rentalFromReservation.getId();
+        Reservation reservationFromCreatedRental = rentalFromReservation.getReservation();
 
-        System.out.println("#### ---- " + rentalId);
+//        System.out.println("#### ---- " + rentalId);
 
         // then
         Assertions.assertAll(
@@ -71,7 +72,8 @@ class RentalServiceIntegrationTest {
                 () -> Assertions.assertNotNull(rentalFromReservation.getReservation(), "Reservation is NULL"),
                 () -> Assertions.assertEquals(reservation.getCheckIn(), rentalFromReservation.getCheckIn(), "Check-ins are not equal"),
                 () -> Assertions.assertEquals(property.getName(), rentalFromReservation.getProperty().getName(), "Property names are not equal"),
-                () -> Assertions.assertEquals(RentalStatus.NEW, rentalFromReservation.getStatus(), "Rental status not equal NEW")
+                () -> Assertions.assertEquals(RentalStatus.NEW, rentalFromReservation.getStatus(), "Rental status not equal NEW"),
+                () -> Assertions.assertEquals(ReservationStatus.ACCEPTED, reservationFromCreatedRental.getStatus(), "Status is not equal to ACCEPTED")
         );
     }
 

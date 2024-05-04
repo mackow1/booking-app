@@ -31,7 +31,7 @@ public class RentalEntity {
     private ReservationEntity reservation;
 
     @Enumerated(EnumType.STRING)
-    private RentalStatus status = RentalStatus.NEW;
+    private RentalStatus status;
 
     public RentalEntity() {
     }
