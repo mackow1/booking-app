@@ -3,6 +3,7 @@ package pl.kowalczyk.maciej.java.app.bookingapp.service;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.core.RentalStatus;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.core.ReservationStatus;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.rental.RentalDeleteException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.rental.RentalReadException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationReadException;
@@ -57,10 +58,17 @@ public class RentalService {
         LOGGER.info("createFromReservation(" + id + ")");
 
         Reservation readReservation = reservationService.read(id);
+
+        readReservation.setStatus(ReservationStatus.ACCEPTED);
+
         Rental rental = rentalMapper.fromReservation(readReservation);
 
-        LOGGER.info("createFromReservation(...) = " + rental);
-        return rental;
+        RentalEntity rentalEntity = rentalMapper.from(rental);
+        RentalEntity savedRentalEntity = rentalRepository.save(rentalEntity);
+        Rental savedRental = rentalMapper.from(savedRentalEntity);
+
+        LOGGER.info("createFromReservation(...) = " + savedRental);
+        return savedRental;
     }
 
     public Rental read(Long id) throws RentalReadException {

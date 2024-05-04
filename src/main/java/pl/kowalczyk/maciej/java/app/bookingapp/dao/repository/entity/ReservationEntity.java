@@ -27,14 +27,11 @@ public class ReservationEntity {
     @ManyToOne(cascade = CascadeType.ALL)
     private PropertyEntity property;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private GuestEntity guest;
 
     @Enumerated(EnumType.STRING)
     private ReservationStatus status = ReservationStatus.NEW;
-
-//    @ManyToOne
-//    private GuestEntity guest;
 
     public ReservationEntity() {
     }

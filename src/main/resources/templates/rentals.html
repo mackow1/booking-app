@@ -23,7 +23,7 @@
             <td colspan="2">No Rentals Available</td>
         </tr>
         <tr>
-            <tr th:each="rental : ${rentals}" th:unless="rental.status == T(pl.kowalczyk.maciej.java.app.bookingapp.api.core.RentalStatus).CANCELED">
+            <tr th:each="rental : ${rentals}" th:unless="${rental.status == T(pl.kowalczyk.maciej.java.app.bookingapp.api.core.RentalStatus).CANCELED}">
             <td><span th:text="${rental.id}">ID</span></td>
             <td><span th:text="${rental.checkIn}">Check-In</span></td>
             <td><span th:text="${rental.checkOut}">Check-Out</span></td>

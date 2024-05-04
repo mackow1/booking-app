@@ -3,8 +3,11 @@ package pl.kowalczyk.maciej.java.app.bookingapp.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.rental.RentalException;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationReadException;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Rental;
 import pl.kowalczyk.maciej.java.app.bookingapp.service.RentalService;
 
@@ -33,6 +36,17 @@ public class RentalController {
         String result = "rentals.html";
 
         LOGGER.info("list(...) = " + result);
+        return result;
+    }
+
+    @GetMapping(value = "/create/reservation/{id}")
+    public String createFromReservation(@PathVariable Long id) throws ReservationReadException {
+        LOGGER.info("createFromReservation(" + id + ")");
+
+        rentalService.createFromReservation(id);
+        String result = "redirect:/rentals";
+
+        LOGGER.info("createFromReservation(...) = " + result);
         return result;
     }
 

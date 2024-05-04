@@ -7,12 +7,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 //@Embeddable
+@Table(name = "GUESTS")
 public class GuestEntity {
 
     @Id
@@ -45,13 +47,13 @@ public class GuestEntity {
 ////        reservation.setGuest(null);
 //    }
 
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -96,7 +98,7 @@ public class GuestEntity {
     @Override
     public String toString() {
         return "GuestEntity{" +
-//                "id=" + id +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
