@@ -48,8 +48,8 @@ public class ReservationService {
     public Reservation create(Reservation reservation) throws ReservationCreateException {
         LOGGER.info("create(" + reservation + ")");
 
+        Long propertyId = reservation.getPropertyId();
         try {
-            Long propertyId = reservation.getPropertyId();
             Optional<PropertyEntity> readPropertyOptional = propertyRepository.findById(propertyId);
             PropertyEntity propertyEntity = readPropertyOptional.orElseThrow(
                     () -> new ReservationCreateException("Property not found in database for property id: " + propertyId));
@@ -62,6 +62,9 @@ public class ReservationService {
 
             LOGGER.info("create(...) = " + reservationCreated);
             return reservationCreated;
+        } catch (ReservationCreateException e) {
+            LOGGER.log(Level.SEVERE, "Property not found for given id: " + propertyId, e);
+            throw new ReservationCreateException("Property not found for given id: " + propertyId);
         } catch (DataAccessException e) {
             LOGGER.log(Level.SEVERE, "Database access error while saving reservation: " + reservation, e);
             throw new ReservationCreateException("Database access error while saving reservation: " + reservation);

@@ -8,6 +8,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.core.ReservationStatus;
 
@@ -26,14 +27,11 @@ public class ReservationEntity {
     @ManyToOne(cascade = CascadeType.ALL)
     private PropertyEntity property;
 
-    @Embedded
+    @OneToOne(cascade = CascadeType.ALL)
     private GuestEntity guest;
 
     @Enumerated(EnumType.STRING)
-    private ReservationStatus status = ReservationStatus.NEW;
-
-//    @ManyToOne
-//    private GuestEntity guest;
+    private ReservationStatus status;
 
     public ReservationEntity() {
     }

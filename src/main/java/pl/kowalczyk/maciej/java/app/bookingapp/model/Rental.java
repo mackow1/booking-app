@@ -1,5 +1,7 @@
 package pl.kowalczyk.maciej.java.app.bookingapp.model;
 
+import pl.kowalczyk.maciej.java.app.bookingapp.api.core.RentalStatus;
+
 public class Rental {
 
     private Long id;
@@ -11,6 +13,7 @@ public class Rental {
     private Property property;
     private Guest guest;
     private Reservation reservation;
+    private RentalStatus status = RentalStatus.NEW;
 
     public Rental() {
     }
@@ -71,6 +74,14 @@ public class Rental {
         this.reservation = reservation;
     }
 
+    public RentalStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(RentalStatus status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Rental{" +
@@ -81,6 +92,7 @@ public class Rental {
                 ", property=" + property +
                 ", guest=" + guest +
                 ", reservation=" + reservation +
+                ", status=" + status +
                 '}';
     }
 }
