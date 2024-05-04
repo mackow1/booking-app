@@ -1,12 +1,16 @@
 package pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.core.RentalStatus;
 
 @Entity
+@Table(name = "RENTALS")
 public class RentalEntity {
 
     @Id
@@ -26,6 +30,7 @@ public class RentalEntity {
     @OneToOne
     private ReservationEntity reservation;
 
+    @Enumerated(EnumType.STRING)
     private RentalStatus status = RentalStatus.NEW;
 
     public RentalEntity() {

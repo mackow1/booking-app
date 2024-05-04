@@ -14,6 +14,8 @@
             <th scop="col">ID</th>
             <th scop="col">Check-In</th>
             <th scop="col">Check-Out</th>
+            <th scop="col">Number of persons</th>
+            <th scop="col">Cancel</th>
         </tr>
         </thead>
         <tbody class="table-group-divider">
@@ -21,10 +23,12 @@
             <td colspan="2">No Rentals Available</td>
         </tr>
         <tr>
-            <tr th:each="rental : ${rentals}">
+            <tr th:each="rental : ${rentals}" th:unless="rental.status == T(pl.kowalczyk.maciej.java.app.bookingapp.api.core.RentalStatus).CANCELED">
             <td><span th:text="${rental.id}">ID</span></td>
             <td><span th:text="${rental.checkIn}">Check-In</span></td>
             <td><span th:text="${rental.checkOut}">Check-Out</span></td>
+            <td><span th:text="${rental.numberOfPersons}">Number of persons</span></td>
+            <td><a th:href="@{/rentals/delete/{id}(id = ${rental.id})}">Cancel</a></td>
         </tr>
         </tr>
         </tbody>

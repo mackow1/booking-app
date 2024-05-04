@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.rental.RentalException;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Rental;
 import pl.kowalczyk.maciej.java.app.bookingapp.service.RentalService;
 
@@ -32,6 +33,17 @@ public class RentalController {
         String result = "rentals.html";
 
         LOGGER.info("list(...) = " + result);
+        return result;
+    }
+
+    @GetMapping(value = "/delete/{id}")
+    public String delete(Long id) throws RentalException {
+        LOGGER.info("delete(" + id + ")");
+
+        rentalService.delete(id);
+        String result = "redirect:/rentals";
+
+        LOGGER.info("delete(...) = " + result);
         return result;
     }
 }

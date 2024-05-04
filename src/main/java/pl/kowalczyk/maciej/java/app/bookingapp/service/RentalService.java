@@ -1,6 +1,10 @@
 package pl.kowalczyk.maciej.java.app.bookingapp.service;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.core.RentalStatus;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.rental.RentalDeleteException;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.rental.RentalReadException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationReadException;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.RentalRepository;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.RentalEntity;
@@ -9,6 +13,8 @@ import pl.kowalczyk.maciej.java.app.bookingapp.model.Reservation;
 import pl.kowalczyk.maciej.java.app.bookingapp.service.mapper.RentalMapper;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Service
@@ -55,5 +61,41 @@ public class RentalService {
 
         LOGGER.info("createFromReservation(...) = " + rental);
         return rental;
+    }
+
+    public Rental read(Long id) throws RentalReadException {
+        LOGGER.info("read(" + id + ")");
+
+        Optional<RentalEntity> foundRental = rentalRepository.findById(id);
+        RentalEntity rentalEntity = foundRental.orElseThrow(() -> new RentalReadException("Rental not found for given id: " + id));
+
+        try {
+            Rental rental = rentalMapper.from(rentalEntity);
+            LOGGER.info("read(...) = " + rental);
+            return rental;
+        }catch (DataAccessException e) {
+            LOGGER.log(Level.SEVERE, "Data access exception while trying to find rental for id: " + id, e);
+            throw new RentalReadException("Data access exception while trying to find rental for id: " + id);
+        }
+    }
+
+    public Rental delete(Long id) throws RentalDeleteException {
+        LOGGER.info("delete(" + id + ")");
+
+        Optional<RentalEntity> rentalEntityOptional = rentalRepository.findById(id);
+        RentalEntity rentalEntity = rentalEntityOptional.orElseThrow(() -> new RentalDeleteException("Rental not found for given id: " + id));
+
+        rentalEntity.setStatus(RentalStatus.CANCELED);
+
+        try {
+            RentalEntity savedRentalEntity = rentalRepository.save(rentalEntity);
+            Rental rental = rentalMapper.from(savedRentalEntity);
+
+            LOGGER.info("delete(...) = " + rental);
+            return rental;
+        } catch (DataAccessException e) {
+            LOGGER.log(Level.SEVERE, "Data access exception while deleting rental with id: " + id, e);
+            throw new RentalDeleteException("Data access exception while deleting rental with id: " + id);
+        }
     }
 }
