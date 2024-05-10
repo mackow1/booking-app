@@ -25,3 +25,6 @@ public class BookingApplication {
 
 // TODO: 26.04.2024 Dokończyć test integracyjny
 // TODO: 26.04.2024 Stworzyć widok z listą rentals i zaimplementować niezbędne warstwy
+
+// TODO: 04.05.2024 Dodać obsługę użytkownika i role (UserDetailService) i skonfigurować w WebSecurityConfig
+// TODO: 04.05.2024 Sprawdzić i poprawić 2 niedziałające testy z rental, createFromReservation() i read()
