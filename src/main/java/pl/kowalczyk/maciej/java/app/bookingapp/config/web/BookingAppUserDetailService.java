@@ -6,10 +6,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.core.RoleType;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.UserRepository;
+import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.RoleEntity;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.UserEntity;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Service
 public class BookingAppUserDetailService implements UserDetailsService {
@@ -29,12 +35,40 @@ public class BookingAppUserDetailService implements UserDetailsService {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
 
+//        List<RoleType> listOfRoles = userEntity.getRoles().stream()
+//                .map(role -> role.getName().toString())
+//                .toList();
+//
+//        String[] roles = new String[listOfRoles.size()];
+//        for (int i = 0; i < roles.length; i++) {
+//            roles[i] = listOfRoles.get(i).toString();
+//        }
+
+        Set<RoleEntity> userEntityRoles = userEntity.getRoles();
+        String[] roleNames = convertRolesToStringArray(userEntityRoles);
+
         UserDetails userDetails = User.withUsername(userEntity.getUsername())
                 .password(userEntity.getPassword())
-                .roles("USER")
+                .roles(roleNames)
                 .build();
 
         LOGGER.info("loadUserByUsername(...) = " + userDetails);
         return userDetails;
+    }
+
+    String[] convertRolesToStringArray(Set<RoleEntity> userEntityRoles) {
+        LOGGER.info("convertRolesToStringArray(" + userEntityRoles + ")");
+
+        String[] roleNames = new String[userEntityRoles.size()];
+
+        int index = 0;
+        for (RoleEntity userEntityRole : userEntityRoles) {
+            String roleName = userEntityRole.getName().name();
+            roleNames[index] = roleName;
+            index++;
+        }
+
+        LOGGER.info("convertRolesToStringArray(...) = " + Arrays.asList(roleNames));
+        return roleNames;
     }
 }
