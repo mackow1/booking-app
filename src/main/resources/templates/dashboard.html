@@ -6,7 +6,11 @@
     <link th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}" rel="stylesheet">
 </head>
 <body>
+<div th:replace="fragments/navbar :: booking-app-navbar"></div>
 <h1>Dashboard</h1>
+<div th:text="${#authentication.name}">
+
+</div>
 <div>
     <table class="table table-bordered">
         <thead class="table-light">
