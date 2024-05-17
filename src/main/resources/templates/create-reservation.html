@@ -5,6 +5,7 @@
     <title>New reservation</title>
 </head>
 <body>
+<div th:replace="fragments/navbar :: booking-app-navbar"></div>
     <div>
         <form action="#" th:action="@{/reservations}" th:object="${reservation}" method="post">
             <div>
