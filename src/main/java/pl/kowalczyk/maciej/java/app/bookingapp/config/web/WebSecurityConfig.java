@@ -24,7 +24,7 @@ public class WebSecurityConfig {
                                 .requestMatchers("/rentals").hasAnyRole("ADMIN")
 //                                .requestMatchers("/users").permitAll()
 //                                .requestMatchers("/users/create").permitAll()
-                                .requestMatchers("/").permitAll()
+                                .requestMatchers("/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form.permitAll())
