@@ -5,7 +5,9 @@ import org.springframework.stereotype.Component;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.UserEntity;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.User;
 
+import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Component
 public class UserMapper {
@@ -32,4 +34,14 @@ public class UserMapper {
         return userEntity;
     }
 
+    public List<User> fromEntities(List<UserEntity> userEntities) {
+        LOGGER.info("fromEntities(" + userEntities + ")");
+
+        List<User> users = userEntities.stream()
+                .map(this::from)
+                .collect(Collectors.toList());
+
+        LOGGER.info("fromEntities(...) = " + users);
+        return users;
+    }
 }

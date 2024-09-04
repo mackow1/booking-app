@@ -30,10 +30,13 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public String list() {
+    @GetMapping
+    public String list(ModelMap modelMap) {
         LOGGER.info("list()");
 
-        String result = null;
+        List<User> users = userService.list();
+        modelMap.addAttribute("users", users);
+        String result = "users.html";
 
         LOGGER.info("list(...) = " + result);
         return result;
