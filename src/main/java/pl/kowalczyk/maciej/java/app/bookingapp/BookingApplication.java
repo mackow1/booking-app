@@ -32,3 +32,5 @@ public class BookingApplication {
 // TODO: 10.05.2024 Użyć navbar z booststrap w postaci fragmentu thymeleaf (navbar dostępny na górze każdej strony) https://getbootstrap.com/docs/5.3/components/navbar/#how-it-works https://www.thymeleaf.org/doc/articles/springsecurity.html
 // TODO: 10.05.2024 Dodać ekran umożliwiający dodawanie użytkownika (sing in screen)
 // TODO: 10.05.2024 Napisać test dla user repository - z pobieraniem i bez pobierania ról
+
+// TODO: 04.09.2024 Dodać test jednostkowy dla UserEntity i UserRepository
