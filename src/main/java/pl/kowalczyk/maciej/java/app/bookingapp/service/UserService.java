@@ -35,7 +35,7 @@ public class UserService {
     public User create(User user) {
         LOGGER.info("create(" + user + ")");
 
-
+// TODO: 06.09.2024 na podstawioe roleId z user pobrać role z bazy i wstawić do user przed użyciem mappera
         UserEntity userEntity = userMapper.from(user);
         UserEntity savedUserEntity = userRepository.save(userEntity);
         User userSaved = userMapper.from(savedUserEntity);
