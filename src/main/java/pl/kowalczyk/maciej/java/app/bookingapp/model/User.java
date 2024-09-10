@@ -8,6 +8,7 @@ public class User {
     private Long id;
     private String username;
     private String password;
+    private Long roleId;
     private Set<Role> roles = new HashSet<>();
 
     public User() {
@@ -37,6 +38,14 @@ public class User {
         this.password = password;
     }
 
+    public Long getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
+    }
+
     public Set<Role> getRoles() {
         return roles;
     }
@@ -50,6 +59,7 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
+                ", roleId=" + roleId +
                 ", roles=" + roles +
                 '}';
     }
