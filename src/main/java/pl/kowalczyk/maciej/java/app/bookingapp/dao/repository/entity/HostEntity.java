@@ -4,8 +4,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "HOSTS")
 public class HostEntity {
 
     @Id
@@ -15,8 +17,8 @@ public class HostEntity {
     private String email;
     private String phoneNumber;
 
-    @OneToOne
-    private AddressEntity address;
+//    @OneToOne
+//    private AddressEntity address;
 
     public HostEntity() {
     }
@@ -53,11 +55,22 @@ public class HostEntity {
         this.phoneNumber = phoneNumber;
     }
 
-    public AddressEntity getAddress() {
-        return address;
-    }
+//    public AddressEntity getAddress() {
+//        return address;
+//    }
+//
+//    public void setAddress(AddressEntity address) {
+//        this.address = address;
+//    }
 
-    public void setAddress(AddressEntity address) {
-        this.address = address;
+    @Override
+    public String toString() {
+        return "HostEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+//                ", address=" + address +
+                '}';
     }
 }
