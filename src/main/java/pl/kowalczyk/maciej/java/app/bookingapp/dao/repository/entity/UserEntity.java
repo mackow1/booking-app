@@ -24,7 +24,7 @@ public class UserEntity {
     private String username;
     private String password;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Set<RoleEntity> roles = new HashSet<>();
 
     public UserEntity() {

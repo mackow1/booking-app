@@ -6,6 +6,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.role.RoleReadException;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Role;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.User;
 import pl.kowalczyk.maciej.java.app.bookingapp.service.RoleService;
@@ -56,7 +57,7 @@ public class UserController {
     }
 
     @PostMapping
-    public String create(User user) {
+    public String create(User user) throws RoleReadException {
         LOGGER.info("create(" + user + ")");
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));

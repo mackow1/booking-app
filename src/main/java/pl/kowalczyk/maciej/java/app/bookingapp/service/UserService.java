@@ -1,12 +1,18 @@
 package pl.kowalczyk.maciej.java.app.bookingapp.service;
 
 import org.springframework.stereotype.Service;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.role.RoleReadException;
+import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.RoleRepository;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.UserRepository;
+import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.RoleEntity;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.UserEntity;
+import pl.kowalczyk.maciej.java.app.bookingapp.model.Role;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.User;
 import pl.kowalczyk.maciej.java.app.bookingapp.service.mapper.UserMapper;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Service
@@ -14,10 +20,14 @@ public class UserService {
 
     private static final Logger LOGGER = Logger.getLogger(UserService.class.getName());
 
+    private final RoleService roleService;
+    private final RoleRepository roleRepository;
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
-    public UserService(UserRepository userRepository, UserMapper userMapper) {
+    public UserService(RoleService roleService, RoleRepository roleRepository, UserRepository userRepository, UserMapper userMapper) {
+        this.roleService = roleService;
+        this.roleRepository = roleRepository;
         this.userRepository = userRepository;
         this.userMapper = userMapper;
     }
@@ -32,11 +42,24 @@ public class UserService {
         return users;
     }
 
-    public User create(User user) {
+    public User create(User user) throws RoleReadException {
         LOGGER.info("create(" + user + ")");
 
 // TODO: 06.09.2024 na podstawioe roleId z user pobrać role z bazy i wstawić do user przed użyciem mappera
+        Long roleId = user.getRoleId();
         UserEntity userEntity = userMapper.from(user);
+
+        if (roleId != null) {
+//            Role role = roleService.read(roleId);
+            Optional<RoleEntity> optionalRoleEntity = roleRepository.findById(roleId);
+            RoleEntity roleEntity = optionalRoleEntity.orElseThrow(() -> {
+                LOGGER.log(Level.SEVERE, "No role found for id: " + roleId);
+                return new RoleReadException("Role not found for given id: " + roleId);
+            });
+
+            userEntity.getRoles().add(roleEntity);
+        }
+
         UserEntity savedUserEntity = userRepository.save(userEntity);
         User userSaved = userMapper.from(savedUserEntity);
 
