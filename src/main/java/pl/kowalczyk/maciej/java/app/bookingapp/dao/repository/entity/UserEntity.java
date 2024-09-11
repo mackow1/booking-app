@@ -1,5 +1,6 @@
 package pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -23,7 +24,7 @@ public class UserEntity {
     private String username;
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Set<RoleEntity> roles = new HashSet<>();
 
     public UserEntity() {
