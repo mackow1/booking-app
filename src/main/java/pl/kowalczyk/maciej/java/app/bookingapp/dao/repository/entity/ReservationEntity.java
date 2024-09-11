@@ -1,9 +1,16 @@
 package pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.core.ReservationStatus;
 
 @Entity
 @Table(name = "RESERVATIONS")
@@ -15,10 +22,16 @@ public class ReservationEntity {
     private String checkIn;
     private String checkOut;
     private int numberOfPersons;
-    private Long propertyId;
+//    private Long propertyId;
 
-//    @ManyToOne
-//    private GuestEntity guest;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private PropertyEntity property;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private GuestEntity guest;
+
+    @Enumerated(EnumType.STRING)
+    private ReservationStatus status;
 
     public ReservationEntity() {
     }
@@ -55,7 +68,15 @@ public class ReservationEntity {
         this.numberOfPersons = numberOfPersons;
     }
 
-//    public GuestEntity getGuest() {
+    public PropertyEntity getProperty() {
+        return property;
+    }
+
+    public void setProperty(PropertyEntity property) {
+        this.property = property;
+    }
+
+    //    public GuestEntity getGuest() {
 //        return guest;
 //    }
 //
@@ -63,12 +84,20 @@ public class ReservationEntity {
 //        this.guest = guest;
 //    }
 
-    public Long getPropertyId() {
-        return propertyId;
+    public GuestEntity getGuest() {
+        return guest;
     }
 
-    public void setPropertyId(Long propertyId) {
-        this.propertyId = propertyId;
+    public void setGuest(GuestEntity guest) {
+        this.guest = guest;
+    }
+
+    public ReservationStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ReservationStatus status) {
+        this.status = status;
     }
 
     @Override
@@ -77,8 +106,10 @@ public class ReservationEntity {
                 "id=" + id +
                 ", checkIn='" + checkIn + '\'' +
                 ", checkOut='" + checkOut + '\'' +
-                ", numberOfPersons=" + numberOfPersons + '\'' +
-                ", propertyId=" + propertyId +
+                ", numberOfPersons=" + numberOfPersons +
+                ", property=" + property +
+                ", guest=" + guest +
+                ", status=" + status +
                 '}';
     }
 }

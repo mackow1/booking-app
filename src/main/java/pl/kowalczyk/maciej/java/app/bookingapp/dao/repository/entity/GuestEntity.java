@@ -1,21 +1,26 @@
 package pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity;
 
+import jakarta.persistence.Embeddable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+//@Embeddable
+@Table(name = "GUESTS")
 public class GuestEntity {
 
     @Id
     @GeneratedValue
     private Long id;
+
     private String name;
     private String email;
     private String phoneNumber;

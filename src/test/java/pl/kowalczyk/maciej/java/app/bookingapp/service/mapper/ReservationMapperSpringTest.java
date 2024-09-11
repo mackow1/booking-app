@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.core.ReservationStatus;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.ReservationEntity;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Reservation;
 
@@ -41,6 +42,7 @@ class ReservationMapperSpringTest {
         ReservationEntity reservationEntity = new ReservationEntity();
         reservationEntity.setCheckIn(CHECK_IN_DATE);
         reservationEntity.setCheckOut(CHECK_OUT_DATE);
+        reservationEntity.setStatus(ReservationStatus.NEW);
 
         // when
         Reservation reservation = reservationMapper.from(reservationEntity);

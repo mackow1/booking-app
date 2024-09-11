@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Reservations</title>
+    <link th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+<div th:replace="fragments/navbar :: booking-app-navbar"></div>
+<h1>All reservations</h1>
+<div>
+    <table class="table table-bordered">
+        <thead class="table-light">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Guest name</th>
+            <th scope="col">Check-in</th>
+            <th scope="col">Check-out</th>
+            <th scope="col">Status</th>
+            <th scope="col">ACCEPT</th>
+            <th scope="col">CANCEL</th>
+        </tr>
+        </thead>
+        <tbody class="table-group-divider">
+        <tr th:if="${reservations.empty}">
+            <td colspan="2">No Reservations Available</td>
+        </tr>
+        <tr th:each="reservation : ${reservations}"
+            th:unless="${reservation.status == T(pl.kowalczyk.maciej.java.app.bookingapp.api.core.ReservationStatus).CANCELED}">
+            <!--            <tr th:each="reservation : ${reservations}">-->
+            <td><span th:text="${reservation.id}">ID</span></td>
+            <td><span th:text="${reservation?.guest?.name}">ID</span></td>
+            <td><span th:text="${reservation.checkIn}">ID</span></td>
+            <td><span th:text="${reservation.checkOut}">ID</span></td>
+            <td><span th:text="${reservation.status}">Status</span></td>
+            <td><a th:href="@{/rentals/create/reservation/{id}(id=${reservation.id})}">ACCEPT</a></td>
+            <td><a th:href="@{/reservations/delete/{id}(id=${reservation.id})}">CANCEL</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

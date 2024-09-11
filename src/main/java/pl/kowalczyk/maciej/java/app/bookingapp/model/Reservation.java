@@ -1,5 +1,7 @@
 package pl.kowalczyk.maciej.java.app.bookingapp.model;
 
+import pl.kowalczyk.maciej.java.app.bookingapp.api.core.ReservationStatus;
+
 public class Reservation {
 
     private Long id;
@@ -7,6 +9,10 @@ public class Reservation {
     private String checkOut;
     private int numberOfPersons;
     private Long propertyId;
+
+    private Property property;
+    private Guest guest;
+    private ReservationStatus status = ReservationStatus.NEW;
 
     public Reservation() {
     }
@@ -57,6 +63,30 @@ public class Reservation {
         this.propertyId = propertyId;
     }
 
+    public Property getProperty() {
+        return property;
+    }
+
+    public void setProperty(Property property) {
+        this.property = property;
+    }
+
+    public Guest getGuest() {
+        return guest;
+    }
+
+    public void setGuest(Guest guest) {
+        this.guest = guest;
+    }
+
+    public ReservationStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ReservationStatus status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Reservation{" +
@@ -65,6 +95,9 @@ public class Reservation {
                 ", checkOut='" + checkOut + '\'' +
                 ", numberOfPersons=" + numberOfPersons +
                 ", propertyId=" + propertyId +
+                ", property=" + property +
+                ", guest=" + guest +
+                ", status=" + status +
                 '}';
     }
 }

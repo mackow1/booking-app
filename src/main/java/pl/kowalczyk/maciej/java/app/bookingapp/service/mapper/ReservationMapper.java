@@ -5,7 +5,9 @@ import org.springframework.stereotype.Component;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.ReservationEntity;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Reservation;
 
+import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Component
 public class ReservationMapper {
@@ -16,6 +18,8 @@ public class ReservationMapper {
         LOGGER.info("from(" + reservation + ")");
 
         ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setAmbiguityIgnored(true);
+
         ReservationEntity reservationEntity = modelMapper.map(reservation, ReservationEntity.class);
 
         LOGGER.info("from(...) = " + reservationEntity);
@@ -30,5 +34,16 @@ public class ReservationMapper {
 
         LOGGER.info("from(...) = " + reservation);
         return reservation;
+    }
+
+    public List<Reservation> fromEntities(List<ReservationEntity> reservationEntities) {
+        LOGGER.info("fromEntities()");
+
+        List<Reservation> reservations = reservationEntities.stream()
+                .map(this::from)
+                .collect(Collectors.toList());
+
+        LOGGER.info("fromEntities(...) = " + reservations);
+        return reservations;
     }
 }

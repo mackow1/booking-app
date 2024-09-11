@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Rentals</title>
+    <link th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+<div th:replace="fragments/navbar :: booking-app-navbar"></div>
+<h1>Rentals</h1>
+<div>
+    <table class="table table-bordered">
+        <thead class="table-light">
+        <tr>
+            <th scop="col">ID</th>
+            <th scop="col">Check-In</th>
+            <th scop="col">Check-Out</th>
+            <th scop="col">Number of persons</th>
+            <th scop="col">Cancel</th>
+        </tr>
+        </thead>
+        <tbody class="table-group-divider">
+        <tr th:if="${rentals.empty}">
+            <td colspan="2">No Rentals Available</td>
+        </tr>
+        <tr>
+            <tr th:each="rental : ${rentals}" th:unless="${rental.status == T(pl.kowalczyk.maciej.java.app.bookingapp.api.core.RentalStatus).CANCELED}">
+            <td><span th:text="${rental.id}">ID</span></td>
+            <td><span th:text="${rental.checkIn}">Check-In</span></td>
+            <td><span th:text="${rental.checkOut}">Check-Out</span></td>
+            <td><span th:text="${rental.numberOfPersons}">Number of persons</span></td>
+            <td><a th:href="@{/rentals/delete/{id}(id = ${rental.id})}">Cancel</a></td>
+        </tr>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

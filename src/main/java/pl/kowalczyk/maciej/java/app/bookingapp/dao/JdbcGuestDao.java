@@ -16,9 +16,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class GuestDao {
+public class JdbcGuestDao {
 
-    private static final Logger LOGGER = Logger.getLogger(GuestDao.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(JdbcGuestDao.class.getName());
 
     public List<Guest> list() {
 
