@@ -11,6 +11,7 @@ import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.HostEntity;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Host;
 import pl.kowalczyk.maciej.java.app.bookingapp.service.mapper.HostMapper;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,6 +27,16 @@ public class HostService {
     public HostService(HostRepository hostRepository, HostMapper hostMapper) {
         this.hostRepository = hostRepository;
         this.hostMapper = hostMapper;
+    }
+
+    public List<Host> list() {
+        LOGGER.info("list()");
+
+        List<HostEntity> hostEntityList = hostRepository.findAll();
+        List<Host> hosts = hostMapper.fromEntities(hostEntityList);
+
+        LOGGER.info("list(...) = " + hosts);
+        return hosts;
     }
 
     public Host create(Host host) throws HostCreateException {

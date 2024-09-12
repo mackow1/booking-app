@@ -5,8 +5,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.kowalczyk.maciej.java.app.bookingapp.model.Host;
 import pl.kowalczyk.maciej.java.app.bookingapp.service.HostService;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 @Controller
@@ -22,10 +24,13 @@ public class HostController {
     }
     
     @GetMapping
-    public String list() {
+    public String list(ModelMap modelMap) {
         LOGGER.info("list()");
-        
-        String result = null;
+
+        List<Host> hosts = hostService.list();
+        modelMap.addAttribute("hosts", hosts);
+
+        String result = "hosts.html";
         
         LOGGER.info("list(...) = " + result);
         return result;

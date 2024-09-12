@@ -7,6 +7,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.HostEntity;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Host;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -51,5 +54,29 @@ class HostMapperSpringTest {
                 () -> Assertions.assertNotNull(host, "Model is NULL"),
                 () -> Assertions.assertEquals(MACIEJ_HOST_NAME, host.getName(), "Names are not equal")
         );
+    }
+
+    @Test
+    void givenListOfHostsEntitiesWhenFromEntitiesThenListOfHostsCreated() {
+        // given
+        List<HostEntity> hostEntities = new ArrayList<>();
+        HostEntity hostEntityMaciej = new HostEntity();
+        hostEntityMaciej.setName("Maciej");
+
+        HostEntity hostEntityMateusz = new HostEntity();
+        hostEntityMateusz.setName("Mateusz");
+
+        hostEntities.add(hostEntityMaciej);
+        hostEntities.add(hostEntityMateusz);
+
+        // when
+        List<Host> hosts = hostMapper.fromEntities(hostEntities);
+
+        // then
+        Assertions.assertAll(
+                () -> assertNotNull(hosts, "List is NULL"),
+                () -> assertEquals(hostEntities.size(), hosts.size(), "Lists are not equal")
+        );
+
     }
 }
