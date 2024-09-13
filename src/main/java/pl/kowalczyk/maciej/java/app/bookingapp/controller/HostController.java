@@ -5,6 +5,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.host.HostCreateException;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Host;
 import pl.kowalczyk.maciej.java.app.bookingapp.service.HostService;
 
@@ -39,19 +40,21 @@ public class HostController {
     @GetMapping(value = "/create")
     public String createView(ModelMap modelMap) {
         LOGGER.info("createView()");
-        
-        String result = null;
+
+        modelMap.addAttribute("host", new Host());
+        String result = "create-host.html";
         
         LOGGER.info("createView(...) = " + result);
         return result;
     }
     
     @PostMapping
-    public String create() {
+    public String create(Host host) throws HostCreateException {
         LOGGER.info("create()");
-        
-        String result = null;
-        
+
+        Host hostCreated = hostService.create(host);
+        String result = "redirect:/hosts";
+
         LOGGER.info("create(...) = " + result);
         return result;
     }
