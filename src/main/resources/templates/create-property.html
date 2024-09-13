@@ -3,12 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Create property</title>
+    <link th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}" rel="stylesheet">
 </head>
 <body>
 <div th:replace="fragments/navbar :: booking-app-navbar"></div>
 <!--<form action="#" th:action="${id} == false ? @{/properties} : @{/properties/{id}(id = ${property.id})}" th:object="${property}" method="post">-->
 <form action="#" th:action="@{/properties}" th:object="${property}" method="post">
         <div th:replace="fragments/property :: details"></div>
+    <div class="dropdown">
+        <select th:field="${property.hostId}">
+            <option th:text="${host.name}" th:value="${host.id}" th:each="host : ${hosts}"></option>
+        </select>
+    </div>
 </form>
 </body>
 </html>
