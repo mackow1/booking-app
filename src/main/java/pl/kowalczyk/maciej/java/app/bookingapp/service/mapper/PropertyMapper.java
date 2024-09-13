@@ -1,6 +1,7 @@
 package pl.kowalczyk.maciej.java.app.bookingapp.service.mapper;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.PropertyEntity;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Property;
@@ -18,6 +19,7 @@ public class PropertyMapper {
         LOGGER.info("(" + property + ")");
 
         ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         PropertyEntity propertyEntity = modelMapper.map(property, PropertyEntity.class);
 
         LOGGER.info("(...) = " + propertyEntity);

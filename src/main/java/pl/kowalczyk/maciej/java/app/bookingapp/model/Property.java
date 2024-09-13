@@ -67,6 +67,7 @@ public class Property {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", address=" + address +
+                ", hostId=" + hostId +
                 ", host=" + host +
                 ", rentals=" + rentals +
                 '}';

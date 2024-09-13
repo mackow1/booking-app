@@ -6,7 +6,10 @@ import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyCr
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyDeleteException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyReadException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyUpdateException;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.role.RoleReadException;
+import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.HostRepository;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.PropertyRepository;
+import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.HostEntity;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.PropertyEntity;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Property;
 import pl.kowalczyk.maciej.java.app.bookingapp.service.mapper.PropertyMapper;
@@ -23,10 +26,12 @@ public class PropertyService {
 
     private final PropertyRepository propertyRepository;
     private final PropertyMapper propertyMapper;
+    private final HostRepository hostRepository;
 
-    public PropertyService(PropertyRepository propertyRepository, PropertyMapper propertyMapper) {
+    public PropertyService(PropertyRepository propertyRepository, PropertyMapper propertyMapper, HostRepository hostRepository) {
         this.propertyRepository = propertyRepository;
         this.propertyMapper = propertyMapper;
+        this.hostRepository = hostRepository;
     }
 
     public List<Property> list() {
@@ -46,8 +51,21 @@ public class PropertyService {
             throw new PropertyCreateException("Property must not be null");
         }
 
+        Long hostId = property.getHostId();
+
         try {
             PropertyEntity propertyEntity = propertyMapper.from(property);
+
+            if (hostId != null) {
+                Optional<HostEntity> optionalHostEntity = hostRepository.findById(hostId);
+                HostEntity hostEntity = optionalHostEntity.orElseThrow(() -> {
+                    LOGGER.log(Level.SEVERE, "No host found for id: " + hostId);
+                    return new PropertyCreateException("Host not found for given id: " + hostId);
+                });
+
+                propertyEntity.setHost(hostEntity);
+            }
+
             PropertyEntity savedPropertyEntity = propertyRepository.save(propertyEntity);
             Property savedProperty = propertyMapper.from(savedPropertyEntity);
 
@@ -100,7 +118,7 @@ public class PropertyService {
 
         try {
             propertyRepository.deleteById(id);
-        } catch(DataAccessException e) {
+        } catch (DataAccessException e) {
             LOGGER.log(Level.SEVERE, "Database access error while deleting property with ID: " + id, e);
             throw new PropertyDeleteException("Error while deleting property with ID: " + id);
         }

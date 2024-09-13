@@ -28,7 +28,7 @@ public class PropertyEntity {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private AddressEntity address;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private HostEntity host;
 
 //    @OneToMany(fetch = FetchType.LAZY)
