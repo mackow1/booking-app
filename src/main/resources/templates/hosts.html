@@ -11,12 +11,13 @@
 <div>
     <table class="table table-bordered">
         <thead class="table-light">
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Phone number</th>
-            </tr>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone number</th>
+            <th scope="col">Delete</th>
+        </tr>
         </thead>
         <tbody class="table-group-divider">
         <tr th:if="${hosts.empty}">
@@ -27,9 +28,13 @@
             <td><span th:text="${host.name}">Name</span></td>
             <td><span th:text="${host.email}">Email</span></td>
             <td><span th:text="${host.phoneNumber}">Phone number</span></td>
+            <td><a th:href="@{/hosts/delete/{id}(id = ${host.id})}">Delete</a></td>
         </tr>
         </tbody>
     </table>
+    <div>
+        <a th:href="@{/hosts/create}">Create new host</a>
+    </div>
 </div>
 </body>
 </html>
