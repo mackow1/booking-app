@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.rental.RentalException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationReadException;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationUpdateException;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Rental;
 import pl.kowalczyk.maciej.java.app.bookingapp.service.RentalService;
 
@@ -40,7 +41,7 @@ public class RentalController {
     }
 
     @GetMapping(value = "/create/reservation/{id}")
-    public String createFromReservation(@PathVariable Long id) throws ReservationReadException {
+    public String createFromReservation(@PathVariable Long id) throws ReservationReadException, ReservationUpdateException {
         LOGGER.info("createFromReservation(" + id + ")");
 
         rentalService.createFromReservation(id);
@@ -51,7 +52,7 @@ public class RentalController {
     }
 
     @GetMapping(value = "/delete/{id}")
-    public String delete(Long id) throws RentalException {
+    public String delete(@PathVariable Long id) throws RentalException {
         LOGGER.info("delete(" + id + ")");
 
         rentalService.delete(id);
