@@ -8,6 +8,31 @@
 <body>
 <div th:replace="fragments/navbar :: booking-app-navbar"></div>
 <h1>All properties</h1>
-    <div th:text="${properties}"></div>
+<!--    <div th:text="${properties}"></div>-->
+    <div>
+        <table class="table table-bordered">
+            <thead class="table-light">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Address</th>
+                <th scope="col">Host</th>
+                <th scope="col">Book</th>
+            </tr>
+            </thead>
+            <tbody class="table-group-divider">
+            <tr th:if="${properties.empty}">
+                <td colspan="2">No properties available</td>
+            </tr>
+            <tr th:each="property : ${properties}">
+                <td><span th:text="${property.id}">ID</span></td>
+                <td><span th:text="${property.name}">Name</span></td>
+                <td><span th:text="${property.address}">Address</span></td>
+                <td><span th:text="${property.host.name}">Host</span></td>
+                <td><a th:href="@{/reservations/create/{id} (id = ${property.id})}">Book</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
