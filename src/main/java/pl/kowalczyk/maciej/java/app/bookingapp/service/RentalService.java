@@ -7,6 +7,7 @@ import pl.kowalczyk.maciej.java.app.bookingapp.api.core.ReservationStatus;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.rental.RentalDeleteException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.rental.RentalReadException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationReadException;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationUpdateException;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.RentalRepository;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.RentalEntity;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Rental;
@@ -54,12 +55,13 @@ public class RentalService {
         return rentalSaved;
     }
 
-    public Rental createFromReservation(Long id) throws ReservationReadException {
+    public Rental createFromReservation(Long id) throws ReservationReadException, ReservationUpdateException {
         LOGGER.info("createFromReservation(" + id + ")");
 
         Reservation readReservation = reservationService.read(id);
 
         readReservation.setStatus(ReservationStatus.ACCEPTED);
+        reservationService.update(readReservation);
 
         Rental rental = rentalMapper.fromReservation(readReservation);
 
@@ -91,7 +93,10 @@ public class RentalService {
         LOGGER.info("delete(" + id + ")");
 
         Optional<RentalEntity> rentalEntityOptional = rentalRepository.findById(id);
-        RentalEntity rentalEntity = rentalEntityOptional.orElseThrow(() -> new RentalDeleteException("Rental not found for given id: " + id));
+        RentalEntity rentalEntity = rentalEntityOptional.orElseThrow(() -> {
+            LOGGER.log(Level.SEVERE, "Rental not found for given id: " + id);
+            return new RentalDeleteException("Rental not found for given id: " + id);
+        });
 
         rentalEntity.setStatus(RentalStatus.CANCELED);
 
