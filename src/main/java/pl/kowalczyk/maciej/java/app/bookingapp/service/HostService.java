@@ -7,6 +7,7 @@ import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.host.HostDeleteExce
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.host.HostUpdateException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.host.HostReadException;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.HostRepository;
+import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.PropertyRepository;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.HostEntity;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Host;
 import pl.kowalczyk.maciej.java.app.bookingapp.service.mapper.HostMapper;
@@ -23,10 +24,12 @@ public class HostService {
 
     private final HostRepository hostRepository;
     private final HostMapper hostMapper;
+    private final PropertyRepository propertyRepository;
 
-    public HostService(HostRepository hostRepository, HostMapper hostMapper) {
+    public HostService(HostRepository hostRepository, HostMapper hostMapper, PropertyRepository propertyRepository) {
         this.hostRepository = hostRepository;
         this.hostMapper = hostMapper;
+        this.propertyRepository = propertyRepository;
     }
 
     public List<Host> list() {
