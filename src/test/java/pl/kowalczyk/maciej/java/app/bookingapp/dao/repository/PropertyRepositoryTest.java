@@ -11,6 +11,7 @@ import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.HostEntity;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.PropertyEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 class PropertyRepositoryTest {
@@ -70,6 +71,33 @@ class PropertyRepositoryTest {
                 () -> Assertions.assertNotNull(foundPropertiesByHostId, "List is NULL"),
                 () -> Assertions.assertEquals(2, foundPropertiesByHostId.size(), "List size in not equal 2")
         );
+    }
+
+    @Test
+    @Transactional
+    void deleteHostIdFromProperties() {
+        // given
+        HostEntity hostEntity = new HostEntity();
+        hostEntity.setName("Sam");
+
+        PropertyEntity propertyEntity = new PropertyEntity();
+        propertyEntity.setName("Sam's property");
+
+        // when
+        HostEntity savedHostEntity = hostRepository.save(hostEntity);
+        Long savedHostEntityId = savedHostEntity.getId();
+        propertyEntity.setHost(hostEntity);
+
+        PropertyEntity savedPropertyEntity = propertyRepository.save(propertyEntity);
+        Long savedPropertyEntityId = savedPropertyEntity.getId();
+
+        propertyRepository.deleteHostIdFromProperties(savedHostEntityId);
+
+        Optional<PropertyEntity> optionalPropertyEntity = propertyRepository.findById(savedPropertyEntityId);
+        PropertyEntity readPropertyEntity = optionalPropertyEntity.orElse(null);
+
+        // then
+        Assertions.assertNull(readPropertyEntity.getHost(), "Host is not NULL");
     }
 
 }

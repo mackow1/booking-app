@@ -1,5 +1,6 @@
 package pl.kowalczyk.maciej.java.app.bookingapp.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.host.HostCreateException;
@@ -9,6 +10,7 @@ import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.host.HostReadExcept
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.HostRepository;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.PropertyRepository;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.HostEntity;
+import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.PropertyEntity;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Host;
 import pl.kowalczyk.maciej.java.app.bookingapp.service.mapper.HostMapper;
 
@@ -102,6 +104,12 @@ public class HostService {
         LOGGER.info("delete(" + id + ")");
 
         try {
+            List<PropertyEntity> foundPropertiesByHostId = propertyRepository.findByHost_Id(id);
+            for (PropertyEntity p : foundPropertiesByHostId) {
+                p.setHost(null);
+            }
+            propertyRepository.saveAll(foundPropertiesByHostId);
+//            propertyRepository.deleteHostIdFromProperties(id);
             hostRepository.deleteById(id);
         } catch(DataAccessException e) {
             LOGGER.log(Level.SEVERE, "Database access error while deleting host with ID: " + id, e);
