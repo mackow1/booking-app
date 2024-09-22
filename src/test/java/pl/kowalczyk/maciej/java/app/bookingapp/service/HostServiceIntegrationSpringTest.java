@@ -174,7 +174,7 @@ class HostServiceIntegrationSpringTest {
         Property secondPropertyCreated = propertyService.create(secondProperty);
         Long secondPropertyCreatedId = secondPropertyCreated.getId();
 
-        propertyRepository.deleteHostIdFromProperties(hostCreatedId);
+//        propertyRepository.deleteHostIdFromProperties(hostCreatedId);
 
         Property readFirstProperty = propertyService.read(firstPropertyCreatedId);
         Property readSecondProperty = propertyService.read(secondPropertyCreatedId);
