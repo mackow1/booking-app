@@ -12,10 +12,9 @@ import java.util.List;
 
 @Repository
 public interface PropertyRepository extends JpaRepository<PropertyEntity, Long> {
-//    @Modifying
-//    @Transactional
-//    @Query(value = "UPDATE properties p SET p.hostId = NULL WHERE p.hostId = :hostId", nativeQuery = true)
-//    void deleteHostIdFromProperties(@Param("hostId") Long hostId);
+    @Modifying
+    @Query(value = "UPDATE properties p SET p.HOST_ID = NULL WHERE p.HOST_ID = ?", nativeQuery = true)
+    void deleteHostIdFromProperties(@Param("hostId") Long hostId);
 
     List<PropertyEntity> findByHost_Id(Long hostId);
 }
