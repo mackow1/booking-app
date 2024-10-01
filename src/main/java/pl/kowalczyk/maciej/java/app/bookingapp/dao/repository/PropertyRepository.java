@@ -13,8 +13,7 @@ import java.util.List;
 @Repository
 public interface PropertyRepository extends JpaRepository<PropertyEntity, Long> {
     @Transactional
-//    @Modifying(flushAutomatically = true, clearAutomatically = true)
-    @Modifying(clearAutomatically = true)
+    @Modifying(flushAutomatically = true, clearAutomatically = true)
     @Query(value = "UPDATE properties p SET p.HOST_ID = NULL WHERE p.HOST_ID = ?", nativeQuery = true)
 //    @Query("UPDATE PropertyEntity p SET p.host = NULL WHERE p.host.id = :hostId")
     void deleteHostIdFromProperties(@Param("hostId") Long hostId);
