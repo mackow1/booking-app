@@ -39,6 +39,20 @@ class PropertyRepositoryTest {
     }
 
     @Test
+    void givenPropertyEntityWhenSaveThenPropertyEntitySaved() {
+        // given
+        PropertyEntity propertyEntity = new PropertyEntity();
+        propertyEntity.setName("Nasz dom");
+
+        // when
+        PropertyEntity savedPropertyEntity = propertyRepository.save(propertyEntity);
+        Long savedPropertyEntityId = savedPropertyEntity.getId();
+
+        // then
+        Assertions.assertNotNull(savedPropertyEntityId, "Id is NULL");
+    }
+
+    @Test
     @Transactional
     @Rollback(value = false)
     void findByHostId() {
@@ -91,9 +105,12 @@ class PropertyRepositoryTest {
         PropertyEntity savedPropertyEntity = propertyRepository.save(propertyEntity);
         Long savedPropertyEntityId = savedPropertyEntity.getId();
 
+//        propertyRepository.flush();
         propertyRepository.deleteHostIdFromProperties(savedHostEntityId);
+//        hostRepository.deleteById(savedHostEntityId);
 
         Optional<PropertyEntity> optionalPropertyEntity = propertyRepository.findById(savedPropertyEntityId);
+        System.out.println("#### OPE: " + optionalPropertyEntity);
         PropertyEntity readPropertyEntity = optionalPropertyEntity.orElse(null);
 
         // then
