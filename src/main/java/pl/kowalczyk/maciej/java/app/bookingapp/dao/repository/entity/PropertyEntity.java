@@ -10,16 +10,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @Entity
 @Table(name = "PROPERTIES")
 public class PropertyEntity {
-
-    // TODO: 13.12.2023 Dodać relację do addresu jak w classie GuestEntity + test 
-
-    // TODO: 13.12.2023 Dodać relację do rentals jak w klasie GuestEntity 
 
     @Id
     @GeneratedValue
@@ -29,8 +22,9 @@ public class PropertyEntity {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private AddressEntity address;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    @JoinColumn(name = "HOST_ID")
+//    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "HOST_ID")
     private HostEntity host;
 
 //    @OneToMany(fetch = FetchType.LAZY)
