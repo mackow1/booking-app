@@ -153,7 +153,7 @@ class HostServiceIntegrationSpringTest {
     void givenHostWithPropertiesWhenDeleteAndDeleteHostIdFromPropertiesThenHostDeletedAndPropertiesHostSetToNull() throws HostCreateException, PropertyCreateException, PropertyReadException {
         // given
         Host host = new Host();
-        host.setName("Jon");
+        host.setName("John");
 
         Property firstProperty = new Property();
         firstProperty.setName("Villa pierwsza");
@@ -165,8 +165,11 @@ class HostServiceIntegrationSpringTest {
         Host hostCreated = hostService.create(host);
         Long hostCreatedId = hostCreated.getId();
 
-        firstProperty.setHost(hostCreated);
-        secondProperty.setHost(hostCreated);
+//        firstProperty.setHost(hostCreated);
+//        secondProperty.setHost(hostCreated);
+
+        firstProperty.setHostId(hostCreatedId);
+        secondProperty.setHostId(hostCreatedId);
 
         Property firstPropertyCreated = propertyService.create(firstProperty);
         Long firstPropertyCreatedId = firstPropertyCreated.getId();

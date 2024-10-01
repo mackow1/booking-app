@@ -16,13 +16,13 @@ public class PropertyMapper {
     private static final Logger LOGGER = Logger.getLogger(PropertyMapper.class.getName());
 
     public PropertyEntity from(Property property) {
-        LOGGER.info("(" + property + ")");
+        LOGGER.info("from(" + property + ")");
 
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         PropertyEntity propertyEntity = modelMapper.map(property, PropertyEntity.class);
 
-        LOGGER.info("(...) = " + propertyEntity);
+        LOGGER.info("from(...) = " + propertyEntity);
         return propertyEntity;
     }
 

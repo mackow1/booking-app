@@ -40,6 +40,22 @@ class PropertyServiceIntegrationSpringTest {
     }
 
     @Test
+    void givenPropertyWhenCreateThenPropertyEntityCreated() throws PropertyCreateException {
+        // given
+        Property property = new Property();
+        property.setName("Nasz nowy dom");
+
+        // when
+        Property propertyCreated = propertyService.create(property);
+
+        // then
+        Assertions.assertAll(
+                () -> Assertions.assertNotNull(propertyCreated, "Property is NUL"),
+                () -> Assertions.assertNotNull(propertyCreated.getId(), "Property id is NULL")
+        );
+    }
+
+    @Test
     void givenIdOfAnExistingPropertyWhenReadReturnProperProperty() throws PropertyCreateException, PropertyReadException {
         // given
         Property property = new Property();
