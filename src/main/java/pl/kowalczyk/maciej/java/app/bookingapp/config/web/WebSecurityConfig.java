@@ -2,6 +2,7 @@ package pl.kowalczyk.maciej.java.app.bookingapp.config.web;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
@@ -31,8 +32,8 @@ public class WebSecurityConfig {
                                 .requestMatchers("/dashboard").permitAll()
 //                                .requestMatchers("/apartments/create").permitAll()
                                 .requestMatchers("/rentals").hasAnyRole("ADMIN")
-                                .requestMatchers("/users/create").permitAll()
-//                                .requestMatchers("/users/create").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/users/create").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/users").permitAll()
 //                                .requestMatchers("/**").permitAll()
                                 .anyRequest().authenticated()
                 )
