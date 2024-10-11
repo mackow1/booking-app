@@ -15,7 +15,7 @@ public class Host {
 //    private String voivodeship;
 //    private String country;
 
-    private Address address;
+//    private Address address;
 
     public Host() {
     }
@@ -58,13 +58,13 @@ public class Host {
         this.phoneNumber = phoneNumber;
     }
 
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
+//    public Address getAddress() {
+//        return address;
+//    }
+//
+//    public void setAddress(Address address) {
+//        this.address = address;
+//    }
 
     @Override
     public String toString() {
@@ -73,7 +73,7 @@ public class Host {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", address=" + address +
+//                ", address=" + address +
                 '}';
     }
 }

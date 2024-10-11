@@ -10,6 +10,7 @@ public class Property {
     private Long id;
     private String name;
     private Address address;
+    private Long hostId;
     private Host host;
     private Set<RentalEntity> rentals = new HashSet<>();
 
@@ -40,6 +41,14 @@ public class Property {
         this.address = address;
     }
 
+    public Long getHostId() {
+        return hostId;
+    }
+
+    public void setHostId(Long hostId) {
+        this.hostId = hostId;
+    }
+
     public Host getHost() {
         return host;
     }
@@ -58,6 +67,7 @@ public class Property {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", address=" + address +
+                ", hostId=" + hostId +
                 ", host=" + host +
                 ", rentals=" + rentals +
                 '}';

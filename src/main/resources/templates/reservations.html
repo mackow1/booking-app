@@ -26,7 +26,8 @@
             <td colspan="2">No Reservations Available</td>
         </tr>
         <tr th:each="reservation : ${reservations}"
-            th:unless="${reservation.status == T(pl.kowalczyk.maciej.java.app.bookingapp.api.core.ReservationStatus).CANCELED}">
+            th:unless="${reservation.status == T(pl.kowalczyk.maciej.java.app.bookingapp.api.core.ReservationStatus).CANCELED ||
+            reservation.status == T(pl.kowalczyk.maciej.java.app.bookingapp.api.core.ReservationStatus).ACCEPTED}">
             <!--            <tr th:each="reservation : ${reservations}">-->
             <td><span th:text="${reservation.id}">ID</span></td>
             <td><span th:text="${reservation?.guest?.name}">ID</span></td>

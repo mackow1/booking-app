@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.property.PropertyException;
+import pl.kowalczyk.maciej.java.app.bookingapp.model.Host;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Property;
+import pl.kowalczyk.maciej.java.app.bookingapp.service.HostService;
 import pl.kowalczyk.maciej.java.app.bookingapp.service.PropertyService;
 
 import java.util.List;
@@ -21,9 +23,11 @@ public class PropertyController {
     private static final Logger LOGGER = Logger.getLogger(PropertyController.class.getName());
 
     private final PropertyService propertyService;
+    private final HostService hostService;
 
-    public PropertyController(PropertyService propertyService) {
+    public PropertyController(PropertyService propertyService, HostService hostService) {
         this.propertyService = propertyService;
+        this.hostService = hostService;
     }
 
     @GetMapping
@@ -42,7 +46,10 @@ public class PropertyController {
     public String createView(@RequestParam(value = "id", required = false) Long id, ModelMap modelMap) {
         LOGGER.info("createView()");
 
+        List<Host> hosts = hostService.list();
+
         modelMap.addAttribute("property", new Property());
+        modelMap.addAttribute("hosts", hosts);
         modelMap.addAttribute("id", false);
         String result = "create-property.html";
 

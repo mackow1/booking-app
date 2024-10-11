@@ -12,6 +12,7 @@ import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.rental.RentalDelete
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.rental.RentalReadException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationCreateException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationReadException;
+import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.reservation.ReservationUpdateException;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Guest;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Property;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Rental;
@@ -38,7 +39,7 @@ class RentalServiceIntegrationTest {
 
     @Test
     @Transactional
-    void createFromReservation() throws ReservationReadException, ReservationCreateException, PropertyCreateException {
+    void createFromReservation() throws ReservationReadException, ReservationCreateException, PropertyCreateException, ReservationUpdateException {
         // given
         Guest guest = new Guest();
         guest.setName("Michał");
@@ -98,7 +99,7 @@ class RentalServiceIntegrationTest {
 
     @Test
     @Transactional
-    void read() throws PropertyCreateException, ReservationCreateException, RentalReadException, ReservationReadException {
+    void read() throws PropertyCreateException, ReservationCreateException, RentalReadException, ReservationReadException, ReservationUpdateException {
         // given
         Guest guest = new Guest();
         guest.setName("Michał");
@@ -135,7 +136,7 @@ class RentalServiceIntegrationTest {
 
     @Test
     @Transactional
-    void delete() throws PropertyCreateException, ReservationCreateException, RentalDeleteException, ReservationReadException {
+    void delete() throws PropertyCreateException, ReservationCreateException, RentalDeleteException, ReservationReadException, ReservationUpdateException {
         // given
         Guest guest = new Guest();
         guest.setName("Marcin");

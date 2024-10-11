@@ -1,10 +1,14 @@
 package pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+
+import java.util.Set;
 
 @Entity
 @Table(name = "HOSTS")
@@ -19,6 +23,9 @@ public class HostEntity {
 
 //    @OneToOne
 //    private AddressEntity address;
+
+    @OneToMany(mappedBy = "host", cascade = CascadeType.ALL)
+    private Set<PropertyEntity> properties;
 
     public HostEntity() {
     }
@@ -62,6 +69,14 @@ public class HostEntity {
 //    public void setAddress(AddressEntity address) {
 //        this.address = address;
 //    }
+
+    public Set<PropertyEntity> getProperties() {
+        return properties;
+    }
+
+    public void setProperties(Set<PropertyEntity> properties) {
+        this.properties = properties;
+    }
 
     @Override
     public String toString() {

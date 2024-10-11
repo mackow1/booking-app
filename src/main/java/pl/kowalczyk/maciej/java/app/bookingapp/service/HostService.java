@@ -1,5 +1,6 @@
 package pl.kowalczyk.maciej.java.app.bookingapp.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.host.HostCreateException;
@@ -7,10 +8,13 @@ import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.host.HostDeleteExce
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.host.HostUpdateException;
 import pl.kowalczyk.maciej.java.app.bookingapp.api.exception.host.HostReadException;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.HostRepository;
+import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.PropertyRepository;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.HostEntity;
+import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.PropertyEntity;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Host;
 import pl.kowalczyk.maciej.java.app.bookingapp.service.mapper.HostMapper;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,10 +26,22 @@ public class HostService {
 
     private final HostRepository hostRepository;
     private final HostMapper hostMapper;
+    private final PropertyRepository propertyRepository;
 
-    public HostService(HostRepository hostRepository, HostMapper hostMapper) {
+    public HostService(HostRepository hostRepository, HostMapper hostMapper, PropertyRepository propertyRepository) {
         this.hostRepository = hostRepository;
         this.hostMapper = hostMapper;
+        this.propertyRepository = propertyRepository;
+    }
+
+    public List<Host> list() {
+        LOGGER.info("list()");
+
+        List<HostEntity> hostEntityList = hostRepository.findAll();
+        List<Host> hosts = hostMapper.fromEntities(hostEntityList);
+
+        LOGGER.info("list(...) = " + hosts);
+        return hosts;
     }
 
     public Host create(Host host) throws HostCreateException {
@@ -88,6 +104,12 @@ public class HostService {
         LOGGER.info("delete(" + id + ")");
 
         try {
+            List<PropertyEntity> foundPropertiesByHostId = propertyRepository.findByHost_Id(id);
+            for (PropertyEntity p : foundPropertiesByHostId) {
+                p.setHost(null);
+            }
+            propertyRepository.saveAll(foundPropertiesByHostId);
+//            propertyRepository.deleteHostIdFromProperties(id);
             hostRepository.deleteById(id);
         } catch(DataAccessException e) {
             LOGGER.log(Level.SEVERE, "Database access error while deleting host with ID: " + id, e);

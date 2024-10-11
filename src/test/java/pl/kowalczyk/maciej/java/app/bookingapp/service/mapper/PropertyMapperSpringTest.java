@@ -11,11 +11,7 @@ import pl.kowalczyk.maciej.java.app.bookingapp.model.Property;
 import java.util.ArrayList;
 import java.util.List;
 
-@SpringBootTest
 class PropertyMapperSpringTest {
-
-    @Autowired
-    private PropertyMapper propertyMapper;
 
     public static final String MAPPER_TEST_PROPERTY = "Mapper Test Property";
     public static final String MAPPER_TEST_PROPERTY_ENTITY = "Mapper Test Property Entity";
@@ -23,6 +19,7 @@ class PropertyMapperSpringTest {
     @Test
     void fromPropertyToPropertyEntity() {
         // given
+        PropertyMapper propertyMapper = new PropertyMapper();
         Property property = new Property();
         property.setId(1L);
         property.setName(MAPPER_TEST_PROPERTY);
@@ -40,6 +37,7 @@ class PropertyMapperSpringTest {
     @Test
     void fromPropertyEntityToProperty() {
         // given
+        PropertyMapper propertyMapper = new PropertyMapper();
         PropertyEntity propertyEntity = new PropertyEntity();
         propertyEntity.setId(2L);
         propertyEntity.setName(MAPPER_TEST_PROPERTY_ENTITY);
@@ -57,6 +55,7 @@ class PropertyMapperSpringTest {
     @Test
     void fromEntities() {
         // given
+        PropertyMapper propertyMapper = new PropertyMapper();
         List<PropertyEntity> propertyEntities = new ArrayList<>();
         propertyEntities.add(new PropertyEntity());
 

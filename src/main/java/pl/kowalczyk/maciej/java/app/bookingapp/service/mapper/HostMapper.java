@@ -5,7 +5,10 @@ import org.springframework.stereotype.Component;
 import pl.kowalczyk.maciej.java.app.bookingapp.dao.repository.entity.HostEntity;
 import pl.kowalczyk.maciej.java.app.bookingapp.model.Host;
 
+import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 public class HostMapper {
@@ -30,5 +33,16 @@ public class HostMapper {
 
         LOGGER.info("from(...) = " + host);
         return host;
+    }
+
+    public List<Host> fromEntities(List<HostEntity> hostEntities) {
+        LOGGER.info("fromEntities(" + hostEntities + ")");
+
+        List<Host> hosts = hostEntities.stream()
+                .map(this::from)
+                .toList();
+
+        LOGGER.info("fromEntities(...) = " + hosts);
+        return hosts;
     }
 }

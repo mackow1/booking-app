@@ -34,3 +34,5 @@ public class BookingApplication {
 // TODO: 10.05.2024 Napisać test dla user repository - z pobieraniem i bez pobierania ról
 
 // TODO: 04.09.2024 Dodać test jednostkowy dla UserEntity i UserRepository
+
+// TODO: 13.09.2024 Stworzyć liste property z przyciskiem rezerwuj
